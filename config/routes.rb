@@ -28,8 +28,12 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  devise_scope :admin do
+    get 'admin', to: 'admin/sessions#new', as: :admin_session_new
+  end
+  
   namespace :admin do
-    root to: "homes#top"
+    #root to: "sessions#new"
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
     resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
