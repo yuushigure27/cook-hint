@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+    <tr class="table-secondary">
+      <th>
+        投稿ID
+      </th>
+      <th>
+        タイトル
+      </th>
+      <th>
+        ジャンル
+      </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <th>
+          <%= post.id %>
+        </th>
+        <th>
+          <%= link_to post.title, post_path(post), class: "text-green" %>
+        </th>
+        <th>
+          <%= post.genre.name %>
+        </th>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,2 +1,5 @@
-<h1>User::Posts#new</h1>
-<p>Find me in app/views/user/posts/new.html.erb</p>
+<div class="container px-1 py-2">
+  <%= render 'layouts/errors', obj: @post %>
+  <h2 class="m-3">新規投稿</h2>
+  <%= render "form", item: @post %>
+</div>

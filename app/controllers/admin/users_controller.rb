@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  def inedx
+  def index
   end
 
   def edit

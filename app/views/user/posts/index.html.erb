@@ -1,2 +1,11 @@
-<h1>User::Posts#index</h1>
-<p>Find me in app/views/user/posts/index.html.erb</p>
+<div class="container px-1 py-2">
+  <div class="row">
+    <h2>投稿一覧</h2>
+    <hr class="heading-line">
+    <div class="ml-auto p-4">
+      <%= link_to "新規投稿", new_post_path, class: "btn" %>
+    </div>
+    <%= render "index", items: @posts %>
+  </div>
+  
+</div>
