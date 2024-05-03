@@ -3,6 +3,7 @@ class User::PostsController < ApplicationController
   
   def new
     @post = Post.new
+    @genres = Genre.all
   end
   
   def create
@@ -11,6 +12,7 @@ class User::PostsController < ApplicationController
    if @post.save
     redirect_to post_path(@post) 
    else
+    @genres = Genre.all
     render :new
    end
   end

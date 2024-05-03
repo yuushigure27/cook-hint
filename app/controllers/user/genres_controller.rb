@@ -1,5 +1,9 @@
 class User::GenresController < ApplicationController
   
+  def new
+    @genre = Genre.new
+  end
+  
   def index
     @genre = Genre.new
     @genres = Genre.all
@@ -8,7 +12,12 @@ class User::GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     if @genre.save
-      redirect_to genres_path ,notice: "登録しました"
+      if request.referer == new_post_url
+        flash[:notice] = "ジャンルの作成に成功しました"
+        redirect_to request.referer
+      else
+        redirect_to genres_path
+      end
     else
       @genres = Genre.all
       render 'index'

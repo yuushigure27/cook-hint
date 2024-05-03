@@ -1,2 +1,31 @@
-<h1>User::Posts#show</h1>
-<p>Find me in app/views/user/posts/show.html.erb</p>
+<div class="container px-1 py-2">
+  <h2>投稿詳細</h2>
+  <hr class="heading-line">
+
+  <div class="mt-4 row">
+    <div class="col-12 col-lg-6 text-center p-4">
+      <%= image_tag @post.image, class: "w-100" %>
+    </div>
+    <div class="col-12 col-lg-6 mt-5 p-4">
+      <table class="table">
+        <tr>
+          <th>タイトル</th>
+          <td><%= @post.title %></td>
+        </tr>
+        <tr>
+          <th>内容</th>
+          <td><%= @post.introduction %></td>
+        </tr>
+        <tr>
+          <th>ジャンル</th>
+          <td><%= @post.genre.name %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <%= link_to "編集する", edit_post_path(@post), class: "btn" %>
+  </div>
+
+</div>
