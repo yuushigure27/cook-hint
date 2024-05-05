@@ -10,13 +10,17 @@ Rails.application.routes.draw do
   scope module: :user do
     root to: "homes#top"
     get 'about' => 'homes#about'
-    resources :posts, only: [:index,:new,:create,:show,:edit,:update, :destroy]
+    #resources :posts, only: [:index,:new,:create,:show,:edit,:update, :destroy]
+    get 'posts/new', to: 'posts#new', as: 'new_post'
+    get 'posts' => 'posts#index'
+    get 'posts/:id', to: 'posts#show', as: 'post'
+    get 'posts/:id/edit', to: 'posts#edit', as: 'edit_post'
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
     
     get 'users' => 'users#index'
     get 'users/my_page' => 'users#show'
-    get 'users/information/edit' => 'users#edit'
-    patch 'users/information' => 'users#update'
+    get 'users/:id/edit' => 'users#edit'
+    patch 'users/:id' => 'users#update'
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
     
