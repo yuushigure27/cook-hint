@@ -43,4 +43,9 @@ class User::GenresController < ApplicationController
     params.require(:genre).permit(:name)
   end
 
+  def init_sidebar
+    @posts = Post.where(is_active: true)
+    @genres = Genre.all
+  end
+
 end

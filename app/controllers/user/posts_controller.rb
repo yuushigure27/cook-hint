@@ -18,8 +18,7 @@ class User::PostsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts
+    @post = Post.find(params[:id])
   end
 
   def edit
@@ -38,5 +37,7 @@ class User::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :introduction, :genre_id, :image)
   end
+  
+
 
 end
