@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     # ユーザー
     get 'users' => 'users#index'
     get 'users/my_page' => 'users#show'
-    get 'users/:id/edit' => 'users#edit'
+    get 'users/:id/edit' => 'users#edit', as: 'users_edit'
     patch 'users/:id' => 'users#update'
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'

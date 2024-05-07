@@ -1,16 +1,16 @@
 class User::PostsController < ApplicationController
   before_action :ensure_post, only: [:show, :edit, :update]
-  
+
   def new
     @post = Post.new
     @genres = Genre.all
   end
-  
+
   def create
    @post = Post.new(post_params)
 
    if @post.save
-    redirect_to post_path(@post) 
+    redirect_to post_path(@post)
    else
     @genres = Genre.all
     render :new
@@ -18,8 +18,10 @@ class User::PostsController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
   end
-  
+
   def edit
   end
 
@@ -28,7 +30,7 @@ class User::PostsController < ApplicationController
   end
 
   private
-  
+
   def ensure_post
     @post = Post.find(params[:id])
   end
