@@ -2,7 +2,36 @@
   <div class="row">
     <h2>ユーザー 一覧</h2>
     <hr class="heading-line">
-    <%= render "index", users: @users %>
+    <table class="table">
+      <thead>
+        <tr class="table-secondary">
+          <th>会員ID</th>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+          <th>ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td>
+            <%= link_to admin_user_path(user.id), class: "text-green" do %>
+              <%= user.name %>
+            <% end %>
+          </td>
+          <td><%= user.email %></td>
+          <td>
+            <% if user.is_active %>
+              <div class="text-success"><b>有効</b></div>
+            <% else %>
+              <div class="text-secondary"><b>退会</b></div>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
   <div class="row">
     <div class="col text-center m-4">
