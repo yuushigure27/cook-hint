@@ -14,3 +14,11 @@
  *= require_self
  */
 
+
+section{
+  margin: 0;
+  width: 100vw;
+  height: 50vh;
+  background-size: cover;
+  background-image: url(top_01.jpg)
+}
