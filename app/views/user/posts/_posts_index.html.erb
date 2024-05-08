@@ -10,11 +10,10 @@
       <th>
         ジャンル
       </th>
-
     </tr>
   </thead>
   <tbody>
-    <% @posts.each do |post| %>
+    <% posts.each do |post| %>
       <tr>
         <th>
           <%= post.id %>
@@ -25,7 +24,6 @@
         <th>
           <%= post.genre.name %>
         </th>
-
       </tr>
     <% end %>
   </tbody>
