@@ -1,4 +1,5 @@
 class User::PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :ensure_post, only: [:show, :edit, :update]
 
   def new
@@ -8,6 +9,7 @@ class User::PostsController < ApplicationController
 
   def create
    @post = Post.new(post_params)
+   @post.user = current_user
 
    if @post.save
     redirect_to post_path(@post)

@@ -2,10 +2,19 @@
   <h2>投稿詳細</h2>
   <hr class="heading-line">
 
-  <div class="mt-4 row">
-    <div class="col-12 col-lg-6 text-center p-4">
-      <%= image_tag @post.image, class: "w-100" %>
-    </div>
+   
+   
+    <div class="mt-4 row">
+      <% if @post.image.attached? %>
+        <div class="col-12 col-lg-6 text-center p-4">
+          <%= image_tag @post.image, class: "w-100" %>
+        </div>
+      <% else %>
+        <div class="col-12 col-lg-6 text-center p-4">
+          <%= image_tag 'no_image.png', class: "w-100" %>
+        </div>
+      <% end %>
+
     <div class="col-12 col-lg-6 mt-5 p-4">
       <table class="table">
         <tr>

@@ -9,11 +9,19 @@ class User < ApplicationRecord
   validates :introduction, length: {maximum: 50}
   
   def introduction
-    # ユーザーの自己紹介を返すロジックを実装する
-    # 例えば、self.descriptionやself.bioなど
+    
   end
   
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.png'
+  end
+  
+  GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
   end
 end

@@ -3,7 +3,8 @@
 class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
-      
+
+      t.string :introduction, null: false, default: ""
       t.string :name, null: false
       t.boolean :is_active, null: false, default: true
 
@@ -17,9 +18,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       ## Rememberable
       t.datetime :remember_created_at
-      
-
-      
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false

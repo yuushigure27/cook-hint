@@ -2,6 +2,7 @@
 
 class User::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :customer_state, only: [:create]
 
   def after_sign_in_path_for(resource)
     users_my_page_path
@@ -19,6 +20,12 @@ class User::SessionsController < Devise::SessionsController
         redirect_to new_user_session_path
       end
     end
+  end
+  
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to users_my_page_path, notice: "guestuserでログインしました。"
   end
   
   

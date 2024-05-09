@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2024_05_01_052049) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "genre_id", null: false
+    t.integer "user_id", null: false
     t.string "title", null: false
     t.text "introduction", null: false
     t.boolean "is_active", default: true, null: false
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 2024_05_01_052049) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "introduction", default: "", null: false
     t.string "name", null: false
     t.boolean "is_active", default: true, null: false
     t.string "email", default: "", null: false
