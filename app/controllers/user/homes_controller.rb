@@ -1,7 +1,7 @@
 class User::HomesController < ApplicationController
   def top
     @genres = Genre.all
-    @posts = Post.all.order(created_at: :desc).first(4)
+    @posts = Post.order(created_at: :desc).limit(9)
   end
 
   def about

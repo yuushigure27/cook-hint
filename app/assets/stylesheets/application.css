@@ -15,10 +15,19 @@
  */
 
 
-section{
+.bg-image {
   margin: 0;
   width: 100vw;
-  height: 50vh;
-  background-size: cover;
-  background-image: url(top_01.jpg)
+  height: 70vh;
+  background-size: cover; /* 画像を全体に広げる */
+  background-repeat: no-repeat; /* 画像を繰り返し表示しない */
+  background-image: url(スムージー1.jpg)
 }
+
+@media (max-width: 768px) {
+  .bg-image {
+    margin: 0;
+    width: 100vw;
+    height: 30vh;
+    background-size: cover; /* 画像を縮小して表示 */
+  }
