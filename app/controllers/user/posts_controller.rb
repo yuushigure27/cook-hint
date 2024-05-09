@@ -10,6 +10,11 @@ class User::PostsController < ApplicationController
   def create
    @post = Post.new(post_params)
    @post.user = current_user
+   
+    if @post.new_genre_name.present?
+      new_genre = Genre.create(name: @post.new_genre_name)
+      @post.genre_id = new_genre.id
+    end
 
    if @post.save
     redirect_to post_path(@post)
@@ -37,7 +42,7 @@ class User::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :introduction, :genre_id, :image)
+    params.require(:post).permit(:title, :introduction, :genre_id, :image, :new_genre_name)
   end
   
 
