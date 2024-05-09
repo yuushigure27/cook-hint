@@ -19,7 +19,7 @@
       <tr class="form-group">
         <th><%= f.label :genre_id, "ジャンル" %></th>
         <td>
-          <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい" }, class: "form-control" %>
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい（無い場合は下に入力してください）" }, class: "form-control" %>
           <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力してください", class: "form-control" %>
         </td>
       </tr>
