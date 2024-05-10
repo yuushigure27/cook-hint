@@ -1,34 +1,40 @@
-<h2>Sign up</h2>
+<div class="container px-1 py-2">
+  <%= render "layouts/errors", obj: @user %>
 
-<%=  form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "user/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-  <%= f.label :ニックネーム %><br>
-  <%= f.text_field :name, autofocus: true %>
+  <div class="row">
+    <h2 class="col mt-4">新規会員登録</h2>
   </div>
-  
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>（<%= @minimum_password_length %> 文字以上必要です。）</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "登録" %>
-  </div>
-<% end %>
+  <div class="bg-orange row">
+    <div class="mx-auto">
+      <%=  form_with model: @user, url: user_registration_path do |f| %>
+      <table class="form-new table table-borderless mt-4 mx-auto">
+      
+      <div class="field">
+      <%= f.label :ニックネーム %><br>
+      <%= f.text_field :name, autofocus: true %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>（<%= @minimum_password_length %> 文字以上必要です。）</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+    
+      <div class="actions">
+        <%= f.submit "登録" %>
+      </div>
+    <% end %>
 
 <%= render "user/shared/links" %>
