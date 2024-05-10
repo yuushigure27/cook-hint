@@ -25,11 +25,10 @@ class User::UsersController < ApplicationController
     end
   end
   
-  private
   
   def ensure_guest_user
     @user = User.find(params[:id])
     return unless @user.guest_user?
     redirect_to users_my_page_path, alert: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
-  end  
+  end
 end
