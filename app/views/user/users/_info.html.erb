@@ -11,13 +11,17 @@
 
 </table>
 
-<div class='row'>
 
+<div class='row'>
   <% if current_user != user %>
     <td><%= render "relationships/btn", user: user, options: { class: ""} %></td>
   <% else %>
     <%= link_to users_edit_path(user), class: "btn btn-outline-secondary btn-block" do %>
       <i class="fas fa-user-cog"></i>
     <% end %>
+  <% end %>
+  
+  <% unless user.guest_user? %>
+    <%= link_to '',users_edit_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   <% end %>
 </div>
