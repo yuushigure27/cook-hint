@@ -1,40 +1,44 @@
-<div class="container px-1 py-2">
+<div class="container px-3 py-4 mb-4"> 
   <%= render "layouts/errors", obj: @user %>
 
-  <div class="row">
-    <h2 class="col mt-4">新規会員登録</h2>
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <h2 class="mt-4 mb-4 text-center">新規会員登録</h2> <!-- Added mb-4 for margin bottom -->
+      <div class="bg-orange p-4 rounded shadow">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.label :name, "ニックネーム" %>
+            <%= f.text_field :name, autofocus: true, placeholder: "花子＊2文字以上で入力", class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :email, "メールアドレス" %>
+            <%= f.email_field :email, autocomplete: "email", placeholder: "sample@example.com", class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password, "パスワード" %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+            <% if @minimum_password_length %>
+              <small class="text-muted">（<%= @minimum_password_length %> 文字以上必要です。）</small>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password_confirmation, "パスワード（確認用）" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          </div>
+          <div class="form-group text-center">
+            <%= f.submit "新規登録", class: "btn btn-success w-50" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="bg-orange row">
-    <div class="mx-auto">
-      <%=  form_with model: @user, url: user_registration_path do |f| %>
-      <table class="form-new table table-borderless mt-4 mx-auto">
-      
-      <div class="field">
-      <%= f.label :ニックネーム %><br>
-      <%= f.text_field :name, autofocus: true %>
-      </div>
-      
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
-    
-      <div class="field">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>（<%= @minimum_password_length %> 文字以上必要です。）</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
-    
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
-    
-      <div class="actions">
-        <%= f.submit "登録" %>
-      </div>
-    <% end %>
 
-<%= render "user/shared/links" %>
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <h2 class="mt-4 mb-4 text-center">既に登録済みの方</h2> <!-- Added mb-4 for margin bottom -->
+      <div class="bg-orange p-4 rounded shadow text-center">
+        <%= render "user/shared/links" %> <p class="mt-3">からログインしてください。</p>
+      </div>
+    </div>
+  </div>
+</div>
