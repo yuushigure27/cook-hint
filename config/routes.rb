@@ -16,13 +16,17 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get 'about' => 'homes#about'
     get 'genre_search', to: 'searches#genre_search', as: :genre_search
-    
+
     # 投稿
     get 'posts/new', to: 'posts#new', as: 'new_post'
     post 'posts', to: 'posts#create'
     get 'posts' => 'posts#index'
     get 'posts/:id', to: 'posts#show', as: 'post'
     get 'posts/:id/edit', to: 'posts#edit', as: 'edit_post'
+
+    resources :posts do
+      resources :comments, only: [:create, :destroy, :edit, :update]
+    end
 
     # ジャンル
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]

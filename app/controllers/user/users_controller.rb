@@ -24,8 +24,8 @@ class User::UsersController < ApplicationController
       render "edit"
     end
   end
-  
-  
+
+
   def ensure_guest_user
     @user = User.find(params[:id])
     return unless @user.guest_user?
