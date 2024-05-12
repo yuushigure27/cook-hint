@@ -1,0 +1,4 @@
+DB_USERNAME="root"
+DB_PASSWORD="Y1u2i2s7"
+DB_HOST="rds-mysql-server.cbgm2qas4z2s.ap-northeast-1.rds.amazonaws.com"
+DB_DATABASE="cook_hint"
