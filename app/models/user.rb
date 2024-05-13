@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
-  validates :introduction, length: { maximum: 50 }
+  validates :introduction, length: { maximum: 100 }
 
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.png'
@@ -20,6 +20,8 @@ class User < ApplicationRecord
     end
   end
 
+  GUEST_USER_EMAIL = 'guest@example.com'.freeze
+  
   def guest_user?
     email == GUEST_USER_EMAIL
   end
