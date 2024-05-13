@@ -12,7 +12,7 @@
     </div>
     
     <div class="col-lg-6 col-md-12 p-4">
-      <%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
+      <%= form_with(model: @post, url: post_path(@post), method: :patch, local: true) do |f| %>
         <div class="mb-3">
           <%= f.label :title, class: "form-label" %>
           <%= f.text_field :title, class: "form-control" %>
@@ -27,13 +27,8 @@
           <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力", class: "form-control" %>
           <small class="text-muted">（選択できるジャンルがない場合入力してください）</small>
         </div>
-        <div class="row align-items-center">
-          <div class="col">
-            <%= f.submit "更新する", class: "btn btn-primary" %>
-          </div>
-          <div class="col">
-            <%= button_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-          </div>
+        <div class="text-center">
+          <%= f.submit "更新する", class: "btn btn-primary mr-2" %>
         </div>
       <% end %>
     </div>

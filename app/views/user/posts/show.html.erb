@@ -1,17 +1,15 @@
 <div class="container px-1 py-2">
-  <h2>投稿詳細</h2>
+  <h2 class="text-center">投稿詳細</h2>
   <hr class="heading-line">
 
   <div class="mt-4 row">
-    <% if @post.image.attached? %>
-      <div class="col-12 col-lg-6 text-center p-4">
+    <div class="col-12 col-lg-6 text-center p-4">
+      <% if @post.image.attached? %>
         <%= image_tag @post.image, class: "w-100" %>
-      </div>
-    <% else %>
-      <div class="col-12 col-lg-6 text-center p-4">
+      <% else %>
         <%= image_tag 'no_image.png', class: "w-100" %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
     <div class="col-12 col-lg-6 mt-5 p-4">
       <table class="table">
@@ -32,7 +30,10 @@
   </div>
 
   <div class="text-center mt-4">
-    <%= link_to "編集する", edit_post_path(@post), class: "btn btn-primary" %>
+    <% if current_user == @post.user %>
+      <%= link_to "編集する", edit_post_path(@post), class: "btn btn-primary mr-2" %>
+      <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+    <% end %>
   </div>
 
   <div class="mt-4">
