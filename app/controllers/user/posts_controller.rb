@@ -25,7 +25,7 @@ class User::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by(params[:id])
     @comment = Comment.new
     @user = current_user
   end
@@ -36,7 +36,7 @@ class User::PostsController < ApplicationController
   def index
     @posts = Post.all
   end
-  
+
   def destroy
     @user = User.find(current_user.id)
     @user.update(is_active: false)
