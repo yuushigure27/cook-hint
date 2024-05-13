@@ -36,13 +36,26 @@ class User::PostsController < ApplicationController
   def index
     @posts = Post.all
   end
+  
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿を更新しました"
+    else
+      @genres = Genre.all
+      render :edit
+    end
+  end
+
 
   def destroy
-    @user = User.find(current_user.id)
-    @user.update(is_active: false)
-    session.destroy
-    flash[:notice] = "退会しました。再ログインできません。"
-    redirect_to root_path
+    @post = Post.find(params[:id])
+    if @post.destroy
+      redirect_to posts_path, notice: "投稿を削除しました"
+    else
+      flash[:alert] = "削除に失敗しました"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   private

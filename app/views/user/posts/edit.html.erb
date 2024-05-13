@@ -1,7 +1,7 @@
 <div class="container px-1 py-2">
   <h2 class="text-center mb-4">投稿編集</h2>
   <hr class="heading-line">
-
+  
   <div class="mt-4 row align-items-center">
     <div class="col-lg-6 col-md-12 text-center mb-4">
       <% if @post.image.attached? %>
@@ -10,7 +10,7 @@
         <%= image_tag 'no_image.png', class: "w-100 rounded mb-3" %>
       <% end %>
     </div>
-
+    
     <div class="col-lg-6 col-md-12 p-4">
       <%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
         <div class="mb-3">
@@ -27,8 +27,14 @@
           <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力", class: "form-control" %>
           <small class="text-muted">（選択できるジャンルがない場合入力してください）</small>
         </div>
-        <%= f.submit "更新する", class: "btn btn-primary mt-3 mr-2" %>
-        <%= button_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger mt-3" %>
+        <div class="row align-items-center">
+          <div class="col">
+            <%= f.submit "更新する", class: "btn btn-primary" %>
+          </div>
+          <div class="col">
+            <%= button_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
