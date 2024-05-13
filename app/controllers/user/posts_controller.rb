@@ -36,6 +36,14 @@ class User::PostsController < ApplicationController
   def index
     @posts = Post.all
   end
+  
+  def destroy
+    @user = User.find(current_user.id)
+    @user.update(is_active: false)
+    session.destroy
+    flash[:notice] = "退会しました。再ログインできません。"
+    redirect_to root_path
+  end
 
   private
 
