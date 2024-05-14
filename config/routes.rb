@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     # ユーザー
     get 'users' => 'users#index'
-    get 'users/my_page' => 'users#show'
+    get '/my_page', to: 'users#show', as: :my_page
     get 'users/:id/edit' => 'users#edit', as: 'users_edit'
     patch 'users/:id' => 'users#update'
     get 'users/unsubscribe' => 'users#unsubscribe'

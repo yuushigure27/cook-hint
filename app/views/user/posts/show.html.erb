@@ -2,67 +2,78 @@
   <h2 class="text-center">投稿詳細</h2>
   <hr class="heading-line">
 
-  <div class="mt-4 row">
-    <div class="col-12 col-lg-6 text-center p-4">
-      <% if @post.image.attached? %>
-        <%= image_tag @post.image, class: "w-100" %>
-      <% else %>
-        <%= image_tag 'no_image.png', class: "w-100" %>
-      <% end %>
+  <div class="card mt-4 mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <div class="d-flex align-items-center mb-3">
+        <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
+        <div><%= link_to @post.user.name, my_page_path(@post.user), class: "text-dark font-weight-bold" %></div>
+      </div>
+      
+      <div class="text-center p-4">
+        <% if @post.image.attached? %>
+          <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
+        <% else %>
+          <%= image_tag 'no_image.png', class: "w-100 rounded shadow-sm" %>
+        <% end %>
+      </div>
+
+      <div class="mt-4 p-4">
+        <table class="table table-borderless">
+          <tr>
+            <th class="text-muted">ジャンル</th>
+            <td class="font-weight-bold"><%= @post.genre.name %></td>
+          </tr>
+          <tr>
+            <th class="text-muted">タイトル</th>
+            <td class="font-weight-bold"><%= @post.title %></td>
+          </tr>
+          <tr>
+            <th class="text-muted">内容</th>
+            <td class="font-weight-bold"><%= @post.introduction %></td>
+          </tr>
+        </table>
+      </div>
     </div>
 
-    <div class="col-12 col-lg-6 mt-5 p-4">
-      <table class="table">
-        <tr>
-          <th>タイトル</th>
-          <td><%= @post.title %></td>
-        </tr>
-        <tr>
-          <th>内容</th>
-          <td><%= @post.introduction %></td>
-        </tr>
-        <tr>
-          <th>ジャンル</th>
-          <td><%= @post.genre.name %></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="text-center mt-4">
     <% if current_user == @post.user %>
-      <%= link_to "編集する", edit_post_path(@post), class: "btn btn-primary mr-2" %>
-      <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+      <div class="card-footer text-right">
+        <%= link_to "編集する", edit_post_path(@post), class: "btn btn-sm btn-outline-primary mr-2" %>
+        <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+      </div>
     <% end %>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-4 mx-auto" style="max-width: 600px;">
     <p>コメント件数：<%= @post.comments.count %></p>
     <% @post.comments.each do |comment| %>
       <div class="card mb-2">
         <div class="card-body d-flex align-items-center">
-          <div>
-            <p><%= image_tag comment.user.get_profile_image, size: '100x100' %></p>
-            <%= link_to comment.user.name, users_my_page_path(comment.user) %>
+          <div class="text-center mr-3">
+            <%= image_tag comment.user.get_profile_image, size: '50x50', class: "rounded-circle" %>
+            <div><%= link_to comment.user.name, users_my_page_path(comment.user), class: "text-dark font-weight-bold" %></div>
           </div>
-          <div class="ml-3">
-            <%= comment.content %>
+          <div class="flex-grow-1">
+            <p><%= comment.content %></p>
           </div>
         </div>
         <% if comment.user == current_user %>
           <div class="card-footer text-right">
-            <%= link_to "編集", edit_post_comment_path(@post, comment), class: "btn btn-sm btn-primary mr-2" %>
-            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger mr-2" %>
+            <%= link_to "編集", edit_post_comment_path(@post, comment), class: "btn btn-sm btn-outline-primary mr-2" %>
+            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
           </div>
         <% end %>
       </div>
     <% end %>
   </div>
 
-  <div class="mt-4">
-    <%= form_with model: [@post, @comment], url: post_comments_path(@post) do |f| %>
-      <%= f.text_area :content, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
-      <%= f.submit "送信する", class: "btn btn-primary mt-2" %>
+  <div class="mt-4 mx-auto" style="max-width: 600px;">
+    <%= form_with model: [@post, @comment], url: post_comments_path(@post), class: "form-inline" do |f| %>
+      <div class="form-group w-100">
+        <%= f.text_area :content, rows: '3', placeholder: "コメントをここに", class: "form-control w-100" %>
+      </div>
+      <div class="form-group mt-2 w-100 text-right">
+        <%= f.submit "送信する", class: "btn btn-primary" %>
+      </div>
     <% end %>
   </div>
 </div>
