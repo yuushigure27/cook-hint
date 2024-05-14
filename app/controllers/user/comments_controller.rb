@@ -1,15 +1,16 @@
 class User::CommentsController < ApplicationController
-  def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params)
-    @comment.user = current_user
+def create
+  @post = Post.find(params[:post_id])
+  @comment = @post.comments.build(comment_params)
+  @comment.user_id = current_user.id
 
-    if @comment.save
-      redirect_to post_path(@post), notice: 'コメントが投稿されました'
-    else
-      redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました'
-    end
+  if @comment.save
+    redirect_to post_path(@post), notice: 'コメントが投稿されました。'
+  else
+    redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
   end
+end
+
   
   def edit
     @post = Post.find(params[:post_id])
@@ -37,6 +38,6 @@ class User::CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+     params.require(:comment).permit(:content)
   end
 end
