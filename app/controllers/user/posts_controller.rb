@@ -30,6 +30,7 @@ class User::PostsController < ApplicationController
   end
 
   def index
+    @genres = Genre.all
     @posts = Post.page(params[:page]).per(9)
   end
 
