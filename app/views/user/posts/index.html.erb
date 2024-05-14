@@ -1,11 +1,36 @@
 <div class="container px-1 py-2">
   <div class="row">
-    <h2>投稿一覧</h2>
-    <hr class="heading-line">
-    <div class="ml-auto p-4">
-      <%= link_to "新規投稿", new_post_path, class: "btn" %>
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h2>投稿一覧</h2>
+      <%= link_to "新規投稿", new_post_path, class: "btn btn-primary" %>
     </div>
-    <%= render "posts_index", posts: @posts %>
+    <hr class="heading-line w-100">
   </div>
 
+  <div class="album bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-3 g-3">
+        <% @posts.each do |post| %>
+          <div class="col-md-4 my-4">
+            <div class="card shadow-sm" style="padding: 10px; height: 100%;">
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
+              <% else %>
+                <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
+              <% end %>
+              <div class="card-body">
+                <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
+                <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

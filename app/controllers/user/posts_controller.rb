@@ -8,24 +8,20 @@ class User::PostsController < ApplicationController
   end
 
   def create
-   @post = Post.new(post_params)
-   @post.user = current_user
-
-    if @post.new_genre_name.present?
-      new_genre = Genre.create(name: @post.new_genre_name)
-      @post.genre_id = new_genre.id
+    @post = current_user.posts.build(post_params)
+    if params[:post][:new_genre_name].present?
+      genre = Genre.create(name: params[:post][:new_genre_name])
+      @post.genre = genre
     end
-
-   if @post.save
-    redirect_to post_path(@post)
-   else
-    @genres = Genre.all
-    render :new
-   end
+    if @post.save
+      redirect_to @post, notice: "投稿が作成されました。"
+    else
+      render 'new'
+    end
   end
 
   def show
-    @post = Post.find_by(params[:id])
+    @post = Post.find(params[:id])
     @comment = Comment.new
     @user = current_user
   end
