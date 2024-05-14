@@ -11,11 +11,11 @@ class User::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    users_my_page_path
+    my_page_path
   end
 
   def after_update_path_for(resource)
-    users_my_page_path
+    my_page_path
   end
 
   # ユーザー登録時の許可するパラメーター
@@ -31,9 +31,10 @@ class User::RegistrationsController < Devise::RegistrationsController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to users_my_page_path(@user), notice: 'ユーザー情報が更新されました。'
+      redirect_to my_page_path(@user), notice: 'ユーザー情報が更新されました。'
     else
-      render :edit
+       redirect_to users_edit_path(@user)
+      # render "/users/#{@user.id}/edit"
     end
   end
 

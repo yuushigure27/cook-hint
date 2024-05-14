@@ -10,7 +10,7 @@ class User::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if params[:post][:new_genre_name].present?
-      genre = Genre.create(name: params[:post][:new_genre_name])
+      genre = Genre.find_or_create_by(name: params[:post][:new_genre_name])
       @post.genre = genre
     end
     if @post.save
@@ -30,9 +30,9 @@ class User::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(9)
   end
-  
+
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)

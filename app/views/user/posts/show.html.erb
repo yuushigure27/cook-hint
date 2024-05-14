@@ -6,9 +6,9 @@
     <div class="card-body">
       <div class="d-flex align-items-center mb-3">
         <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
-        <div><%= link_to @post.user.name, my_page_path(@post.user), class: "text-dark font-weight-bold" %></div>
+        <div><%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %></div>
       </div>
-      
+
       <div class="text-center p-4">
         <% if @post.image.attached? %>
           <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
@@ -19,18 +19,20 @@
 
       <div class="mt-4 p-4">
         <table class="table table-borderless">
-          <tr>
-            <th class="text-muted">ジャンル</th>
-            <td class="font-weight-bold"><%= @post.genre.name %></td>
-          </tr>
-          <tr>
-            <th class="text-muted">タイトル</th>
-            <td class="font-weight-bold"><%= @post.title %></td>
-          </tr>
-          <tr>
-            <th class="text-muted">内容</th>
-            <td class="font-weight-bold"><%= @post.introduction %></td>
-          </tr>
+          <tbody>
+            <tr>
+              <th class="text-muted w-25">ジャンル</th>
+              <td class="font-weight-bold w-75"><%= @post.genre.name %></td>
+            </tr>
+            <tr>
+              <th class="text-muted w-25">タイトル</th>
+              <td class="font-weight-bold w-75"><%= @post.title %></td>
+            </tr>
+            <tr>
+              <th class="text-muted w-25">内容</th>
+              <td class="font-weight-bold w-75"><%= simple_format @post.introduction %></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

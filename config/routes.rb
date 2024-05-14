@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'likes/create'
+  get 'likes/destroy'
   # 顧客用
   # URL /users/sign_in ...
   devise_for :users, controllers: {
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
 
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update]
+      resources :likes, only: [:create, :destroy]
     end
 
     # ジャンル
