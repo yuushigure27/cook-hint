@@ -12,15 +12,7 @@ class User::SessionsController < Devise::SessionsController
     root_path
   end
 
-  def reject_inactive_user
-    @user = user.find_by(email: params[:user][:email])
-    if @user
-      if @user.valid_password?(params[:user][:password]) && !@user.is_active
-        flash[:danger] = 'このアカウントは退会済みです。申し訳ございませんが、別のメールアドレスをお使いください。'
-        redirect_to new_user_session_path
-      end
-    end
-  end
+  
 
 
   #ゲストサインイン
@@ -33,12 +25,13 @@ class User::SessionsController < Devise::SessionsController
   private
   #退会しているかいないか
   def user_state
+    # 【処理内容1】 入力されたemailからアカウントを1件取得
     user = User.find_by(email: params[:user][:email])
+    # 【処理内容2】 アカウントを取得できなかった場合、このメソッドを終了する
     return if user.nil?
+    # 【処理内容3】 取得したアカウントのパスワードと入力されたパスワードが一致していない場合、このメソッドを終了する
     return unless user.valid_password?(params[:user][:password])
-    return unless user.is_active
-    if user.is_active
-    else
+    unless user.is_active
       flash[:alert] = "すでに退会されているアカウントです。管理者にお問い合わせください。"
       redirect_to new_user_registration_path
     end

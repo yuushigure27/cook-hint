@@ -29,8 +29,10 @@ Rails.application.routes.draw do
 
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update]
-      resources :likes, only: [:create, :destroy, :index]
+      resources :likes, only: [:create, :destroy]
     end
+    
+    resources :likes, only: [:index]
 
     # ジャンル
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
@@ -38,10 +40,11 @@ Rails.application.routes.draw do
     # ユーザー
     get 'users' => 'users#index'
     get '/my_page', to: 'users#show', as: :my_page
-    get 'users/:id/edit' => 'users#edit', as: 'users_edit'
-    patch 'users/:id' => 'users#update'
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
+    get 'users/:id/edit' => 'users#edit', as: 'users_edit'
+    patch 'users/:id' => 'users#update'
+
 
 
   end
