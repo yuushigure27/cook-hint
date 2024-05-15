@@ -13,13 +13,11 @@ class User::SessionsController < Devise::SessionsController
   end
 
   
-
-
   #ゲストサインイン
   def guest_sign_in
     user = User.guest
     sign_in user
-    redirect_to users_my_page_path, notice: "guestuserでログインしました。"
+    redirect_to my_page_path, notice: "guestuserでログインしました。"
   end
   
   private

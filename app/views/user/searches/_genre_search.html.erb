@@ -1,14 +1,15 @@
-<div class="genre_search">
-  <table class="table table-bordered">
-    <tr>
-      <th class="color-black bg-white text-center"><i class="fa-solid fa-magnifying-glass"></i> ジャンル検索</th>
-    </tr>
+<div class="bg-light p-3 rounded">
+  <h4 class="text-center mb-4">ジャンル</h4>
+  <ul class="list-group">
     <% @genres.each do |genre| %>
-      <tr onclick="window.location='<%= genre_search_path(genre_id: genre.id) %>'" class="cursor">
-        <td class="text-center genre-bg font-weight-bold" style="cursor:pointer;" onmouseover="this.style.backgroundColor='lightgray';" onmouseout="this.style.backgroundColor='';">
-          <%= link_to genre.name, genre_search_path(genre_id: genre.id) %>
-        </td>
-      </tr>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <i class="bi bi-bookmark-fill me-2"></i>
+        <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-dark" %>
+        <span class="badge bg-primary rounded-pill"><%= genre.posts.count %></span>
+      </li>
     <% end %>
-  </table>
+  </ul>
+  
+
 </div>
+
