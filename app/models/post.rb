@@ -4,7 +4,11 @@ class Post < ApplicationRecord
   has_one_attached :image
   has_many :comments, dependent: :destroy
   has_many :likes
-  has_many :liking_users, through: :likes, source: :user
+  has_many :liked_users, through: :likes, source: :user
+  
+  def liked_by?(user)
+    liked_users.include?(user)
+  end
 
   validates :title, presence: true
   validates :introduction, presence: true

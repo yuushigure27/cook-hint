@@ -1,0 +1,13 @@
+  <h4 class="text-center mb-4">いいね一覧</h4>
+    <% if @likes.any? %>
+      <ul>
+        <% @likes.each do |like| %>
+          <li>
+            <%= link_to like.post.title, post_path(like.post) %>
+            <%= button_to 'いいねを取り消す', post_like_path(like.post, like), method: :delete %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>いいねした投稿はまだありません。</p>
+    <% end %>
