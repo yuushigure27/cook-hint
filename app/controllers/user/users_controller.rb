@@ -11,19 +11,29 @@ class User::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
   end
 
+
   def unsubscribe
+    @user = User.find(current_user.id)
+  end
+
+  def withdraw
+    @user = User.find(current_user.id)
+    @user.update(is_active: false)
+    session.destroy
+    flash[:notice] = "退会しました。再ログインできません。"
+    redirect_to root_path
   end
 
   def index
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: 'User information updated successfully.'
+      redirect_to my_page_path(@user), notice: 'ユーザー情報更新に成功しました'
     else
       render :edit
     end
@@ -32,7 +42,7 @@ class User::UsersController < ApplicationController
   def ensure_guest_user
     @user = User.find(params[:id])
     return unless @user.guest_user?
-    redirect_to users_my_page_path, alert: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    redirect_to my_page_path, alert: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
   end
 
   private
