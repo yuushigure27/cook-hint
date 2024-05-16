@@ -4,7 +4,7 @@
     <% @genres.each do |genre| %>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <i class="bi bi-bookmark-fill me-2"></i>
-        <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-dark" %>
+        <%= link_to genre.name, genre_search_path(genre_id: genre.id), class: "text-dark" %>
         <span class="badge bg-primary rounded-pill"><%= genre.posts.count %></span>
       </li>
     <% end %>

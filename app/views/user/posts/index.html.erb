@@ -7,45 +7,23 @@
     <hr class="heading-line w-100">
   </div>
 
-
   <div class="row">
     <!-- サイドバー -->
     <div class="col-md-3">
-      <%= render 'layouts/sidebar' %>
+      <%= render 'user/searches/genre_search', genres: @genres %>
     </div>
-
 
     <!-- 投稿リスト -->
     <div class="col-md-9">
       <div class="album bg-body-tertiary">
-        <div class="container">
-          <div class="row row-cols-1 row-cols-md-3 g-3">
-            <% @posts.each do |post| %>
-              <div class="col-md-4 my-4">
-                <div class="card shadow-sm" style="padding: 10px; height: 100%;">
-                  <% if post.image.attached? %>
-                    <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
-                  <% else %>
-                    <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
-                  <% end %>
-                  <div class="card-body">
-                    <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
-                    <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <%= render 'user/posts/post_index', genres: @genres %>
+        
 
           <!-- ページネーション -->
           <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-              <%= paginate @posts %>
+            <div class="col text-center m-3">
+              <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
+              <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
             </div>
           </div>
         </div>
