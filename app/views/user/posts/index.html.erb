@@ -1,3 +1,43 @@
+<div class="container mt-5">
+  <div class="row">
+    <!-- ジャンル検索 -->
+    <div class="col-md-3 mb-4 mt-1">
+      <%= render "user/searches/genre_search", genres: @genres %>
+    </div>
+
+    <!-- 投稿一覧 -->
+    <div class="col-md-9">
+      <div class="album bg-body-tertiary">
+        <div class="container">
+          <div class="text-center">
+            <h2>投稿一覧</h2>
+            <p class="m-3 mb-0">(全<%= @posts.count %>件)</p>
+          </div>
+          <hr class="heading-line w-100">
+          <% if @posts.empty? %>
+            <div class="mt-3">
+              <p>投稿はありません</p>
+            </div>
+          <% else %>
+            <div class="album bg-body-tertiary">
+              <%= render "user/posts/post_index", posts: @posts %>
+            </div>
+            <div class="row">
+              <!-- ページネーション -->
+              <div class="col text-center m-3">
+                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
+                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="container mt-5 px-1 py-2">
   <div class="row">
     <div class="col-12 d-flex justify-content-center align-items-center">
