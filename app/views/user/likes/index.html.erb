@@ -1,4 +1,7 @@
-  <h4 class="text-center mb-4">いいね一覧</h4>
+<div class="container mt-5 px-1 py-2">
+  <h2 class="text-center mb-4">いいね一覧</h2>
+  <hr class="heading-line mb-4">
+  
     <% if @likes.any? %>
       <ul>
         <% @likes.each do |like| %>
@@ -11,3 +14,4 @@
     <% else %>
       <p>いいねした投稿はまだありません。</p>
     <% end %>
+</div>

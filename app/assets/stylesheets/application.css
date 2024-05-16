@@ -30,3 +30,25 @@
   }
 }
 
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.footer {
+    background-color: #ffffe0; /* フッターの背景色 */
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}

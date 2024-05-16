@@ -1,6 +1,7 @@
-<div class="container px-1 py-2">
+<div class="container mt-5 px-1 py-2">
   <%= render 'layouts/errors', obj: @post %>
-  <h2 class="m-3">新規投稿</h2>
+  <h2 class="text-center mb-4">新規投稿</h2>
+  <hr class="heading-line mb-4">
   <%= form_with model: @post, local: true do |f| %>
     <div class="bg-gray row justify-content-center">
       <div class="col-md-6">

@@ -6,19 +6,15 @@
     </div>
     <hr class="heading-line w-100">
   </div>
-
   <div class="row">
     <!-- サイドバー -->
     <div class="col-md-3">
       <%= render 'user/searches/genre_search', genres: @genres %>
     </div>
-
     <!-- 投稿リスト -->
     <div class="col-md-9">
       <div class="album bg-body-tertiary">
         <%= render 'user/posts/post_index', genres: @genres %>
-        
-
           <!-- ページネーション -->
           <div class="row">
             <div class="col text-center m-3">
@@ -26,7 +22,6 @@
               <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
