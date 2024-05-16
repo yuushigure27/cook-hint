@@ -46,8 +46,12 @@ main {
     flex: 1;
 }
 
+.container {
+    padding-bottom: 50px; /* 下側に50pxの余白 */
+  }
+
 .footer {
-    background-color: #ffffe0; /* フッターの背景色 */
+    background-color: #ffffe0;
     padding: 1rem 0;
     text-align: center;
     width: 100%;
