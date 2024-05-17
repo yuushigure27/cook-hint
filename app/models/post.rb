@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_many :comments, dependent: :destroy
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   
   def liked_by?(user)
@@ -17,7 +17,13 @@ class Post < ApplicationRecord
   attr_accessor :new_genre_name
   
   def self.looks(search, word)
-    @post = Post.where("name LIKE?","%#{word}%")
+    if search == "perfect_match"
+      where("title LIKE ?", "#{word}")
+    elsif search == "partial_match"
+      where("title LIKE ?", "%#{word}%")
+    else
+      all
+    end
   end
-
 end
+

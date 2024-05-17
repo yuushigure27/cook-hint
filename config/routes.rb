@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'about' => 'homes#about'
     get 'genre_search', to: 'searches#genre_search', as: :genre_search
 
+
     # 投稿
     get 'posts/new', to: 'posts#new', as: 'new_post'
     post 'posts', to: 'posts#create'
