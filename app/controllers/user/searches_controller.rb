@@ -1,16 +1,16 @@
 class User::SearchesController < ApplicationController
   
   
-   def search
+  def search
     @model = params[:model]
     @content = params[:content]
     @method = params[:method]
     
     # 選択したモデルに応じて検索を実行
-    if @model  == "post"
-      @records = Post.search_for(@content, @method)
+    if @model  == "user"
+      @records = User.search_for(@content, @method)
     else
-      @records = Genre.search_for(@content, @method)
+      @records = Posts.search_for(@content, @method)
     end
   end
 

@@ -15,5 +15,9 @@ class Post < ApplicationRecord
   validates :genre_id, presence: true
 
   attr_accessor :new_genre_name
+  
+  def self.looks(search, word)
+    @post = Post.where("name LIKE?","%#{word}%")
+  end
 
 end
