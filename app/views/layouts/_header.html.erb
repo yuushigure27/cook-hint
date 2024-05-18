@@ -29,11 +29,33 @@
         </ul>
          </div>
      </div>
-
+     
+      <% if user_signed_in? %>
         <div class="seach text-right m-2">
           <div>
-            <%= render "searches/search" %>
+            <% if admin_signed_in? %>
+              <%= form_with url: admin_search_path, method: :get do |f| %>
+                <%= f.radio_button :search_obj, :users, checked: "checked", value: "users", class: "cursor"%>
+                <%= f.label :search_obj_users, "ユーザー", class: "cursor" %>
+                <%= f.radio_button :search_obj, :posts, value: "posts", class: "cursor" %>
+                <%= f.label :search_obj_posts, "投稿", class: "cursor" %>
+                <%= f.text_field :keyword, placeholder: " 検索" %>
+                <%= button_tag type: "submit", class: "color-green" do %>
+                  <i class="fas fa-search text-white"></i>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= form_with url: search_path, method: :get do |f| %>
+                <%= f.text_field :keyword, placeholder: " 検索" %>
+                <%= button_tag type: "submit", class: "color-green" do %>
+                  <i class="fas fa-search text-white"></i>
+                <% end %>
+              <% end %>
+            <% end %>
           </div>
         </div>
+      <% end %>
+      
+      
   </nav>
 </header>

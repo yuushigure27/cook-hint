@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'likes/create'
   get 'likes/destroy'
-  get "search" => "searches#search", as: "search"
+  
   
 
   # 顧客用
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get 'about' => 'homes#about'
     get 'genre_search', to: 'searches#genre_search', as: :genre_search
+    get "search" => "searches#search"
 
 
     # 投稿
@@ -68,6 +69,8 @@ Rails.application.routes.draw do
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
     resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
+    
+    get "search" => "searches#search"
   end
 
 end

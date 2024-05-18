@@ -15,8 +15,9 @@ class User < ApplicationRecord
     (profile_image.attached?) ? profile_image : 'no_image.png'
   end
   
-  def self.looks(search, word)
-      @user = User.where("CONCAT(name) LIKE?","%#{word}%")
+  
+  def self.search_for(keyword)
+    User.where("user LIKE ?", "%#{keyword}%")
   end
   
   def self.guest

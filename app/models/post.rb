@@ -16,14 +16,8 @@ class Post < ApplicationRecord
 
   attr_accessor :new_genre_name
   
-  def self.looks(search, word)
-    if search == "perfect_match"
-      where("title LIKE ?", "#{word}")
-    elsif search == "partial_match"
-      where("title LIKE ?", "%#{word}%")
-    else
-      all
-    end
+  def self.search_for(keyword)
+    Post.where('title LIKE ? OR introduction LIKE ?', "%#{keyword}%", "%#{keyword}%")
   end
 end
 
