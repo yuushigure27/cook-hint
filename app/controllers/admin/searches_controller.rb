@@ -10,5 +10,6 @@ class Admin::SearchesController < ApplicationController
       @results = User.search_for(@keyword).page(params[:page])
     end
   end
+  
 
 end

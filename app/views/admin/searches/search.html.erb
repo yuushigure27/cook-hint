@@ -7,7 +7,7 @@
     <% else %>
       <h2>"<%= @keyword %>"に一致するユーザー</h2>
       <hr class="heading-line">
-      <%= render "admin/users/user_index", users: @results %>
+      <%= render "admin/users/index_users", users: @results %>
     <% end %>
   </div>
 

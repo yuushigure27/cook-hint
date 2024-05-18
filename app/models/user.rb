@@ -17,7 +17,7 @@ class User < ApplicationRecord
   
   
   def self.search_for(keyword)
-    User.where("user LIKE ?", "%#{keyword}%")
+    User.where("name LIKE ?", "%#{keyword}%")
   end
   
   def self.guest
