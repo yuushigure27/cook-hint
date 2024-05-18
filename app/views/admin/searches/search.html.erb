@@ -3,12 +3,12 @@
     <% if @type === "posts" %>
       <h2>"<%= @keyword %>"に一致する投稿</h2>
       <hr class="heading-line">
-      <%= render "admin/posts/index", posts: @results %>
+      <%= render "admin/posts/index_post", posts: @results %>
     <% else %>
       <h2>"<%= @keyword %>"に一致するユーザー</h2>
       <hr class="heading-line">
-      <%= render "admin/users/index", users: @results %>
+      <%= render "admin/users/user_index", users: @results %>
     <% end %>
   </div>
-  
+
 </div>

@@ -21,12 +21,12 @@
   height: 70vh;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url('スムージー1.jpg'); 
+  background-image: url('スムージー1.jpg');
 }
 
 @media (max-width: 768px) {
   .bg-image {
-    height: 50vh; 
+    height: 50vh;
   }
 }
 
@@ -47,8 +47,8 @@ main {
 }
 
 .container {
-    padding-bottom: 50px; /* 下側に50pxの余白 */
-  }
+   /* padding-bottom: 50px;  下側に50pxの余白 */
+}
 
 .footer {
     background-color: #ffffe0;

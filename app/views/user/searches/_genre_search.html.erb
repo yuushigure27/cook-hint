@@ -1,15 +1,15 @@
 <div class="bg-light p-3 rounded">
   <h4 class="text-center mb-4">ジャンル</h4>
   <ul class="list-group">
-    <% @genres.each do |genre| %>
+    <% @genres.first(5).each do |genre| %>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <i class="bi bi-bookmark-fill me-2"></i>
         <%= link_to genre.name, genre_search_path(genre_id: genre.id), class: "text-dark" %>
         <span class="badge bg-primary rounded-pill"><%= genre.posts.count %></span>
       </li>
     <% end %>
+    <li class="list-group-item text-center">
+      <%= link_to "ジャンル一覧へ", genres_path %>
+    </li>
   </ul>
-  
-
 </div>
-

@@ -4,7 +4,7 @@
     <div class="col-xl-10">
       <div class="d-flex align-posts-center">
         <h2>"<%= @keyword %>"の検索結果</h2>
-        <p class="m-3 mb-0">(全<%= @results_all.count %>件)</p>
+        <p class="m-3 mb-0">(全<%= @results.count %>件)</p>
       </div>
       <hr class="heading-line">
       <%= render "user/posts/post_index", posts: @results %>

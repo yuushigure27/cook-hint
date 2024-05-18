@@ -7,7 +7,7 @@ class Admin::SearchesController < ApplicationController
     if @type == "posts"
       @results = Post.search_for(@keyword).page(params[:page])
     else
-      @results = Uer.search_for(@keyword).page(params[:page])
+      @results = User.search_for(@keyword).page(params[:page])
     end
   end
 

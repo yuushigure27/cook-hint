@@ -11,9 +11,10 @@
           <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
           <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
           <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
+            
               <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-            </div>
+              <div>♡☆</div>
+              
           </div>
         </div>
       </div>
