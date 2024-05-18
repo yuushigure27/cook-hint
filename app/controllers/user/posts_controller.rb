@@ -33,6 +33,7 @@ class User::PostsController < ApplicationController
     @genres = Genre.all
     @posts = Post.page(params[:page]).per(9)
     @post_all = Post.all
+    
   end
 
   def update

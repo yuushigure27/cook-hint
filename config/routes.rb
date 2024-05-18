@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'likes/create'
-  get 'likes/destroy'
-  
-  
+
 
   # 顧客用
   # URL /users/sign_in ...
@@ -31,12 +28,12 @@ Rails.application.routes.draw do
     get 'posts/:id', to: 'posts#show', as: 'post'
     get 'posts/:id/edit', to: 'posts#edit', as: 'edit_post'
     delete 'posts/:id', to: 'posts#destroy', as: 'delete_post'
-    
+
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update]
-      resources :likes, only: [:create, :destroy]
+      resource :likes, only: [:create, :destroy]
     end
-    
+
     resources :likes, only: [:index]
 
     # ジャンル
@@ -69,7 +66,7 @@ Rails.application.routes.draw do
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
     resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
-    
+
     get "search" => "searches#search"
   end
 

@@ -9,11 +9,11 @@ class User::LikesController < ApplicationController
 
   def destroy
     post = Post.find(params[:post_id])
-    like = post.likes.find_by(user: current_user)
+    like =current_user.likes.find_by(post_id: post.id)
     like.destroy if like
     redirect_to post
   end
-  
+
   def index
     @likes = current_user.likes.includes(:post)
   end
