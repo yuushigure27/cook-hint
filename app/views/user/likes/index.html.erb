@@ -5,10 +5,11 @@
     <% if @likes.any? %>
       <ul>
         <% @likes.each do |like| %>
-          <li>
-            <%= link_to like.post.title, post_path(like.post) %>
-            <%= button_to 'いいねを取り消す', post_like_path(like.post, like), method: :delete %>
-          </li>
+          <% post = like.post %>
+            <div class="album bg-body-tertiary">
+
+              <%= render "user/posts/post_index", posts: [post] %>
+            </div>
         <% end %>
       </ul>
     <% else %>

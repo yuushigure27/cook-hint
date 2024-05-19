@@ -16,5 +16,6 @@ class User::LikesController < ApplicationController
 
   def index
     @likes = current_user.likes.includes(:post)
+    @likes_genre = @likes.where(posts: { genre_id: params[:genre_id] }) if params[:genre_id].present?
   end
 end
