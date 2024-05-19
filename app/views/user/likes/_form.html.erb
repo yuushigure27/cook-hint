@@ -1,13 +1,12 @@
-<% if post.liked_by?(current_user) %>
-  <p>
-    <%= link_to post_likes_path(post), method: :delete do %>
-      <i class="fa-solid fa-heart"></i><%= post.likes.count %> いいね
+<div class="d-flex align-items-center">
+  <% if post.liked_by?(current_user) %>
+    <%= link_to post_likes_path(post), method: :delete, class: "d-flex align-items-center me-3" do %>
+      <i class="fa-solid fa-heart"></i><span class="ms-1"><%= post.likes.count %></span>
     <% end %>
-  </p>
-<% else %>
-  <p>
-    <%= link_to post_likes_path(post), method: :post do %>
-      <i class="fa-regular fa-heart"></i><%= post.likes.count %> いいね
+  <% else %>
+    <%= link_to post_likes_path(post), method: :post, class: "d-flex align-items-center me-3" do %>
+      <i class="fa-regular fa-heart"></i><span class="ms-1"><%= post.likes.count %></span>
     <% end %>
-  </p>
-<% end %>
+  <% end %>
+  <i class="far fa-comment" style="margin-left: 5px;"></i><span class="ms-1"><%= post.comments.count %></span>
+</div>
