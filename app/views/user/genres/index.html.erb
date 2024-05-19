@@ -1,38 +1,43 @@
-<div class="container">
-  <div class="row">
-    <h3 class="col-12 col-md-8 offset-md-2">ジャンル一覧・追加</h3>
-  </div>
-  <%= render "layouts/errors", obj: @genre %>
-  <%= form_with model: @genre, url: genres_path, class: 'form-group' do |f| %>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6"> 
-        <%= f.text_field :name, size: 50, placeholder: 'ジャンル名を入力してください', class: 'form-control' %>
-      </div>
-      <div class="col-12 col-md-2 mt-2 mt-md-0"> 
-        <%= f.submit "新規登録", class: 'btn btn-success btn-block' %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="py-5 text-center">
+        <h2 class="fw-light">ジャンル一覧・追加</h2>
+
+        <%= render "layouts/errors", obj: @genre %>
+
+        <%= form_with model: @genre, url: genres_path, class: 'form-group row' do |f| %>
+          <div class="col-8"> <!-- col-8で入力フォームの幅を指定 -->
+            <%= f.text_field :name, size: 50, placeholder: 'ジャンル名を入力してください', class: 'form-control mb-3' %>
+          </div>
+          <div class="col-4"> <!-- col-4でボタンの幅を指定 -->
+            <%= f.submit "新規登録", class: 'btn btn-success btn-block' %>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead align="center">
+                  <tr>
+                    <th scope="col">ジャンル名</th>
+                    <th scope="col">操作</th>
+                  </tr>
+                </thead>
+                <tbody align="center">
+                  <% @genres.each do |genre| %>
+                    <tr>
+                      <td><%= genre.name %></td>
+                      <td><%= link_to '編集', edit_genre_path(genre), class: 'btn btn-primary btn-sm' %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  <% end %>
-  <div class="row">
-    <div class="col">
-      <div class="offset-lg-2 col-lg-8">
-        <table class="table">
-          <thead align="center" class="table-dark">
-            <tr>
-              <th>ジャンル名</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody align="center">
-            <% @genres.each do |genre| %>
-            <tr>
-              <td><%= genre.name %></td>
-              <td><%= link_to '編集', edit_genre_path(genre), class: 'btn btn-success' %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-        
-      </div>
-    </div>
   </div>
+</div>

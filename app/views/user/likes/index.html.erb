@@ -1,17 +1,32 @@
-<div class="container mt-5 px-1 py-2">
-  <h2 class="text-center mb-4">いいね一覧</h2>
+<div class="py-5 text-center container">
+  <h2 class="fw-light">いいね一覧</h2>
+  <p class="m-3 mb-0">(全<%= @likes.count %>件)</p>
   <hr class="heading-line mb-4">
-    <% if @likes.any? %>
-      <ul>
-        <% @likes.each do |like| %>
-          <% post = like.post %>
-            <div class="album bg-body-tertiary">
-
-              <%= render "user/posts/post_index", posts: [post] %>
+  <% if @likes.any? %>
+    <div class = "row">
+      <% @posts.each do |post| %>
+        <div class="col-3 my-3">
+          <div class="card shadow-sm" style="height: 100%;">
+            <% if post.image.attached? %>
+              <%= image_tag like.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% else %>
+              <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% end %>
+            <div class="card-body">
+              <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
+              <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+                <div>
+                  <%= render "user/likes/form", post: post %>
+                </div>
+              </div>
             </div>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>いいねした投稿はまだありません。</p>
-    <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">いいねした投稿はまだありません。</p>
+  <% end %>
 </div>
