@@ -16,9 +16,9 @@
   <hr class="heading-line mb-4">
 </div>
 
-<div class="album  bg-body-tertiary">
+<div class="album bg-body-tertiary">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3"> <!-- 修正点: row-cols-md-4 -->
       <% @posts.each do |post| %>
         <div class="col my-3">
           <div class="card shadow-sm" style="height: 100%;">
@@ -32,10 +32,10 @@
               <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
               <div class="d-flex justify-content-between align-items-center">
                 <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-                  <div>
-                    <i class="far fa-heart"></i> <%= post.likes.count %> 
-                    <i class="far fa-comment"></i> <%= post.comments.count %> 
-                  </div>
+                <div>
+                  <i class="far fa-heart"></i> <%= post.likes.count %> 
+                  <i class="far fa-comment"></i> <%= post.comments.count %> 
+                </div>
               </div>
             </div>
           </div>
