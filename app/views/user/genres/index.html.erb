@@ -1,43 +1,26 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="py-5 text-center">
-        <h2 class="fw-light">ジャンル一覧・追加</h2>
+<div class="py-5 text-center container">
+  <h2 class="fw-light">ジャンル一覧</h2>
+  <hr class="heading-line mb-4">
+  <div class="d-flex justify-content-end mb-4">
+    <div class="btn-group" role="group" aria-label="Sort options">
+      <%= link_to '投稿数順', genres_path(sort: 'posts_count'), class: "btn btn-outline-primary" %>
+      <%= link_to '名前順', genres_path(sort: 'name'), class: "btn btn-outline-primary" %>
+    </div>
+  </div>
 
-        <%= render "layouts/errors", obj: @genre %>
-
-        <%= form_with model: @genre, url: genres_path, class: 'form-group row' do |f| %>
-          <div class="col-8">
-            <%= f.text_field :name, size: 50, placeholder: 'ジャンル名を入力してください', class: 'form-control mb-3' %>
-          </div>
-          <div class="col-4"> <!-- col-4でボタンの幅を指定 -->
-            <%= f.submit "新規登録", class: 'btn btn-success btn-block' %>
-          </div>
-        <% end %>
-
-        <div class="row">
-          <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead align="center">
-                  <tr>
-                    <th scope="col">ジャンル名</th>
-                    <th scope="col">操作</th>
-                  </tr>
-                </thead>
-                <tbody align="center">
-                  <% @genres.each do |genre| %>
-                    <tr>
-                      <td><%= genre.name %></td>
-                      <td><%= link_to '編集', edit_genre_path(genre), class: 'btn btn-primary btn-sm' %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+  <div class="row mt-4">
+    <% @genres.each do |genre| %>
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">
+              <%= link_to genre.name, genre_search_path(genre_id: genre.id), class: "text-dark" %>
+              <span class="badge bg-primary rounded-pill"><%= genre.posts.count %></span>
+            </h5>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
+

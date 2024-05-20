@@ -13,6 +13,10 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :introduction, presence: true
   validates :genre_id, presence: true
+  
+  scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(created_at: :asc)}
+  scope :like_count, -> {order(like: :desc)}
 
   attr_accessor :new_genre_name
   
