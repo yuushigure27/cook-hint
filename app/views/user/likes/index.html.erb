@@ -3,12 +3,12 @@
   <p class="m-3 mb-0">(全<%= @likes.count %>件)</p>
   <hr class="heading-line mb-4">
   <% if @likes.any? %>
-    <div class = "row">
+    <div class="row">
       <% @posts.each do |post| %>
-        <div class="col-3 my-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 my-3">
           <div class="card shadow-sm" style="height: 100%;">
             <% if post.image.attached? %>
-              <%= image_tag like.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
+              <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
             <% else %>
               <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
             <% end %>
