@@ -7,7 +7,7 @@
         <%= render "layouts/errors", obj: @genre %>
 
         <%= form_with model: @genre, url: genres_path, class: 'form-group row' do |f| %>
-          <div class="col-8"> 
+          <div class="col-8">
             <%= f.text_field :name, size: 50, placeholder: 'ジャンル名を入力してください', class: 'form-control mb-3' %>
           </div>
           <div class="col-4"> <!-- col-4でボタンの幅を指定 -->
