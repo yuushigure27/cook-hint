@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- ユーザーの投稿一覧 -->
     <div class="col-md-9">
       <div class="album bg-body-tertiary">
@@ -38,7 +38,7 @@
             </div>
           <% else %>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <% @user.posts.each do |post| %>
+              <% @posts.each do |post| %>
                 <div class="col my-4">
                   <div class="card shadow-sm" style="height: 100%;">
                     <% if post.image.attached? %>
