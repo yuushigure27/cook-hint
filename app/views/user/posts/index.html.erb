@@ -12,6 +12,9 @@
           <div class="text-center">
             <h2>投稿一覧</h2>
             <p class="m-3 mb-0">(全<%= @post_all.count %>件)</p>
+            <%= link_to '新しい順', posts_path(latest: "true") %>
+            |<%= link_to '古い順', posts_path(old: "true") %>
+            |<%= link_to '評価の高い順', posts_path(star_count: "true") %>
           </div>
           <hr class="heading-line w-100">
           <% if @posts.empty? %>
@@ -22,13 +25,13 @@
             <div class="album bg-body-tertiary">
               <%= render "user/posts/post_index", posts: @posts %>
             </div>
-            <div class="row">
+            <!--<div class="row">-->
               <!-- ページネーション -->
-              <div class="col text-center m-3">
-                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
-                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
-              </div>
-            </div>
+            <!--  <div class="col text-center m-3">-->
+            <!--    <#%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>-->
+            <!--    <#%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>-->
+            <!--  </div>-->
+            <!--</div>-->
           <% end %>
         </div>
       </div>

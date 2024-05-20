@@ -28,6 +28,8 @@
           <div class="text-center">
             <h2><%= @user.name %>さんの投稿一覧</h2>
             <p class="m-3 mb-0">(全<%= @user.posts.count %>件)</p>
+            <%= link_to '新しい順',my_page_path(latest: "true") %>
+            |<%= link_to '古い順', my_page_path(old: "true") %>
           </div>
           <hr class="heading-line w-100">
           <% if @user.posts.empty? %>

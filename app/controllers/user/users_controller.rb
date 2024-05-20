@@ -8,6 +8,16 @@ class User::UsersController < ApplicationController
     else
       @user = current_user
     end
+    @posts = Post.page(params[:page]).per(12)
+     if params[:latest]
+       @posts = Post.latest
+     elsif params[:old]
+       @posts = Post.old
+     elsif params[:like_count]
+       @posts = Post.like_count
+     else
+       @posts = Post.all
+     end
   end
 
   def edit

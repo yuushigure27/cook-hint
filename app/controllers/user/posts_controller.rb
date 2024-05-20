@@ -34,6 +34,15 @@ class User::PostsController < ApplicationController
     @posts = Post.page(params[:page]).per(12)
     @post_all = Post.all
     
+     if params[:latest]
+       @posts = Post.latest
+     elsif params[:old]
+       @posts = Post.old
+     elsif params[:like_count]
+       @posts = Post.like_count
+     else
+       @posts = Post.all
+     end
   end
 
   def update
