@@ -32,18 +32,17 @@ class User::PostsController < ApplicationController
   def index
     @genres = Genre.all
     @post_all = Post.all
-    
+
     if params[:latest]
-      @posts = Post.order(created_at: :desc)
+      @posts = Post.latest
     elsif params[:old]
-      @posts = Post.order(created_at: :asc)
-    elsif params[:like_count]
-      @posts = Post.order(like_count: :desc)
+      @posts = Post.old
+    elsif params[:most_liked]
+      @posts = Post.most_liked
     else
-      @posts = Post.order(created_at: :desc) # デフォルトは新しい順
+      @posts = Post.all
     end
     
-    @posts = @posts.page(params[:page]).per(12)
   end
 
   def update

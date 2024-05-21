@@ -14,7 +14,7 @@
             <p class="m-3 mb-0">(全<%= @posts_all.count %>件)</p>
             <%= link_to '新しい順', genre_search_path(genre_id: @genre.id, latest: "true") %>
             | <%= link_to '古い順', genre_search_path(genre_id: @genre.id, old: "true") %>
-            | <%= link_to '評価の高い順', genre_search_path(genre_id: @genre.id, star_count: "true") %>
+            | <%= link_to '評価の高い順', genre_search_path(genre_id: @genre.id, most_liked: "true") %>
           </div>
           <hr class="heading-line w-100">
           <% if @genre.posts.empty? %>
@@ -28,8 +28,8 @@
             <div class="row">
               <!-- ページネーション -->
               <div class="col text-center m-3">
-                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
-                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
+                <%#= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
+                <%#= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
               </div>
             </div>
           <% end %>
