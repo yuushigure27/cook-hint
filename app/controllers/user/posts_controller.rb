@@ -34,13 +34,13 @@ class User::PostsController < ApplicationController
     @post_all = Post.all
 
     if params[:latest]
-      @posts = Post.latest
+      @posts = Post.latest.page(params[:page]).per(12)
     elsif params[:old]
-      @posts = Post.old
+      @posts = Post.old.page(params[:page]).per(12)
     elsif params[:most_liked]
-      @posts = Post.most_liked
+      @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
     else
-      @posts = Post.all
+      @posts = Post.latest.page(params[:page]).per(12)
     end
     
   end
