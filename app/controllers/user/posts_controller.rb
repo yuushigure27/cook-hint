@@ -48,6 +48,7 @@ class User::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      handle_new_genre_name
       redirect_to post_path(@post), notice: "投稿を更新しました"
     else
       @genres = Genre.all
@@ -76,6 +77,12 @@ class User::PostsController < ApplicationController
     params.require(:post).permit(:title, :introduction, :genre_id, :image, :new_genre_name)
   end
 
-
-
+  def handle_new_genre_name
+    if post_params[:new_genre_name].present?
+      # 新しいジャンルを取得または作成して、投稿に関連付ける
+      genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
+      @post.genre = genre
+      @post.save
+    end
+  end
 end
