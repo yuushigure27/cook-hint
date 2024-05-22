@@ -1,3 +1,19 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
 /* headerの背景色 */
 header.shadow-sm {
   background-color: #726250;
@@ -15,7 +31,7 @@ header.shadow-sm .search .fas {
 
 /*ホバーしたときに変わるわる色*/
 header.shadow-sm .nav-item .nav-link:hover{
-  color: white; 
+  color: white;
 }
 
 /* 検索フィールドのプレースホルダーの色 */
@@ -68,12 +84,18 @@ header.shadow-sm .navbar-toggler-icon {
 html, body {
     height: 100%;
     margin: 0;
+    background-color: #f5f5f5 !important; /* Light grey color to complement the header and footer */
 }
 
 body {
     display: flex;
     flex-direction: column;
-    background-color: #edddc9;
+    background-color: #f5f5f5 !important; 
+    color: #726250;
+}
+
+h2, p {
+  color: #726250;
 }
 
 main {
@@ -92,3 +114,64 @@ main {
     margin-top: auto;
     color: white;
 }
+
+
+
+/*投稿系*/
+.card {
+  color: #726250 !important; 
+  padding: 5px;
+}
+
+.card .btn-outline-secondary {
+  color: #726250;
+  border-color: #726250;
+}
+
+.card .btn-outline-secondary:hover {
+  background-color: #726250;
+  color: white;
+}
+
+/* カスタムカードのスタイル */
+.card-custom {
+  color: #726250 !important; 
+  padding: 5px;
+  height: 100%;
+}
+
+
+.card-custom .btn-outline-secondary {
+  color: #726250;
+  border-color: #726250;
+}
+
+.card-custom .btn-outline-secondary:hover {
+  background-color: #726250;
+  color: white;
+}
+
+/*ジャンルのサイドバー*/
+/* ジャンルタイトル */
+h4.text-center {
+  color: #726250; 
+}
+
+/* ジャンルリンクのスタイル */
+.list-group-item a {
+  color: #726250 !important;
+}
+
+/* ジャンルリンクのホバースタイル */
+.list-group-item a:hover {
+  text-decoration: none; 
+}
+
+/* ジャンルリンクのバッジのスタイル */
+.badge.bg-primary {
+  background-color: #F08080 !important; 
+  color: #726250;
+}
+
+
+

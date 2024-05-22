@@ -12,13 +12,13 @@
 </div>
 
 <div class="py-5 text-center container">
-  <h1 class="fw-light">新着投稿一覧</h1>
+  <h2 class="fw-light">新着投稿一覧</h2>
   <hr class="heading-line mb-4">
 </div>
 
 <div class="album bg-body-tertiary">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3"> <!-- 修正点: row-cols-md-4 -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3"> 
       <% @posts.each do |post| %>
         <div class="col my-3">
           <div class="card shadow-sm" style="height: 100%;">
@@ -28,8 +28,8 @@
               <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
             <% end %>
             <div class="card-body">
-              <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
-              <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
+              <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
+              <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 15) %></p>
               <div class="d-flex justify-content-between align-items-center">
                 <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
                 <div>
