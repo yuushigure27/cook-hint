@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root to: "post#index"
+    #root to: "sessions#new"
     resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
     resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
