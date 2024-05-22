@@ -31,23 +31,24 @@ class User::PostsController < ApplicationController
 
   def index
     @genres = Genre.all
-    @posts = Post.page(params[:page]).per(12)
     @post_all = Post.all
+
+    if params[:latest]
+      @posts = Post.latest.page(params[:page]).per(12)
+    elsif params[:old]
+      @posts = Post.old.page(params[:page]).per(12)
+    elsif params[:most_liked]
+      @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
+    else
+      @posts = Post.latest.page(params[:page]).per(12)
+    end
     
-     if params[:latest]
-       @posts = Post.latest
-     elsif params[:old]
-       @posts = Post.old
-     elsif params[:like_count]
-       @posts = Post.like_count
-     else
-       @posts = Post.all
-     end
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      handle_new_genre_name
       redirect_to post_path(@post), notice: "投稿を更新しました"
     else
       @genres = Genre.all
@@ -76,6 +77,12 @@ class User::PostsController < ApplicationController
     params.require(:post).permit(:title, :introduction, :genre_id, :image, :new_genre_name)
   end
 
-
-
+  def handle_new_genre_name
+    if post_params[:new_genre_name].present?
+      # 新しいジャンルを取得または作成して、投稿に関連付ける
+      genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
+      @post.genre = genre
+      @post.save
+    end
+  end
 end

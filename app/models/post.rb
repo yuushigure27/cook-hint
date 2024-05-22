@@ -16,7 +16,8 @@ class Post < ApplicationRecord
   
   scope :latest, -> {order(created_at: :desc)}
   scope :old, -> {order(created_at: :asc)}
-  scope :like_count, -> {order(like: :desc)}
+  scope :most_liked, -> { includes(:liked_users)
+  .sort_by { |x| x.liked_users.includes(:likes).size }.reverse }
 
   attr_accessor :new_genre_name
   

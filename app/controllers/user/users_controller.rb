@@ -8,16 +8,19 @@ class User::UsersController < ApplicationController
     else
       @user = current_user
     end
-    @posts = Post.page(params[:page]).per(12)
-     if params[:latest]
-       @posts = Post.latest
-     elsif params[:old]
-       @posts = Post.old
-     elsif params[:like_count]
-       @posts = Post.like_count
-     else
-       @posts = Post.all
-     end
+
+     @posts = current_user.posts
+    if params[:latest]
+      @posts = @posts.order(created_at: :desc)
+    elsif params[:old]
+      @posts = @posts.order(created_at: :asc)
+    elsif params[:like_count]
+      @posts = @posts.order(like_count: :desc)
+    else
+      @posts = @posts.order(created_at: :desc) # 新しい順がデフォルト
+    end
+
+    @posts = @posts.page(params[:page]).per(12)
   end
 
   def edit

@@ -11,10 +11,10 @@
         <div class="container">
           <div class="text-center">
             <h2><%= @genre.name %>一覧</h2>
-            <p class="m-3 mb-0">(全<%=  @posts_all.count %>件)</p>
-            <%= link_to '新しい順', genre_search_path(latest: "true") %>
-            |<%= link_to '古い順', genre_search_path(old: "true") %>
-            |<%= link_to '評価の高い順', genre_search_path(star_count: "true") %>
+            <p class="m-3 mb-0">(全<%= @posts_all.count %>件)</p>
+            <%= link_to '新しい順', genre_search_path(genre_id: @genre.id, latest: "true") %>
+            | <%= link_to '古い順', genre_search_path(genre_id: @genre.id, old: "true") %>
+            | <%= link_to '評価の高い順', genre_search_path(genre_id: @genre.id, most_liked: "true") %>
           </div>
           <hr class="heading-line w-100">
           <% if @genre.posts.empty? %>
