@@ -1,4 +1,6 @@
 class User::CommentsController < ApplicationController
+  before_action :check_guest_user, only: [:create]
+  
 def create
   @post = Post.find(params[:post_id])
   @comment = @post.comments.build(comment_params)
@@ -39,5 +41,12 @@ end
 
   def comment_params
      params.require(:comment).permit(:content)
+  end
+  
+  def check_guest_user
+    @post = Post.find(params[:post_id])
+    if current_user.email == "guest@example.com"
+      redirect_to post_path(@post), alert: "ゲストユーザーはコメントできません。"
+    end
   end
 end

@@ -1,5 +1,6 @@
 class User::LikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_guest_user, only: [:create, :destroy]
 
   def create
     post = Post.find(params[:post_id])
@@ -17,5 +18,13 @@ class User::LikesController < ApplicationController
   def index
     @likes = current_user.likes.includes(:post)
     @posts =Post.where(id: @likes.pluck(:post_id)).page(params[:page]).per(12)
+  end
+  
+  private
+
+  def check_guest_user
+    if current_user.email == "guest@example.com"
+      redirect_back fallback_location: root_path, alert: "ゲストユーザーはいいねを押せません。"
+    end
   end
 end
