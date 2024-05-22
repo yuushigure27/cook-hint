@@ -13,7 +13,9 @@
  *= require_tree .
  *= require_self
  */
-
+header {
+  background-color: #69b076;
+}
 
 .bg-image {
   margin: 0;
@@ -51,7 +53,7 @@ main {
 }
 
 .footer {
-    background-color: #ffffe0;
+    background-color: #69b076;
     padding: 1rem 0;
     text-align: center;
     width: 100%;
