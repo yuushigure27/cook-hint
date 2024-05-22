@@ -14,7 +14,7 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">
-              <%= link_to genre.name, genre_search_path(genre_id: genre.id), class: "text-dark" %>
+              <%= link_to genre.name, edit_admin_genre_path(genre), class: "text-dark" %>
               <span class="badge bg-primary rounded-pill"><%= genre.posts.count %></span>
             </h5>
           </div>
