@@ -12,8 +12,10 @@
           <p><%= @user.introduction %></p>
           <div>
             <% if current_user == @user %>
-              <%= link_to users_edit_path(@user), class: "btn btn-outline-secondary" do %>
-                <i class="fas fa-user-cog"></i> プロフィールを編集
+              <% if current_user.email != "guest@example.com" %>
+                <%= link_to users_edit_path(@user), class: "btn btn-outline-secondary" do %>
+                  <i class="fas fa-user-cog"></i> プロフィールを編集
+                <% end %>
               <% end %>
             <% end %>
           </div>
