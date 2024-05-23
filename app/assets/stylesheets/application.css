@@ -24,20 +24,17 @@ header.shadow-sm .navbar-text{
   color: #FFD700; /*黄色*/
 }
 /* ナビゲーションリンクや検索アイコンの文字色 */
-header.shadow-sm .nav-item .nav-link,
-header.shadow-sm .search .fas {
+
+header.shadow-sm .search .fas,
+header.shadow-sm .nav-item .nav-link:hover,
+header.shadow-sm .search input[type="text"]::placeholder{
   color: #F08080; /*ピンク*/
 }
 
-/*ホバーしたときに変わるわる色*/
-header.shadow-sm .nav-item .nav-link:hover{
+header.shadow-sm .nav-item .nav-link{
   color: white;
 }
 
-/* 検索フィールドのプレースホルダーの色 */
-header.shadow-sm .search input[type="text"]::placeholder {
-  color: #F08080;
-}
 
 /* トグルアイコンの色 */
 header.shadow-sm .navbar-toggler-icon {

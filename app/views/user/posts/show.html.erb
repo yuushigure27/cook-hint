@@ -83,14 +83,7 @@
     <% end %>
   </div>
 
-  <div class="mt-4 mx-auto" style="max-width: 600px;">
-    <%= form_with model: [@post, @comment], url: post_comments_path(@post), class: "form-inline" do |f| %>
-      <div class="form-group w-100 mb-3">
-        <%= f.text_area :content, rows: '3', placeholder: "コメントをここに", class: "form-control w-100" %>
-      </div>
-      <div class="form-group w-100 text-right">
-        <%= f.submit "送信する", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+  <div id="comment-buttons-<%= @post.id %>">
+    <%= render "user/comments/comment", posts: @posts %>
   </div>
 </div>

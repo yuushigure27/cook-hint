@@ -1,0 +1,2 @@
+$('#comment-buttons-<%= @post.id %>').html("<%= j(render partial: 'user/comments/comment', locals: { post: @post }) %>");
+$('#commentarea').val("");
