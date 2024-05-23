@@ -1,1 +1,193 @@
 @use '~bootstrap/scss/bootstrap';
+
+/* headerの背景色 */
+header.shadow-sm {
+  background-color: #726250;
+}
+
+/* ユーザーログイン時、ヘッダーに表示される文字の色 */
+header.shadow-sm .navbar-text{
+  color: white; /*黄色*/
+}
+/* ナビゲーションリンクや検索アイコンの文字色 */
+
+header.shadow-sm .search .fas,
+header.shadow-sm .nav-item .nav-link:hover,
+header.shadow-sm .search input[type="text"]::placeholder{
+  color: #F08080; /*ピンク*/
+}
+
+header.shadow-sm .nav-item .nav-link{
+  color: white;
+}
+
+
+/* トグルアイコンの色 */
+header.shadow-sm .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Search button styles */
+.cute-search-button {
+  background-color: #F08080;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cute-search-button:hover {
+  background-color: #FF6347;
+}
+
+/* Icon inside the search button */
+.cute-search-button .fas {
+  color: white;
+}
+
+.bg-image {
+  margin: 0;
+  width: 100vw;
+  height: 70vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../images/スムージー1 (1).jpg');
+}
+
+@media (max-width: 768px) {
+  .bg-image {
+    height: 50vh;
+  }
+}
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #f5f5f5 !important; /* Light grey color to complement the header and footer */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5 !important;
+    color: #726250;
+}
+
+h2, p {
+  color: #726250;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+
+}
+
+.footer {
+    background-color: #726250;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    color: white;
+}
+
+
+
+/*投稿のカード*/
+.card {
+  color: #726250 !important;
+  padding: 5px;
+}
+
+.card .btn-outline-secondary {
+  color: #726250;
+  border-color: #726250;
+}
+
+.card .btn-outline-secondary:hover {
+  background-color: #726250;
+  color: white;
+}
+
+/* カスタムカードのスタイル */
+.card-custom {
+  color: #726250 !important;
+  padding: 5px;
+  height: 100%;
+}
+
+
+.card-custom .btn-outline-secondary {
+  color: #726250;
+  border-color: #726250;
+}
+
+.card-custom .btn-outline-secondary:hover {
+  background-color: #726250;
+  color: white;
+}
+
+/*ジャンルのサイドバー*/
+/* ジャンルタイトル */
+h4.text-center {
+  color: #726250;
+}
+
+/* ジャンルリンクのスタイル */
+.list-group-item a {
+  color: #726250 !important;
+}
+
+/* ジャンルリンクのホバースタイル */
+.list-group-item a:hover {
+  text-decoration: none;
+}
+
+/* ジャンルリンクのバッジのスタイル */
+.badge.bg-primary {
+  background-color: #F08080 !important;
+  color: #726250;
+}
+
+
+/*一覧画面の新しい順、古い順、評価準のボタンの色*/
+.btn-outline-primary {
+  color: #726250 !important;
+  border-color: #726250 !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  color: #fff !important;
+  background-color: #726250 !important;
+  border-color: #726250 !important;
+}
+
+.btn-outline-primary:active {
+  color: #fff !important;
+  background-color: #726250 !important;
+  border-color: #726250 !important;
+}
+
+.btn-outline-primary:active:focus {
+  box-shadow: 0 0 0 0.2rem rgba(240, 128, 128, 0.5) !important;
+}
+
+/*いいねのハート*/
+.like-link .fa-heart,
+.like-link .like-count {
+  color: #e42f3c !important;
+}
+
+
+.card-text__introduction {
+    height: 2.5rem;
+    overflow: hidden;
+  }

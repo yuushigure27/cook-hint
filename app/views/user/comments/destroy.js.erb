@@ -1,1 +1,2 @@
-$('#comment-buttons-<%= @post.id %>').html("<%= j(render partial: 'user/comments/comment', locals: { post: @post }) %>");
+$('#post-comment-<%= @comment.id %>').remove();
+$('#comment-count').text(<%= @post.comments.size %>);
