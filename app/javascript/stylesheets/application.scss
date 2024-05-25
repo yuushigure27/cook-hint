@@ -1,4 +1,5 @@
 @use '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi&family=Kiwi+Maru&family=Yomogi&display=swap');
 
 /* headerの背景色 */
 header.shadow-sm {
@@ -78,6 +79,9 @@ body {
     flex-direction: column;
     background-color: #f5f5f5 !important;
     color: #726250;
+    font-family: "Yomogi", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 h2, p {
@@ -97,7 +101,7 @@ main {
     padding: 1rem 0;
     text-align: center;
     width: 100%;
-    margin-top: auto;
+    margin-top: 40px;
     color: white;
 }
 
@@ -150,7 +154,7 @@ h4.text-center {
 
 /* ジャンルリンクのホバースタイル */
 .list-group-item a:hover {
-  text-decoration: none;
+  // text-decoration: none;
 }
 
 /* ジャンルリンクのバッジのスタイル */
@@ -194,7 +198,7 @@ h4.text-center {
     height: 2.5rem;
     overflow: hidden;
 }
-  
+
 .form-container {
     background-color: white;
 }

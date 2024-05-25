@@ -1,37 +1,36 @@
 <div class="container px-1 py-2">
-  <div class="row">
-    <h2>ユーザー 一覧</h2>
-    <hr class="heading-line">
-    <table class="table">
-      <thead>
-        <tr class="table-secondary">
-          <th>ID</th>
-          <th>ユーザー名</th>
-          <th>メールアドレス</th>
-          <th>ステータス</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-        <tr>
-          <td style="width:3em;"><%= user.id %></td>
-          <td>
-            <%= link_to admin_user_path(user.id), class: "text-green" do %>
-              <%= user.name %>
-            <% end %>
-          </td>
-          <td><%= user.email %></td>
-          <td>
-            <% if user.is_active %>
-              <div class="text-success"><b>有効</b></div>
-            <% else %>
-              <div class="text-secondary"><b>退会</b></div>
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="row mt-4">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2>ユーザー一覧</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-secondary">
+            <th>ID</th>
+            <th>ユーザー名</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td style="width: 20%;"><%= user.id %></td>
+            <td style="width: 30%;">
+              <%= link_to admin_user_path(user.id), class: "text-green" do %>
+                 <%= truncate(user.name, length: 15) %>
+              <% end %>
+            </td>
+            <td style="width: 20%;">
+              <% if user.is_active %>
+                <div class="text-success"><b>有効</b></div>
+              <% else %>
+                <div class="text-secondary"><b>退会</b></div>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div> 
   </div>
   <div class="row">
     <div class="col text-center m-4">

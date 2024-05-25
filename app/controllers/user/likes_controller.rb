@@ -19,7 +19,7 @@ class User::LikesController < ApplicationController
 
   def index
     @likes = current_user.likes.includes(:post)
-    @posts =Post.where(id: @likes.pluck(:post_id)).page(params[:page]).per(12)
+    @posts = Post.where(id: @likes.pluck(:post_id)).order(created_at: :desc).page(params[:page]).per(12)
   end
   
   private

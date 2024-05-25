@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4 overflow-auto">
   <div class="row my-3">
     <div class="col-sm-8 px-sm-0 offset-sm-1">
       <h2>投稿一覧</h2>
@@ -8,19 +8,19 @@
     <div class="col-sm-10 px-sm-0 offset-sm-1">
       <table class="table table-hover table-bordered text-center">
         <thead>
-          <tr>
-            <th class="table-active">タイトル</th>
-            <th class="table-active">内容</th>
-            <th class="table-active">ジャンル</th>
-            <th class="table-active">削除</th>
+          <tr class="table-secondary">
+            <th style="width: 30%;">タイトル</th>
+            <th style="width: 30%;">内容</th>
+            <th style="width: 20%;">ジャンル</th>
+            <th style="width: 20%;">削除</th>
           </tr>
         </thead>
         <tbody>
           <% @posts.each do |post| %>
           <tr>
             <td><%= link_to truncate(post.title, length: 10), admin_post_path(post.id), class: "border:solid 1px" %></td>
-            <td><%= truncate(post.introduction, length: 15) %></td>
-            <td><%= post.genre.name %></td>
+            <td><%= truncate(post.introduction, length: 10) %></td>
+            <td><%= truncate(post.genre.name, length: 5) %></td>
             <td>
               <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
             </td>

@@ -32,12 +32,12 @@
               <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
             <% end %>
             <div class="card-body">
-              <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
-              <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 15) %></p>
+              <p class="card-text__title" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
+              <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
               <div class="d-flex justify-content-between align-items-center">
                 <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
                 <div>
-                  <%= render "user/likes/form", post: post %>
+                  <%= render "user/likes/form", post: post, action_name: controller.action_name %>
                 </div>
               </div>
             </div>
