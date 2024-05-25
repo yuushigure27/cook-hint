@@ -17,7 +17,7 @@ class User::SearchesController < ApplicationController
     elsif params[:most_liked]
       @posts = Kaminari.paginate_array(@posts.most_liked).page(params[:page]).per(12)
     else
-      @posts = @posts.all.page(params[:page]).per(12)
+      @posts = @posts.latest.page(params[:page]).per(12)
     end
 
   end
@@ -25,8 +25,14 @@ class User::SearchesController < ApplicationController
   def search
     @genres = Genre.all
     @keyword = params[:keyword]
-    @results = Post.search_for(@keyword)
-    @posts = @results
+  
+    if @keyword.present?
+      @results = Post.search_for(@keyword).order(created_at: :desc)
+      @posts = @results
+    else
+      @posts = Post.none
+    end
+  
     render 'user/searches/search'
   end
 
