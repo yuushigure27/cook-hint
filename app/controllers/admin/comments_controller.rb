@@ -16,10 +16,5 @@ class Admin::CommentsController < ApplicationController
      params.require(:comment).permit(:content)
   end
   
-  # def check_guest_user
-  #   @post = Post.find(params[:post_id])
-  #   if current_user.email == "guest@example.com"
-  #     redirect_to post_path(@post), alert: "ゲストユーザーはコメントできません。"
-  #   end
-  # end
+ 
 end

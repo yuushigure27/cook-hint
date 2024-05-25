@@ -45,18 +45,18 @@
                 </div>
               </div>
           
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row">
               <% @posts.each do |post| %>
-                <div class="col my-4">
-                  <div class="card shadow-sm" style="height: 100%;">
+                <div class="col-sm-6 col-lg-4 my-4">
+                  <div class="card card-custom shadow-sm" >
                     <% if post.image.attached? %>
                       <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
                     <% else %>
                       <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
                     <% end %>
                     <div class="card-body">
-                      <p class="card-text" style="font-size: 1rem;"><%= truncate(post.title, length: 15) %></p>
-                      <p class="card-text" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 40) %></p>
+                      <p class="card-text__title" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
+                      <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
                       <div class="d-flex justify-content-between align-items-center">
                         <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
                         <%= render "user/likes/form", post: post %>
@@ -65,6 +65,13 @@
                   </div>
                 </div>
               <% end %>
+            </div>
+            <div class="row">
+               <!--ページネーション -->
+              <div class="col text-center m-3">
+                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
+                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
+              </div>
             </div>
           <% end %>
         </div>

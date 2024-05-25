@@ -26,8 +26,11 @@ ja:
         unconfirmed_email: 未確認のメールアドレス
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+      genre: 
+        name: ジャンル
     models:
       user: ユーザー
+      genre: ジャンル
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
