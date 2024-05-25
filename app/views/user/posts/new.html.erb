@@ -28,8 +28,9 @@
 
             <div class="form-group">
               <%= f.label :genre_id, "ジャンル" %>
-              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい（無い場合は下に入力してください）" }, class: "form-control" %>
-              <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力してください", class: "form-control mt-2" %>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい（無い場合は下に入力してください）" }, class: "form-control", id: "genreSelect" %>
+              <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力してください", class: "form-control mt-2", id: "newGenreName" %>
+              <button type="button" class="btn btn-secondary mt-2" id="addGenreButton">ジャンル追加</button>
             </div>
 
             <%= f.submit "新規登録", class: "btn btn-block btn-primary mt-3" %>
@@ -41,7 +42,6 @@
 </div>
 
 <div class="mt-5"></div>
-</div>
 
 <script>
   // JavaScript  選択した画像をプレビュー
@@ -64,5 +64,51 @@
       fileLabel.innerHTML = "アップロードするファイルを選択してください";
     }
   });
-</script>
 
+  // JavaScript genre
+  document.getElementById('newGenreName').addEventListener('input', function() {
+    const maxLength = 15;
+    if (this.value.length > maxLength) {
+      this.value = this.value.substring(0, maxLength);
+      alert('ジャンル名は最大15文字以内にしてください。');
+    }
+  });
+
+  document.getElementById('addGenreButton').addEventListener('click', function() {
+    const newGenreName = document.getElementById('newGenreName').value;
+
+    if (newGenreName.trim() !== "") {
+      if (newGenreName.length > 15) {
+        alert('ジャンル名は最大15文字以内にしてください。');
+        return;
+      }
+      fetch('/genres', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ genre: { name: newGenreName } })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.errors) {
+          alert('Error: ' + data.errors.join(', '));
+        } else {
+          const genreSelect = document.getElementById('genreSelect');
+          const newOption = document.createElement('option');
+          newOption.value = data.id;
+          newOption.textContent = data.name;
+          newOption.selected = true;
+          genreSelect.appendChild(newOption);
+          document.getElementById('newGenreName').value = "";
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    } else {
+      alert('新しいジャンルを入力してください');
+    }
+  });
+</script>

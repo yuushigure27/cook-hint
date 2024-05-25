@@ -20,16 +20,10 @@ class User::GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     if @genre.save
-      if request.referer == new_post_url
-        flash[:notice] = "ジャンルの作成に成功しました"
-        redirect_to request.referer
-      else
-        redirect_to genres_path
-      end
+      render json: { id: @genre.id, name: @genre.name }
     else
-      @genres = Genre.all
-      render 'index'
-    end  
+      render json: { errors: @genre.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def edit
