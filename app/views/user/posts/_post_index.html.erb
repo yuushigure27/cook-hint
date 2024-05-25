@@ -13,7 +13,7 @@
           <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
           <div class="d-flex justify-content-between align-items-center">
             <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-            <%= render "user/likes/form", post: post %>
+            <%= render "user/likes/form", post: post, action_name: controller.action_name %>
           </div>
         </div>
       </div>
@@ -21,6 +21,4 @@
   <% end %>
 </div>
 
-<style>
-  
-</style>
+

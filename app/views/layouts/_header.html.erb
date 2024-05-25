@@ -13,9 +13,9 @@
           <% if admin_signed_in? %>
             <%= form_with url: admin_search_path, method: :get do |f| %>
               <%= f.radio_button :search_obj, :users, checked: "checked", value: "users", class: "cursor"%>
-              <%= f.label :search_obj_users, "ユーザー", class: "cursor" %>
+              <%= f.label :search_obj_users, "ユーザー", class: "cursor text-white" %>
               <%= f.radio_button :search_obj, :posts, value: "posts", class: "cursor" %>
-              <%= f.label :search_obj_posts, "投稿", class: "cursor" %>
+              <%= f.label :search_obj_posts, "投稿", class: "cursor text-white" %>
               <%= f.text_field :keyword, placeholder: " 検索" %>
               <%= button_tag type: "submit", class: "cute-search-button" do %>
                 <i class="fas fa-search text-white"></i>
@@ -63,3 +63,4 @@
     </div>
   </nav>
 </header>
+

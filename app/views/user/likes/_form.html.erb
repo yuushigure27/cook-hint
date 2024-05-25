@@ -1,13 +1,17 @@
 <div id="like-buttons-<%= post.id %>" class="d-flex align-items-center">  <% if post.liked_by?(current_user) %>
-    <%= link_to post_likes_path(post), method: :delete, remote: true, class: "d-flex align-items-center me-3 like-link liked" do %>
+    <%= link_to post_likes_path(post, action_name: action_name), method: :delete, remote: true, class: "d-flex align-items-center me-3 like-link liked" do %>
       <i class="fa-solid fa-heart"></i><span class="ms-1 like-count"><%= post.likes.count %></span>
     <% end %>
   <% else %>
-    <%= link_to post_likes_path(post), method: :post, remote: true, class: "d-flex align-items-center me-3 like-link" do %>
+    <%= link_to post_likes_path(post, action_name: action_name), method: :post, remote: true, class: "d-flex align-items-center me-3 like-link" do %>
       <i class="fa-regular fa-heart"></i><span class="ms-1 like-count"><%= post.likes.count %></span>
     <% end %>
   <% end %>
-  <i class="far fa-comment" style="margin-left: 5px;"></i><span class="ms-1"><%= post.comments.count %></span>
+  
+  <% if action_name == "index" %>
+    <i class="far fa-comment" style="margin-left: 5px;"></i><span class="ms-1"><%= post.comments.count %></span>
+    
+  <% end %>
 </div>
 
 
