@@ -1,36 +1,36 @@
 <div class="container px-1 py-2">
-  <div class="row d-flex flex-row">
-    <h2 class="m-3"><%= @user.name %>さんのユーザー詳細</h2>
-    <hr class="heading-line">
-    <div class="col-12 col-md-8 mx-auto">
-      <table class="table table-bordered">
-        <tr>
-          <th class="table-active">会員ID</th>
-          <td><%= @user.id %></td>
-        </tr>
-        <tr>
-          <th class="table-active">ニックネーム</th>
-          <td><%= @user.name %>
-          </td>
-        </tr>
-        <tr>
-          <th class="table-active">メールアドレス</th>
-          <td><%= @user.email %></td>
-        </tr>
-        <tr>
-          <th class="table-active">会員ステータス</th>
-          <td>
-            <% if @user.is_active %>
-              <div class="text-success"><b>有効</b></div>
-            <% else %>
-              <div class="text-secondary"><b>退会</b></div>
-            <% end %>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-12 col-md-8 mx-auto">
-      <%= link_to '編集する', edit_admin_user_path(@user), class: "btn" %>
+  <div class="row mt-4">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="m-3"><%= @user.name %>さんのユーザー詳細</h2>
+      <div class="col-12">
+        <table class="table table-bordered">
+          <tr>
+            <th style="width: 30%;">会員ID</th>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <th>ニックネーム</th>
+            <td><%= @user.name %></td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th>会員ステータス</th>
+            <td>
+              <% if @user.is_active %>
+                <div class="text-success"><b>有効</b></div>
+              <% else %>
+                <div class="text-secondary"><b>退会</b></div>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-12 mt-3">
+        <%= link_to '編集する', edit_admin_user_path(@user), class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 </div>
