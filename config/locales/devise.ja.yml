@@ -28,6 +28,10 @@ ja:
         updated_at: 更新日
       genre: 
         name: ジャンル
+      post:
+        title: タイトル
+        introduction: 内容
+        genre_id: ジャンル
     models:
       user: ユーザー
       genre: ジャンル
