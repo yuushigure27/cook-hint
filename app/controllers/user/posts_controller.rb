@@ -1,6 +1,7 @@
 class User::PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_post, only: [:show, :edit, :update]
+  before_action :check_guest_user, only: [:new, :create]
 
   def new
     @post = Post.new
@@ -68,6 +69,12 @@ class User::PostsController < ApplicationController
   end
 
   private
+  
+  def check_guest_user
+    if current_user.email == "guest@example.com"
+      redirect_to posts_path, alert: "ゲストユーザーは新規投稿を作成できません。"
+    end
+  end
 
   def ensure_post
     @post = Post.find(params[:id])

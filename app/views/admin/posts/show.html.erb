@@ -6,7 +6,7 @@
     <div class="card-body">
       <div class="d-flex align-items-center mb-4">
         <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
-        <div><%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %></div>
+        <div><%= link_to @post.user.name, admin_user_path(@post.user.id), class: "text-dark font-weight-bold" %></div>
       </div>
 
       <div class="text-center p-4 mb-4">
@@ -33,7 +33,7 @@
       </div>
       
       <div class="card-footer text-right">
-        <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+        <%=  link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+          <%= link_to "削除", admin_post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
         </div>
       </div>
     <% end %>

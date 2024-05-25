@@ -1,0 +1,3 @@
+$('#post-comments').append("<%=j render 'user/comments/comment', post: @post, comment: @comment %>");
+$('#commentarea').val("");
+$('#comment-count').text(<%= @post.comments.size %>);

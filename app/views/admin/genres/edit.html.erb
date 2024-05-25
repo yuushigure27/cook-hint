@@ -1,11 +1,22 @@
 <div class="container mt-5">
-  <h2 class="fw-light">ジャンルを編集する</h2>
+  <h2 class="fw-light">ジャンル名編集</h2>
   <hr class="heading-line mb-4">
 
   <%= form_with(model: [:admin, @genre], local: true) do |form| %>
+    <% if @genre.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading">エラーがあります：</h4>
+        <ul>
+          <% @genre.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="mb-3">
       <%= form.label :name, 'ジャンル名', class: 'form-label' %>
-      <%= form.text_field :name, class: 'form-control' %>
+      <%= form.text_field :name, class: 'form-control', value: @genre.name %>
     </div>
 
     <div class="d-flex justify-content-end">
