@@ -5,7 +5,7 @@ class User::SearchesController < ApplicationController
     @genre = Genre.find(params[:genre_id])
     @genre_id = params[:genre_id]
     @posts = Post.where(genre_id: @genre_id).page(params[:page]).per(12) 
-    @genres = Genre.all
+    @genres = Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
     @posts_all = @genre.posts
     
     @posts = Post.where(genre_id: @genre_id)
