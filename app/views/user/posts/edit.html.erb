@@ -1,16 +1,16 @@
 <div class="container mt-5 px-1 py-2">
-  <%= render 'layouts/errors', obj: @post %>
-  <div class="text-center">
-    <h2 class="mb-4 d-inline">投稿編集</h2>
-    <div class= "text-left">
-      <%= link_to "戻る", post_path(@post), class: "btn btn-secondary d-inline text-left" %>
-    </div>
-  </div>
-  <hr class="heading-line mb-4">
-  <%= form_with(model: @post, url: post_path(@post), method: :patch, local: true, html: { multipart: true }) do |f| %>
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6">
-        <div class="bg-orange p-4 rounded shadow">
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <div class="text-center">
+        <h2 class="mb-4 d-inline">投稿編集</h2>
+        <div class= "text-left">
+          <%= link_to "戻る", post_path(@post), class: "btn btn-secondary d-inline text-left" %>
+        </div>
+      </div>
+      <hr class="heading-line mb-4">
+      <%= render 'layouts/errors', obj: @post %>
+      <%= form_with(model: @post, url: post_path(@post), method: :patch, local: true, html: { multipart: true }) do |f| %>
+        <div class="form-container p-4 rounded shadow">
           <div class="form-edit">
             <div class="form-group">
               <%= f.label :image, "画像" %>
@@ -35,7 +35,7 @@
               <%= f.text_area :introduction, placeholder: "ここに内容を記述します", rows: 5, class: "form-control" %>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
-              <%= f.label :genre_id, "ジャンル" %><br>
+              <%= f.label :genre_id, "ジャンル" ,style: "margin-bottom:0;"%><br>
               <small>（ジャンルがない場合、”新しくジャンルを入力”に入力し、ジャンル追加を押すと新しくジャンルが作成されます。）</small>
               <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい（無い場合は下に入力してください）" }, class: "form-control", id: "genreSelect" %>
               <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力してください", class: "form-control mt-2", id: "newGenreName" %>
@@ -46,9 +46,9 @@
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
 
 <script>
