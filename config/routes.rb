@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:index]
 
     # ジャンル
-    resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
+    resources :genres, only: [:index,:new,:create]
 
     # ユーザー
     get 'users' => 'users#index'
@@ -63,8 +63,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     #root to: "sessions#new"
-    resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
-    resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
+    resources :genres, only: [:index,:new,:edit,:update]
+    resources :posts, only: [:index,:show,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
 
     get "search" => "searches#search"
