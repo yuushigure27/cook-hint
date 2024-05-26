@@ -23,7 +23,12 @@ class User::SearchesController < ApplicationController
   end
 
   def search
-    @genres = Genre.all
+    @genres = case params[:sort]
+              when 'name'
+                Genre.order(:name)
+              else
+                Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
+              end
     @keyword = params[:keyword]
   
     if @keyword.present?
