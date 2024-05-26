@@ -33,5 +33,11 @@
 ​
 
 ## 使用素材
-- 
--
+
+以下のフリー素材を使用
+サイト名：https://www.pakutaso.com/
+
+toppage_image.jpg, URL: https://www.pakutaso.com/20180255038post-15122.html
+
+※使用条件確認済み
+https://www.pakutaso.com/userpolicy.html#terms
