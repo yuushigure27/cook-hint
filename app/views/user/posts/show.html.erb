@@ -1,5 +1,8 @@
 <div class="container mt-5 px-1 py-2">
   <h2 class="text-center mb-4">投稿詳細</h2>
+  <div class="text-center mb-4">
+    <%= link_to "前のページに戻る", request.referer || root_path, class: "btn btn-secondary" %>
+  </div>
   <hr class="heading-line mb-4">
 
   <div class="card mt-4 mx-auto" style="max-width: 600px;">
