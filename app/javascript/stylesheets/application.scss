@@ -250,3 +250,51 @@ h4.text-center {
 }
 
 
+
+// ページネーション
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination .page-item {
+  list-style: none;
+}
+
+.pagination .page-link {
+  color: #FFF;
+  background-color: #726250;
+  border: 1px solid #726250;
+  border-radius: 50%;
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s;
+  line-height: 35px; /* Ensures the text is vertically centered */
+}
+
+.pagination .page-link:hover {
+  background-color: #F08080;
+  color: #FFF;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #F08080;
+  color: #FFF;
+  border-color: #F08080;
+}
+
+.pagination .page-link:focus {
+  box-shadow: none;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: #e9ecef;
+  color: #6c757d;
+  border-color: #dee2e6;
+}
