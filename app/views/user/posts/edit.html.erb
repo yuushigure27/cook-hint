@@ -1,6 +1,11 @@
 <div class="container mt-5 px-1 py-2">
   <%= render 'layouts/errors', obj: @post %>
-  <h2 class="text-center mb-4">投稿編集</h2>
+  <div class="text-center">
+    <h2 class="mb-4 d-inline">投稿編集</h2>
+    <div class= "text-left">
+      <%= link_to "戻る", post_path(@post), class: "btn btn-secondary d-inline text-left" %>
+    </div>
+  </div>
   <hr class="heading-line mb-4">
   <%= form_with(model: @post, url: post_path(@post), method: :patch, local: true, html: { multipart: true }) do |f| %>
     <div class="row justify-content-center">
@@ -29,11 +34,12 @@
               <%= f.label :introduction, "内容" %>
               <%= f.text_area :introduction, placeholder: "ここに内容を記述します", rows: 5, class: "form-control" %>
             </div>
-            <div class="form-group">
-              <%= f.label :genre_id, "ジャンル", class: "form-label" %>
-              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" }, class: "form-control" %>
-              <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力", class: "form-control" %>
-              <small class="text-muted">（上記でジャンル選択していても新しくジャンルを入力した場合、入力したジャンルが優先されます。）</small>
+            <div class="form-group" style="margin: 0 !important;">
+              <%= f.label :genre_id, "ジャンル", class: "form-label mb-0"%><br>
+              <small>（ジャンルがない場合、”新しくジャンルを入力”に入力し、ジャンル追加を押すと新しくジャンルが作成されます。）</small>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" }, class: "form-control", id: "genreSelect" %>
+              <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力", class: "form-control mt-2", id: "newGenreName" %>
+              <button type="button" class="btn btn-secondary mt-2" id="addGenreButton">ジャンル追加</button>
             </div>
             <div class="text-center">
               <%= f.submit "更新する", class: "btn btn-primary mr-2" %>
@@ -46,7 +52,7 @@
 </div>
 
 <script>
-  // JavaScript to preview the selected image
+  // JavaScript  選択した画像をプレビュー
   document.getElementById("customFile").addEventListener("change", function() {
     const fileInput = this;
     const fileLabel = document.getElementById("fileLabel");
@@ -64,6 +70,53 @@
     } else {
       imagePreview.innerHTML = "<img src='/path/to/no_image.png' class='img-fluid' alt='No Image'>";
       fileLabel.innerHTML = "ファイルを選択してください";
+    }
+  });
+
+  // JavaScript to handle adding a new genre with max length validation
+  document.getElementById('newGenreName').addEventListener('input', function() {
+    const maxLength = 15;
+    if (this.value.length > maxLength) {
+      this.value = this.value.substring(0, maxLength);
+      alert('ジャンル名は最大15文字以内にしてください。');
+    }
+  });
+
+  document.getElementById('addGenreButton').addEventListener('click', function() {
+    const newGenreName = document.getElementById('newGenreName').value;
+
+    if (newGenreName.trim() !== "") {
+      if (newGenreName.length > 15) {
+        alert('ジャンル名は最大15文字以内にしてください。');
+        return;
+      }
+      fetch('/genres', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ genre: { name: newGenreName } })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.errors) {
+          alert('Error: ' + data.errors.join(', '));
+        } else {
+          const genreSelect = document.getElementById('genreSelect');
+          const newOption = document.createElement('option');
+          newOption.value = data.id;
+          newOption.textContent = data.name;
+          newOption.selected = true;
+          genreSelect.appendChild(newOption);
+          document.getElementById('newGenreName').value = "";
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    } else {
+      alert('新しいジャンルを入力してください');
     }
   });
 </script>

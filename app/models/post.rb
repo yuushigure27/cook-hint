@@ -10,8 +10,8 @@ class Post < ApplicationRecord
     liked_users.include?(user)
   end
 
-  validates :title, presence: true
-  validates :introduction, presence: true
+  validates :title, presence: true, length: { maximum: 20 }
+  validates :introduction, presence: true, length: { maximum: 200 }
   validates :genre_id, presence: true
   
   scope :latest, -> {order(created_at: :desc)}

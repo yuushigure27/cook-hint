@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   # 顧客用
   # URL /users/sign_in ...
   devise_for :users, controllers: {
@@ -13,13 +11,11 @@ Rails.application.routes.draw do
     post "user/guest_sign_in", to: "user/sessions#guest_sign_in"
   end
 
-
   scope module: :user do
     root to: "homes#top"
     get 'about' => 'homes#about'
     get 'genre_search', to: 'searches#genre_search', as: :genre_search
     get "search" => "searches#search"
-
 
     # 投稿
     get 'posts/new', to: 'posts#new', as: 'new_post'
@@ -28,7 +24,8 @@ Rails.application.routes.draw do
     get 'posts/:id', to: 'posts#show', as: 'post'
     get 'posts/:id/edit', to: 'posts#edit', as: 'edit_post'
     delete 'posts/:id', to: 'posts#destroy', as: 'delete_post'
-
+    
+    # コメント・いいね機能
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update]
       resource :likes, only: [:create, :destroy]
@@ -37,7 +34,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:index]
 
     # ジャンル
-    resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
+    resources :genres, only: [:index,:new,:create]
 
     # ユーザー
     get 'users' => 'users#index'
@@ -63,8 +60,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     #root to: "sessions#new"
-    resources :genres, only: [:index,:new,:create,:edit,:update,:destroy]
-    resources :posts, only: [:index,:new,:create,:show,:edit,:update,:destroy]
+    resources :genres, only: [:index,:new,:edit,:update]
+    resources :posts, only: [:index,:show,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
 
     get "search" => "searches#search"

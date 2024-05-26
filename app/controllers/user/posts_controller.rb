@@ -31,7 +31,7 @@ class User::PostsController < ApplicationController
   end
 
   def index
-    @genres = Genre.all
+    @genres = Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
     @post_all = Post.all
 
     if params[:latest]

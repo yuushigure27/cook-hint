@@ -1,10 +1,15 @@
 <div class="container mt-5 px-1 py-2">
   <%= render 'layouts/errors', obj: @post %>
-  <h2 class="text-center mb-4">新規投稿</h2>
+  <div class="text-center">
+    <h2 class="mb-4 d-inline">新規投稿</h2>
+    <div class= "text-left">
+      <%= link_to "戻る", request.referer || root_path, class: "btn btn-secondary d-inline text-left" %>
+    </div>
+  </div>
   <hr class="heading-line mb-4">
   <%= form_with model: @post, local: true do |f| %>
     <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6"> 
+      <div class="col-md-8 col-lg-6">
         <div class="form-container p-4 rounded shadow">
           <div class="form-new">
             <div class="form-group">
@@ -26,8 +31,9 @@
               <%= f.text_area :introduction, placeholder: "ここに内容を記述します", rows: 5, class: "form-control" %>
             </div>
 
-            <div class="form-group">
-              <%= f.label :genre_id, "ジャンル" %>
+            <div class="form-group mb-0">
+              <%= f.label :genre_id, "ジャンル" %><br>
+              <small>（ジャンルがない場合、”新しくジャンルを入力”に入力し、ジャンル追加を押すと新しくジャンルが作成されます。）</small>
               <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択して下さい（無い場合は下に入力してください）" }, class: "form-control", id: "genreSelect" %>
               <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力してください", class: "form-control mt-2", id: "newGenreName" %>
               <button type="button" class="btn btn-secondary mt-2" id="addGenreButton">ジャンル追加</button>
