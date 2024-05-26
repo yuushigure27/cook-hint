@@ -10,7 +10,7 @@
         <thead>
           <tr class="table-secondary">
             <th style="width: 30%;">タイトル</th>
-            <th style="width: 30%;">内容</th>
+            <th style="width: 30%;" class="d-none d-md-table-cell">内容</th>
             <th style="width: 20%;">ジャンル</th>
             <th style="width: 20%;">削除</th>
           </tr>
@@ -19,7 +19,7 @@
           <% @posts.each do |post| %>
           <tr>
             <td><%= link_to truncate(post.title, length: 10), admin_post_path(post.id), class: "border:solid 1px" %></td>
-            <td><%= truncate(post.introduction, length: 10) %></td>
+            <td class="d-none d-md-table-cell"><%= truncate(post.introduction, length: 10) %></td>
             <td><%= truncate(post.genre.name, length: 5) %></td>
             <td>
               <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
