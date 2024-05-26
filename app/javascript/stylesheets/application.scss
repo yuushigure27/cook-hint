@@ -204,3 +204,13 @@ h4.text-center {
 }
 
 
+// 新規投稿ボタン
+.custom-icon {
+  font-size: 30px;
+  color: #726250;
+  transition: color 0.3s ease; 
+}
+
+.custom-icon:hover {
+  color: #F08080; 
+}

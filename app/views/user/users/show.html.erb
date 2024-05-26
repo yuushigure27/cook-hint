@@ -15,6 +15,8 @@
               <% if current_user.email != "guest@example.com" %>
                 <%= link_to users_edit_path(@user), class: "btn btn-outline-secondary" do %>
                   <i class="fas fa-user-cog"></i> プロフィールを編集
+                <%= link_to 'いいね一覧', likes_path, class: "btn btn-secondary mt-2" %>
+
                 <% end %>
               <% end %>
             <% end %>
@@ -31,10 +33,9 @@
             <h2 class="d-inline"><%= @user.name %>さんの投稿一覧</h2>
             <span class="m-3 mb-0">(全<%= @user.posts.count %>件)</span>
           </div>
-  <div class= "text-right">
-    <%= link_to 'いいね一覧', likes_path, class: "btn btn-secondary" %>
-    <%= link_to '', new_post_path, class: "fa-solid fa-notes-medical" %>
-  </div>
+          <div class= "text-right">
+            <%= link_to '', new_post_path, class: "fa-solid fa-square-plus custom-icon" %>
+          </div>
           <hr class="heading-line w-100">
           <% if @user.posts.empty? %>
             <div class="mt-3">
