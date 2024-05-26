@@ -10,10 +10,13 @@
       <div class="album bg-body-tertiary">
         <div class="container">
           <div class="text-center">
-            <h2>投稿一覧</h2>
-            <p class="m-3 mb-0">(全<%= @post_all.count %>件)</p>
-            
-            
+            <h2 class="d-inline">投稿一覧</h2>
+            <span class="m-3 mb-0">(全<%= @post_all.count %>件)</span>
+<div class= "text-right">
+  <%= link_to '新規投稿', new_post_path, class: "btn btn-secondary" %>
+</div>
+
+
           </div>
           <hr class="heading-line w-100">
           <% if @posts.empty? %>

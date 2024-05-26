@@ -1,6 +1,11 @@
 <div class="container mt-5 px-1 py-2">
   <%= render 'layouts/errors', obj: @post %>
-  <h2 class="text-center mb-4">投稿編集</h2>
+  <div class="text-center">
+    <h2 class="mb-4 d-inline">投稿編集</h2>
+    <div class= "text-left">
+      <%= link_to "戻る", post_path(@post), class: "btn btn-secondary d-inline text-left" %>
+    </div>
+  </div>
   <hr class="heading-line mb-4">
   <%= form_with(model: @post, url: post_path(@post), method: :patch, local: true, html: { multipart: true }) do |f| %>
     <div class="row justify-content-center">
@@ -30,7 +35,7 @@
               <%= f.text_area :introduction, placeholder: "ここに内容を記述します", rows: 5, class: "form-control" %>
             </div>
             <div class="form-group" style="margin: 0 !important;">
-              <%= f.label :genre_id, "ジャンル", class: "form-label" %><br>
+              <%= f.label :genre_id, "ジャンル", class: "form-label mb-0"%><br>
               <small>（ジャンルがない場合、”新しくジャンルを入力”に入力し、ジャンル追加を押すと新しくジャンルが作成されます。）</small>
               <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "選択してください" }, class: "form-control", id: "genreSelect" %>
               <%= f.text_field :new_genre_name, placeholder: "新しいジャンルを入力", class: "form-control mt-2", id: "newGenreName" %>
