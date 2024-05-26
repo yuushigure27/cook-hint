@@ -15,8 +15,10 @@ class User::PostsController < ApplicationController
       @post.genre = genre
     end
     if @post.save
-      redirect_to @post, notice: "投稿が作成されました。"
+      flash[:notice] = "投稿が作成されました。"
+      redirect_to @post
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render 'new'
     end
   end
@@ -49,14 +51,15 @@ class User::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      flash[:notice] = "更新しました。"
       handle_new_genre_name
-      redirect_to post_path(@post), notice: "投稿を更新しました"
+      redirect_to post_path(@post)
     else
+      flash.now[:alert] = "更新に失敗しました。"
       @genres = Genre.all
       render :edit
     end
   end
-
 
   def destroy
     @post = Post.find(params[:id])
