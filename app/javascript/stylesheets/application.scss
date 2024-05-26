@@ -6,6 +6,40 @@ header.shadow-sm {
   background-color: #726250;
 }
 
+// toppage 新規登録・ログインボタン
+.btn-sign-up{
+    background-color: #F08080;
+    border-color: #F08080;
+}
+
+.btn-login,
+.btn-posts ,
+.btn-back{
+    background-color: #726250;
+    border-color: #726250;
+}
+
+/* Optional: Change the text color if needed */
+.btn-sign-up,
+.btn-login,
+.btn-posts,
+.btn-back{
+    color: white !important;
+}
+
+/* Optional: Change hover effects to match the button colors */
+.btn-sign-up:hover{
+    background-color: #e06b6b;
+    border-color: #e06b6b;
+}
+
+.btn-login:hover,
+.btn-posts:hover,
+.btn-back:hover{
+    background-color: #5f5240;
+    border-color: #5f5240;
+}
+
 /* ユーザーログイン時、ヘッダーに表示される文字の色 */
 header.shadow-sm .navbar-text{
   color: white; /*黄色*/
