@@ -12,7 +12,7 @@
           <div class="text-center">
             <h2><%= @genre.name %>一覧</h2>
             <p class="m-3 mb-0">(全<%= @posts_all.count %>件)</p>
-
+            
           </div>
           <hr class="heading-line w-100">
           <% if @genre.posts.empty? %>
@@ -30,26 +30,35 @@
               </div>
               <%= render "user/posts/post_index", posts: @posts %>
             </div>
-<div class="row">
-  <!-- Pagination -->
-  <div class="col text-center m-3">
-    <nav class="paginate" aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item">
-          <%= link_to_prev_page @posts, '<span aria-hidden="true">«</span>'.html_safe, class: "page-link", aria: { label: "Previous" } %>
-        </li>
-        <% @posts.total_pages.times do |i| %>
-          <li class="page-item <%= 'active' if @posts.current_page == i + 1 %>">
-            <%= link_to (i + 1).to_s, url_for(page: i + 1), class: "page-link" %>
-          </li>
-        <% end %>
-        <li class="page-item">
-          <%= link_to_next_page @posts, '<span aria-hidden="true">»</span>'.html_safe, class: "page-link", aria: { label: "Next" } %>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div>
+            <div class="row">
+              <!-- ページネーション -->
+              <div class="col text-center m-3">
+                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
+                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
+              </div>
+            </div>
+            
+            <!--<div class="row">-->
+              <!-- Pagination -->
+            <!--  <div class="col text-center m-3">-->
+            <!--    <nav class="paginate" aria-label="Page navigation">-->
+            <!--      <ul class="pagination">-->
+            <!--        <li class="page-item">-->
+            <!--          <#%= link_to_prev_page @posts, '<span aria-hidden="true">«</span>'.html_safe, class: "page-link", aria: { label: "Previous" } %>-->
+            <!--        </li>-->
+            <!--        <#% @posts.total_pages.times do |i| %>-->
+            <!--          <li class="page-item <#%= 'active' if @posts.current_page == i + 1 %>">-->
+            <!--            <#%= link_to (i + 1).to_s, url_for(page: i + 1), class: "page-link" %>-->
+            <!--          </li>-->
+            <!--        <#% end %>-->
+            <!--        <li class="page-item">-->
+            <!--          <#%= link_to_next_page @posts, '<span aria-hidden="true">»</span>'.html_safe, class: "page-link", aria: { label: "Next" } %>-->
+            <!--        </li>-->
+            <!--      </ul>-->
+            <!--    </nav>-->
+            <!--  </div>-->
+            <!--</div>-->
+            
           <% end %>
         </div>
       </div>
