@@ -3,7 +3,7 @@ class Admin::PostsController < ApplicationController
 
   def index
     @genres = Genre.all
-    @posts = Post.page(params[:page]).per(10)
+    @posts = Post.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
