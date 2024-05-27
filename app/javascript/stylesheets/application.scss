@@ -139,6 +139,27 @@ main {
     color: white;
 }
 
+// マイページ　いいねに飛ぶリンク、新規投稿ボタン
+.like_index_link {
+  background-color: #F08080;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.like_index_link:hover {
+  background-color: white;
+  color: #F08080;
+}
+
+.custom-icon {
+  font-size: 30px;
+  color: #726250;
+  transition: color 0.3s ease;
+}
+
+.custom-icon:hover {
+  color: #F08080;
+}
 
 
 /*投稿のカード*/
@@ -174,6 +195,7 @@ main {
   background-color: #726250;
   color: white;
 }
+
 
 /*ジャンルのサイドバー*/
 /* ジャンルタイトル */
@@ -237,17 +259,6 @@ h4.text-center {
     background-color: white;
 }
 
-
-// 新規投稿ボタン
-.custom-icon {
-  font-size: 30px;
-  color: #726250;
-  transition: color 0.3s ease;
-}
-
-.custom-icon:hover {
-  color: #F08080;
-}
 
 
 

@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def index
     @genres = Genre.all
     @posts = Post.page(params[:page]).per(10)
@@ -14,10 +14,11 @@ class Admin::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      redirect_to admin_posts_path, notice: "投稿を削除しました"
+      flash[:notice] = "削除に成功しました"
+      redirect_back(fallback_location: admin_posts_path)
     else
       flash[:alert] = "削除に失敗しました"
-      redirect_to admin_posts_path
+      redirect_back(fallback_location: admin_posts_path)
     end
   end
 end
