@@ -4,7 +4,7 @@
       <%= image_tag comment.user.get_profile_image, size: '50x50', class: "rounded-circle" %>
       <div><%= link_to comment.user.name,  "/my_page?id=#{comment.user.id}", class: "text-dark font-weight-bold" %></div>
     </div>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1" style="word-break:break-word;">
       <p class="mb-0"><%= comment.content %></p>
     </div>
   </div>

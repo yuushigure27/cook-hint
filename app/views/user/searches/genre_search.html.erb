@@ -38,26 +38,26 @@
               </div>
             </div>
             
-            <!--<div class="row">-->
-              <!-- Pagination -->
-            <!--  <div class="col text-center m-3">-->
-            <!--    <nav class="paginate" aria-label="Page navigation">-->
-            <!--      <ul class="pagination">-->
-            <!--        <li class="page-item">-->
-            <!--          <#%= link_to_prev_page @posts, '<span aria-hidden="true">«</span>'.html_safe, class: "page-link", aria: { label: "Previous" } %>-->
-            <!--        </li>-->
-            <!--        <#% @posts.total_pages.times do |i| %>-->
-            <!--          <li class="page-item <#%= 'active' if @posts.current_page == i + 1 %>">-->
-            <!--            <#%= link_to (i + 1).to_s, url_for(page: i + 1), class: "page-link" %>-->
-            <!--          </li>-->
-            <!--        <#% end %>-->
-            <!--        <li class="page-item">-->
-            <!--          <#%= link_to_next_page @posts, '<span aria-hidden="true">»</span>'.html_safe, class: "page-link", aria: { label: "Next" } %>-->
-            <!--        </li>-->
-            <!--      </ul>-->
-            <!--    </nav>-->
-            <!--  </div>-->
-            <!--</div>-->
+            <div class="row">
+               <!--Pagination -->
+              <div class="col text-center m-3">
+                <nav class="paginate" aria-label="Page navigation">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <%= link_to_prev_page @posts, '<span aria-hidden="true">«</span>'.html_safe, class: "page-link", aria: { label: "Previous" }, params: { genre_id: params[:genre_id] } %>
+                    </li>
+                    <% @posts.total_pages.times do |i| %>
+                      <li class="page-item <%= 'active' if @posts.current_page == i + 1 %>">
+                        <%= link_to (i + 1).to_s, url_for(page: i + 1, genre_id: params[:genre_id]), class: "page-link" %>
+                      </li>
+                    <% end %>
+                    <li class="page-item">
+                      <%= link_to_next_page @posts, '<span aria-hidden="true">»</span>'.html_safe, class: "page-link", aria: { label: "Next" }, params: { genre_id: params[:genre_id] } %>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
             
           <% end %>
         </div>

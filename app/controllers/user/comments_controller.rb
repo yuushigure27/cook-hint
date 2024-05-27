@@ -24,11 +24,11 @@ end
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.update(comment_params)
-    # if @comment.update(comment_params)
-    #   redirect_to post_path(@post), notice: 'コメントが更新されました'
-    # else
-    #   render :edit
-    # end
+    if @comment.update(comment_params)
+      redirect_to post_path(@post), notice: 'コメントが更新されました'
+    else
+      render :edit
+    end
   end
   
   def destroy
