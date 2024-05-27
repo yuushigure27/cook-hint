@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   end
 
   validates :title, presence: true, length: { maximum: 20 }
-  validates :introduction, presence: true, length: { maximum: 200 }
+  validates :introduction, presence: true, length: { maximum: 300 }
   validates :genre_id, presence: true
   
   scope :latest, -> {order(created_at: :desc)}

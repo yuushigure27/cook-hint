@@ -6,6 +6,40 @@ header.shadow-sm {
   background-color: #726250;
 }
 
+// toppage 新規登録・ログインボタン
+.btn-sign-up{
+    background-color: #F08080;
+    border-color: #F08080;
+}
+
+.btn-login,
+.btn-posts ,
+.btn-back{
+    background-color: #726250;
+    border-color: #726250;
+}
+
+/* Optional: Change the text color if needed */
+.btn-sign-up,
+.btn-login,
+.btn-posts,
+.btn-back{
+    color: white !important;
+}
+
+/* Optional: Change hover effects to match the button colors */
+.btn-sign-up:hover{
+    background-color: #e06b6b;
+    border-color: #e06b6b;
+}
+
+.btn-login:hover,
+.btn-posts:hover,
+.btn-back:hover{
+    background-color: #5f5240;
+    border-color: #5f5240;
+}
+
 /* ユーザーログイン時、ヘッダーに表示される文字の色 */
 header.shadow-sm .navbar-text{
   color: white; /*黄色*/
@@ -105,6 +139,27 @@ main {
     color: white;
 }
 
+// マイページ　いいねに飛ぶリンク、新規投稿ボタン
+.like_index_link {
+  background-color: #F08080;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.like_index_link:hover {
+  background-color: white;
+  color: #F08080;
+}
+
+.custom-icon {
+  font-size: 30px;
+  color: #726250;
+  transition: color 0.3s ease;
+}
+
+.custom-icon:hover {
+  color: #F08080;
+}
 
 
 /*投稿のカード*/
@@ -140,6 +195,7 @@ main {
   background-color: #726250;
   color: white;
 }
+
 
 /*ジャンルのサイドバー*/
 /* ジャンルタイトル */
@@ -204,15 +260,52 @@ h4.text-center {
 }
 
 
-// 新規投稿ボタン
-.custom-icon {
-  font-size: 30px;
-  color: #726250;
-  transition: color 0.3s ease;
+
+
+// ページネーション
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
-.custom-icon:hover {
-  color: #F08080;
+.pagination .page-item {
+  list-style: none;
 }
 
+.pagination .page-link {
+  color: #FFF;
+  background-color: #726250;
+  border: 1px solid #726250;
+  border-radius: 50%;
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s;
+  line-height: 35px; /* Ensures the text is vertically centered */
+}
 
+.pagination .page-link:hover {
+  background-color: #F08080;
+  color: #FFF;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #F08080;
+  color: #FFF;
+  border-color: #F08080;
+}
+
+.pagination .page-link:focus {
+  box-shadow: none;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: #e9ecef;
+  color: #6c757d;
+  border-color: #dee2e6;
+}
