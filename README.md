@@ -38,6 +38,7 @@
 サイト名：https://www.pakutaso.com/
 
 toppage_image.jpg, URL: https://www.pakutaso.com/20180255038post-15122.html
+cooking.jpg, URL: https://www.pakutaso.com/20240453114post-51102.html
 
 ※使用条件確認済み
 https://www.pakutaso.com/userpolicy.html#terms
