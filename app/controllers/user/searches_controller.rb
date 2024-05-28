@@ -35,6 +35,7 @@ class User::SearchesController < ApplicationController
       @results = Post.search_for(@keyword).order(created_at: :desc)
       @posts = @results
     else
+      @results = []
       @posts = Post.none
     end
   
