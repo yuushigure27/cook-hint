@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <div class="mt-4"></div> 
+      <div class="mt-4"></div>
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">ユーザー情報編集</h2>
@@ -47,14 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const preview = document.getElementById('image-preview');
 
   input.addEventListener('change', () => {
+    console.log("Input changed");
     const file = input.files[0];
     if (file) {
+      console.log("File selected", file);
       const reader = new FileReader();
 
       reader.onload = (e) => {
+        console.log("File read successfully", e.target.result);
         const img = document.createElement('img');
         img.src = e.target.result;
-        img.classList.add('img-fluid', 'mt-2', 'rounded-circle'); 
+        img.classList.add('img-fluid', 'mt-2', 'rounded-circle');
         preview.innerHTML = '';
         preview.appendChild(img);
       };
@@ -63,6 +66,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       preview.innerHTML = '';
     }
+  });
+
+  // フォームがリセットされたときに画像プレビューをクリア
+  const form = input.closest('form');
+  form.addEventListener('reset', () => {
+    preview.innerHTML = '';
   });
 });
 </script>
