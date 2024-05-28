@@ -3,22 +3,22 @@ class Admin::PostsController < ApplicationController
 
   def index
     @genres = Genre.all
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(10)
+    @posts = Post.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
     @comment = Comment.new
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
     if @post.destroy
       flash[:notice] = "削除に成功しました"
-      redirect_back(fallback_location: admin_posts_path)
+      redirect_to admin_posts_path
     else
       flash[:alert] = "削除に失敗しました"
-      redirect_back(fallback_location: admin_posts_path)
+      render :show
     end
   end
 end
