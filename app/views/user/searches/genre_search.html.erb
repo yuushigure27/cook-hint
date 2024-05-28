@@ -30,16 +30,9 @@
               </div>
               <%= render "user/posts/post_index", posts: @posts %>
             </div>
-            <div class="row">
-              <!-- ページネーション -->
-              <div class="col text-center m-3">
-                <%= link_to_prev_page @posts, '戻る', class: "paginate py-2 px-4" %>
-                <%= link_to_next_page @posts, '次へ', class: "paginate py-2 px-4" %>
-              </div>
-            </div>
             
+            <!--ページネーション -->
             <div class="row">
-               <!--Pagination -->
               <div class="col text-center m-3">
                 <nav class="paginate" aria-label="Page navigation">
                   <ul class="pagination">

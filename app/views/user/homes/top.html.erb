@@ -9,6 +9,10 @@
             <a href="/users/sign_up" class="btn btn-primary mx-2 btn-sign-up">新規登録</a>
             <a href="/users/sign_in" class="btn btn-secondary mx-2 btn-login">ログイン</a>
           </div>
+          <div class="mt-2">
+            <%= link_to "ゲストログイン(投稿閲覧のみ)", user_guest_sign_in_path, class: "btn btn-outline-secondary mx-2 btn-guest-login", method: :post  %>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +26,7 @@
 
 <div class="album bg-body-tertiary">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3"> 
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
       <% @posts.each do |post| %>
         <div class="col my-3">
           <div class="card shadow-sm" style="height: 100%;">
