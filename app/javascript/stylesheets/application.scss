@@ -309,3 +309,11 @@ h4.text-center {
   color: #6c757d;
   border-color: #dee2e6;
 }
+
+
+// マイページ編集ユーザー画像
+.preview-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; 
+}

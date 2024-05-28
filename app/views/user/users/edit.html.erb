@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <div class="mt-4"></div> 
+      <div class="mt-4"></div>
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">ユーザー情報編集</h2>
@@ -12,9 +12,9 @@
             <div class="form-group">
               <%= f.label :プロフィール画像, class: "form-label" %>
               <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*', id: 'profile-image-input' %>
-              <div id="image-preview">
+              <div id="image-preview" aria-live="polite">
                 <% if @user.profile_image.attached? %>
-                  <%= image_tag @user.profile_image.variant(resize: "100x100"), class: 'img-fluid mt-2 rounded-circle' %>
+                  <%= image_tag @user.profile_image.variant(resize: "100x100"), class: 'img-fluid mt-2 rounded-circle preview-image' %>
                 <% end %>
               </div>
             </div>
@@ -40,6 +40,7 @@
   </div>
 </div>
 
+
 <!--プロフィール画像をプレビュー表示-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,14 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const preview = document.getElementById('image-preview');
 
   input.addEventListener('change', () => {
+    console.log("Input changed");
     const file = input.files[0];
     if (file) {
+      console.log("File selected", file);
       const reader = new FileReader();
 
       reader.onload = (e) => {
+        console.log("File read successfully", e.target.result);
         const img = document.createElement('img');
         img.src = e.target.result;
-        img.classList.add('img-fluid', 'mt-2', 'rounded-circle'); 
+        img.classList.add('img-fluid', 'mt-2', 'rounded-circle', 'preview-image');
         preview.innerHTML = '';
         preview.appendChild(img);
       };
@@ -64,5 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
       preview.innerHTML = '';
     }
   });
+
+  // 同じファイルを再選択できるように、inputの値をリセット
+  input.addEventListener('click', () => {
+    input.value = '';
+  });
+
+  // フォームがリセットされたときに画像プレビューをクリア
+  const form = input.closest('form');
+  form.addEventListener('reset', () => {
+    preview.innerHTML = '';
+  });
 });
+
 </script>
+
