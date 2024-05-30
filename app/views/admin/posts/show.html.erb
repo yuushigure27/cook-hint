@@ -45,7 +45,7 @@
         <div class="card-body d-flex align-items-center">
           <div class="text-center mr-3">
             <%= image_tag comment.user.get_profile_image, size: '50x50', class: "rounded-circle" %>
-            <div><%= link_to comment.user.name,  "/my_page?id=#{comment.user.id}", class: "text-dark font-weight-bold" %></div>
+            <div><%= link_to comment.user.name, admin_user_path(comment.user.id), class: "text-dark font-weight-bold" %></div>
           </div>
           <div class="flex-grow-1">
             <p class="mb-0"><%= comment.content %></p>
