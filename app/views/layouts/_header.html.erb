@@ -50,6 +50,13 @@
             <% if current_user.email != "guest@example.com" %>
               <li class="nav-item"><%= link_to '新規投稿', new_post_path, class: "nav-link" %></li>
               <li class="nav-item"><%= link_to 'いいね一覧', likes_path, class: "nav-link" %></li>
+              <li class="nav-item">
+                <% if unchecked_notifications.any? %>
+                   <%= link_to "Notice",notifications_path, class: "btn btn-light fas fa-bell",style: "color:tomato;"%>
+                <% else %>
+                   <%= link_to "Notice",notifications_path, class: "btn btn-light fas fa-check"%>
+                <% end %>
+              </li>
             <% end %>
             <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link" %></li>
           <% else %>
