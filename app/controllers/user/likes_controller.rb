@@ -7,7 +7,6 @@ class User::LikesController < ApplicationController
     @post = Post.find(params[:post_id])
     @likes= current_user.likes.create(post_id: @post.id)
     #redirect_back(fallback_location: "/posts")
-    post.create_notification_like!(current_user)
   end
 
   def destroy

@@ -6,7 +6,6 @@
       <% else %>
         <a class="navbar-brand" href="/"><%= image_tag('logo.png', style: "max-height: 100px; width: auto;") %></a>
       <% end %>
-
       <div class="search text-right">
         <!-- search start -->
         <% if user_signed_in? || admin_signed_in? %>
@@ -31,7 +30,6 @@
           <% end %>
         <% end %>
       </div>
-
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -50,13 +48,22 @@
             <% if current_user.email != "guest@example.com" %>
               <li class="nav-item"><%= link_to '新規投稿', new_post_path, class: "nav-link" %></li>
               <li class="nav-item"><%= link_to 'いいね一覧', likes_path, class: "nav-link" %></li>
-              <li class="nav-item">
-                <% if unchecked_notifications.any? %>
-                   <%= link_to "Notice",notifications_path, class: "btn btn-light fas fa-bell",style: "color:tomato;"%>
-                <% else %>
-                   <%= link_to "Notice",notifications_path, class: "btn btn-light fas fa-check"%>
-                <% end %>
-              </li>
+              <% if unchecked_notifications.any? %>
+                <li>
+                  <div class="alert-wrapper">
+                    <%= link_to notifications_path, class: "btn btn-outline-secondary mr-3 translatable-text" do %>
+                      <i class="fa-solid fa-bell"></i> 通知
+                    <% end %>
+                    <i class="fa-solid fa-circle fa-sm text-danger alert-mark"></i>
+                  </div>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to notifications_path, class: "btn btn-outline-secondary mr-3 translatable-text" do %>
+                    <i class="fa-solid fa-bell"></i> 通知
+                  <% end %>
+                </li>
+              <% end %>
             <% end %>
             <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link" %></li>
           <% else %>
@@ -70,4 +77,3 @@
     </div>
   </nav>
 </header>
-

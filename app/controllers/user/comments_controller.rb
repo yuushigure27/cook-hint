@@ -6,16 +6,14 @@ def create
   @comment = @post.comments.build(comment_params)
   @comment.user_id = current_user.id
   @comment.save
-  
+  @post.create_notification_by(current_user)
+   
+
   # if @comment.save
   #   redirect_to post_path(@post), notice: 'コメントが投稿されました。'
   # else
   #   redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
   # end
-  
-  # 通知機能
-  @post.create_notification_by(current_user)
-
 end
 
   

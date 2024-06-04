@@ -26,17 +26,19 @@ class Post < ApplicationRecord
     Post.where('title LIKE ? OR introduction LIKE ?', "%#{keyword}%", "%#{keyword}%")
   end
   
+  # 通知作成
   def create_notification_by(current_user)
-      notification = current_user.active_notifications.new(
-        post_id: id,
-        visited_id: user_id,
-        action: 'post_comment'
-      )
-  # if notification.visitor_id == notification.visited_id
-  #       notification.checked = true
-  # end
-  
-      notification.save if notification.valid?
+    notification = current_user.active_notifications.new(
+      post_id: id,
+      visited_id: user_id,
+      action: 'post_comment'
+    )
+    
+    if notification.visiter_id == notification.visited_id
+    notification.is_checked = true
+    end
+    
+    notification.save if notification.valid?
   end
 end
 
