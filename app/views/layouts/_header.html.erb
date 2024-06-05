@@ -36,14 +36,7 @@
       <!-- menu start -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">
-              <div class="nav-icon">
-                <i class="fas fa-home fa-2x"></i>
-                <small>ホーム</small>
-              </div>
-            </a>
-          </li>
+          
           <% if admin_signed_in? %>
             <li class="nav-item"><%= link_to admin_posts_path, class: "nav-link" do %>
               <div class="nav-icon">
@@ -70,7 +63,7 @@
               </div>
             <% end %></li>
           <% elsif user_signed_in? %>
-            <p class="navbar-text">ようこそ、<%= current_user.name %>さん　　</p>
+            <p class="navbar-text" style="margin-top: 1rem;">ようこそ、<%= current_user.name %>さん　　</p>
             <li class="nav-item"><%= link_to my_page_path, class: "nav-link" do %>
               <div class="nav-icon">
                 <i class="fas fa-user fa-2x"></i>
