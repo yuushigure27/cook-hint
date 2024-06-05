@@ -31,7 +31,7 @@ class Post < ApplicationRecord
     notification = current_user.active_notifications.new(
       post_id: id,
       visited_id: user_id,
-      action: 'post_comment'
+      action: "comment"
     )
     
     if notification.visiter_id == notification.visited_id
