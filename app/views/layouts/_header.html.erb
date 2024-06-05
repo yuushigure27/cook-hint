@@ -36,44 +36,158 @@
       <!-- menu start -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <div class="nav-icon">
+                <i class="fas fa-home fa-2x"></i>
+                <small>ホーム</small>
+              </div>
+            </a>
+          </li>
           <% if admin_signed_in? %>
-            <li class="nav-item"><%= link_to '投稿一覧',  admin_posts_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to '会員一覧',  admin_users_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'ジャンル一覧',  admin_genres_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to admin_posts_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <small>投稿一覧</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to admin_users_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-users fa-2x"></i>
+                <small>会員一覧</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to admin_genres_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-tags fa-2x"></i>
+                <small>ジャンル一覧</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-sign-out-alt fa-2x"></i>
+                <small>ログアウト</small>
+              </div>
+            <% end %></li>
           <% elsif user_signed_in? %>
             <p class="navbar-text">ようこそ、<%= current_user.name %>さん　　</p>
-            <li class="nav-item"><%= link_to 'マイページ', my_page_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to '投稿一覧', posts_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to my_page_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-user fa-2x"></i>
+                <small>マイページ</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to posts_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <small>投稿一覧</small>
+              </div>
+            <% end %></li>
             <% if current_user.email != "guest@example.com" %>
-              <li class="nav-item"><%= link_to '新規投稿', new_post_path, class: "nav-link" %></li>
-              <li class="nav-item"><%= link_to 'いいね一覧', likes_path, class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to new_post_path, class: "nav-link" do %>
+                <div class="nav-icon">
+                  <i class="fas fa-edit fa-2x"></i>
+                  <small>新規投稿</small>
+                </div>
+              <% end %></li>
+              <li class="nav-item"><%= link_to likes_path, class: "nav-link" do %>
+                <div class="nav-icon">
+                  <i class="fas fa-heart fa-2x"></i>
+                  <small>いいね一覧</small>
+                </div>
+              <% end %></li>
               <% if unchecked_notifications.any? %>
-                <li>
-                  <div class="alert-wrapper">
-                    <%= link_to notifications_path, class: "btn btn-outline-secondary mr-3 translatable-text" do %>
-                      <i class="fa-solid fa-bell"></i> 通知
-                    <% end %>
+                <li class="nav-item"><%= link_to notifications_path, class: "nav-link" do %>
+                  <div class="nav-icon">
+                    <i class="fa-solid fa-bell fa-2x"></i>
+                    <small>通知</small>
                     <i class="fa-solid fa-circle fa-sm text-danger alert-mark"></i>
                   </div>
-                </li>
+                <% end %></li>
               <% else %>
-                <li>
-                  <%= link_to notifications_path, class: "btn btn-outline-secondary mr-3 translatable-text" do %>
-                    <i class="fa-solid fa-bell"></i> 通知
-                  <% end %>
-                </li>
+                <li class="nav-item"><%= link_to notifications_path, class: "nav-link" do %>
+                  <div class="nav-icon">
+                    <i class="fa-solid fa-bell fa-2x"></i>
+                    <small>通知</small>
+                  </div>
+                <% end %></li>
               <% end %>
             <% end %>
-            <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-sign-out-alt fa-2x"></i>
+                <small>ログアウト</small>
+              </div>
+            <% end %></li>
           <% else %>
-            <li class="nav-item"><%= link_to 'About', about_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to "ゲストログイン（投稿閲覧用）", user_guest_sign_in_path, class: "nav-link", method: :post %></li>
+            <li class="nav-item"><%= link_to about_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-info-circle fa-2x"></i>
+                <small>About</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to new_user_registration_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-user-plus fa-2x"></i>
+                <small>新規登録</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to new_user_session_path, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-sign-in-alt fa-2x"></i>
+                <small>ログイン</small>
+              </div>
+            <% end %></li>
+            <li class="nav-item"><%= link_to user_guest_sign_in_path, method: :post, class: "nav-link" do %>
+              <div class="nav-icon">
+                <i class="fas fa-user-secret fa-2x"></i>
+                <small>ゲストログイン</small>
+              </div>
+            <% end %></li>
           <% end %>
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
+
+
+<style>
+  
+.nav-icon {
+  text-align: center;
+}
+
+.nav-icon i {
+  display: block;
+  margin: 0 auto;
+}
+
+.nav-icon small {
+  display: block;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 992px) {
+  .nav-icon {
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-icon i {
+    display: inline-block;
+    margin: 0 8px 0 0;
+    font-size: 1.5rem; 
+  }
+
+  .nav-icon small {
+    display: inline-block;
+    font-size: 1rem;
+  }
+}
+
+
+
+</style>
