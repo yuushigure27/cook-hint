@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     end
 
     resources :likes, only: [:index]
+    
+    # 通知機能
+    resources :notifications, only: [:index, :destroy]
 
     # ジャンル
     resources :genres, only: [:index,:new,:create]

@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :notifications, dependent: :destroy
   
   def liked_by?(user)
     liked_users.include?(user)
@@ -23,6 +24,21 @@ class Post < ApplicationRecord
   
   def self.search_for(keyword)
     Post.where('title LIKE ? OR introduction LIKE ?', "%#{keyword}%", "%#{keyword}%")
+  end
+  
+  # 通知作成
+  def create_notification_by(current_user)
+    notification = current_user.active_notifications.new(
+      post_id: id,
+      visited_id: user_id,
+      action: "comment"
+    )
+    
+    if notification.visiter_id == notification.visited_id
+    notification.is_checked = true
+    end
+    
+    notification.save if notification.valid?
   end
 end
 

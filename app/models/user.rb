@@ -5,11 +5,14 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  
 
   validates :email, presence: true, uniqueness: true
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 100 }
+
+  #通知機能
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visiter_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.png'

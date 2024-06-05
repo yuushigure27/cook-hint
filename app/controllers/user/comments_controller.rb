@@ -1,18 +1,20 @@
 class User::CommentsController < ApplicationController
   before_action :check_guest_user, only: [:create]
   
-def create
-  @post = Post.find(params[:post_id])
-  @comment = @post.comments.build(comment_params)
-  @comment.user_id = current_user.id
-  @comment.save
-
-  # if @comment.save
-  #   redirect_to post_path(@post), notice: 'コメントが投稿されました。'
-  # else
-  #   redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
-  # end
-end
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    @comment.user_id = current_user.id
+    @comment.save
+    @post.create_notification_by(current_user)
+     
+  
+    # if @comment.save
+    #   redirect_to post_path(@post), notice: 'コメントが投稿されました。'
+    # else
+    #   redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
+    # end
+  end
 
   
   def edit

@@ -94,9 +94,44 @@ header.shadow-sm .navbar-toggler-icon {
   background-image: url('../images/toppage_image.jpg');
 }
 
+
+// ヘッダーのアイコン
 @media (max-width: 768px) {
   .bg-image {
     height: 50vh;
+  }
+}
+
+.nav-icon {
+  text-align: center;
+}
+
+.nav-icon i {
+  display: block;
+  margin: 0 auto;
+}
+
+.nav-icon small {
+  display: block;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 992px) {
+  .nav-icon {
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-icon i {
+    display: inline-block;
+    margin: 0 8px 0 0;
+    font-size: 1.5rem; 
+  }
+
+  .nav-icon small {
+    display: inline-block;
+    font-size: 1rem;
   }
 }
 
@@ -126,9 +161,7 @@ main {
     flex: 1;
 }
 
-.container {
 
-}
 
 .footer {
     background-color: #726250;
@@ -138,6 +171,8 @@ main {
     margin-top: 40px;
     color: white;
 }
+
+
 
 // マイページ　いいねに飛ぶリンク、新規投稿ボタン
 .like_index_link {

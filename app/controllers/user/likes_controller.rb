@@ -29,4 +29,6 @@ class User::LikesController < ApplicationController
       redirect_back fallback_location: root_path, alert: "ゲストユーザーはいいねを押せません。"
     end
   end
+  
+  
 end
