@@ -415,3 +415,11 @@ h4.text-center {
 .translatable-text {
   color: #726250;
 }
+
+
+
+
+.comment-section {
+  max-height: 400px; /* 必要に応じて高さを調整 */
+  overflow-y: auto;
+}
