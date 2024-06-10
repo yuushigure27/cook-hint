@@ -56,17 +56,36 @@
         </div>
       </div>
     
-      <div class="mt-4 mx-auto" style="max-width: 600px;">
-        <div id="post-comments">
-          <% @post.comments.each do |comment| %>
-            <%= render 'user/comments/comment', post: @post, comment: comment %>
-          <% end %>
-        </div>
-      </div>
-    
-      <div>
-        <%= render "user/comments/comment_form", post: @post, comment: Comment.new %>
-      </div>
+<div class="mt-4 mx-auto" style="max-width: 600px;">
+  <div id="post-comments-container" style="max-height: 400px; overflow-y: auto;">
+    <div id="post-comments">
+      <% @post.comments.each do |comment| %>
+        <%= render 'user/comments/comment', post: @post, comment: comment %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div>
+  <%= render "user/comments/comment_form", post: @post, comment: Comment.new %>
+</div>
+
     </div>  
   </div>
 </div>
+
+
+<script>
+document.addEventListener('turbolinks:load', (event) => {
+  var commentsContainer = document.getElementById('post-comments-container');
+  if (commentsContainer) {
+    commentsContainer.scrollTop = commentsContainer.scrollHeight;
+  }
+
+  // Ajaxリクエストが完了した後にスクロール位置を更新
+  document.addEventListener('ajax:success', (event) => {
+    if (commentsContainer) {
+      commentsContainer.scrollTop = commentsContainer.scrollHeight;
+    }
+  });
+});
+</script>
