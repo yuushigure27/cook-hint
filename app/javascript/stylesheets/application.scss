@@ -6,7 +6,7 @@ header.shadow-sm {
   background-color: #726250;
 }
 
-// toppage 新規登録・ログインボタン
+// top page 新規登録・ログインボタン
 .btn-sign-up{
     background-color: #F08080;
     border-color: #F08080;
@@ -66,7 +66,7 @@ header.shadow-sm .navbar-toggler-icon {
 }
 
 /* Search button styles */
-.cute-search-button {
+.search-button {
   background-color: #F08080;
   border: none;
   border-radius: 20px;
@@ -76,12 +76,12 @@ header.shadow-sm .navbar-toggler-icon {
   transition: background-color 0.3s ease;
 }
 
-.cute-search-button:hover {
+.search-button:hover {
   background-color: #FF6347;
 }
 
 /* Icon inside the search button */
-.cute-search-button .fas {
+.search-button .fas {
   color: white;
 }
 
@@ -104,6 +104,7 @@ header.shadow-sm .navbar-toggler-icon {
 
 .nav-icon {
   text-align: center;
+  position: relative; 
 }
 
 .nav-icon i {
@@ -135,7 +136,12 @@ header.shadow-sm .navbar-toggler-icon {
   }
 }
 
-
+.alert-mark {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  transform: translate(50%, -50%); 
+}
 
 html, body {
     height: 100%;
@@ -351,4 +357,61 @@ h4.text-center {
   width: 100px;
   height: 100px;
   object-fit: cover; 
+}
+
+
+// 通知一覧
+.notification_box {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.notification_box h5 {
+  font-size: 1.5rem;
+  color: #726250; 
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.notification_box ul {
+  padding-left: 0;
+}
+
+.notification_box ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  color: #333;
+}
+
+.notification_box a {
+  color: #69b076; 
+  text-decoration: none;
+}
+
+.notification_box a:hover {
+  text-decoration: underline;
+}
+
+.notification_box .btn {
+  background-color: #726250;
+  color: #fff;
+  border: none;
+}
+
+.notification_box .btn:hover {
+  background-color: #604a3a;
+}
+
+.notification_box p {
+  margin: 0;
+}
+
+.translatable-text {
+  color: #726250;
 }
