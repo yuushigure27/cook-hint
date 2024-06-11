@@ -86,12 +86,13 @@
 
 <script>
 document.addEventListener('turbolinks:load', (event) => {
+  // 最初はスクロールバーを上にする
   var commentsContainer = document.getElementById('post-comments-container');
   if (commentsContainer) {
-    commentsContainer.scrollTop = commentsContainer.scrollHeight;
+    commentsContainer.scrollTop = 0;
   }
 
-  // Ajaxリクエストが完了した後にスクロール位置を更新
+  // Ajaxリクエストが成功した後にスクロール位置を更新
   document.addEventListener('ajax:success', (event) => {
     if (commentsContainer) {
       commentsContainer.scrollTop = commentsContainer.scrollHeight;
