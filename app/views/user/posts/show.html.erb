@@ -63,6 +63,9 @@
             <% end %>
           </div>
         </div>
+          <% if @post.comments.count > 5 %>
+            <%= link_to "すべてのコメントを見る", post_comments_path(@post) %>
+          <% end %>
       </div>
       <div>
         <% if @comment.errors.any? %>

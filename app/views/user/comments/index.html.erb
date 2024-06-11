@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h3 class="mb-4">すべてのコメント</h3>
+      <div id="post-comments-container">
+        <div id="post-comments">
+          <% @comments.each do |comment| %>
+            <div class="card " id="post-comment-<%= comment.id %>">
+              <div class="card-body">
+                <div class="comment-user-info">
+                  <div class="comment-user-image">
+                    <%= image_tag comment.user.get_profile_image, size: '30x30', class: "rounded-circle" %>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="comment-user-name"><%= link_to comment.user.name, "/my_page?id=#{comment.user.id}", class: "text-dark" %></p>
+                  </div>
+                </div>
+                <div class="mt-2" style="word-break: break-word;">
+                  <p class="mb-0"><%= comment.content %></p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <small class="text-muted"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+                  <% if comment.user == current_user %>
+                    <div>
+                      <%= link_to "編集", edit_post_comment_path(@post, comment), class: "btn btn-sm btn-outline-primary mr-2" %>
+                      <%= link_to "削除", post_comment_path(@post, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @comment.errors.any? %>
+        <div id="error_explanation" class="mt-4">
+          <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h4>
+          <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <%= form_with model: [@post, @comment], url: post_comments_path(@post), local: false, class: "w-100" do |f| %>
+          <div class="form-group mb-3">
+            <%= f.text_area :content, rows: '3', placeholder: "コメントをここに(300字まで)", class: "form-control", id:"commentarea", maxlength: 300 %>
+          </div>
+          <div class="text-right">
+            <%= f.submit "送信する", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

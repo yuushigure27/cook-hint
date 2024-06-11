@@ -1,6 +1,12 @@
 class User::CommentsController < ApplicationController
   before_action :check_guest_user, only: [:create]
   
+  def index
+    @post = Post.find(params[:post_id])
+    @comments = Comment.paginate(page: params[:page], per_page: 10)
+    @comment = Comment.new
+  end
+  
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
