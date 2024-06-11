@@ -11,20 +11,12 @@
     
       <div class="card mt-4 mx-auto">
         <div class="card-body">
-          <div class="d-flex align-items-center mb-4">
+          <div class="d-flex align-items-center ">
             <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
             <div><%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %></div>
           </div>
-    
-          <div class="text-center p-4 mb-4">
-            <% if @post.image.attached? %>
-              <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
-            <% else %>
-              <%= image_tag 'no_image.png', class: "w-100 rounded shadow-sm" %>
-            <% end %>
-          </div>
-    
-          <div class="mt-4 p-4">
+          
+          <div class=" p-4">
             <div class="row mb-3">
               <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">ジャンル</div>
               <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;">
@@ -39,6 +31,12 @@
               <div class="col-4 text-muted">内容</div>
               <div class="col-8 font-weight-bold"><%= simple_format @post.introduction %></div>
             </div>
+    
+            <% if @post.image.attached? %>
+              <div class="text-center p-4 mb-4">
+                <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
+              </div>
+            <% end %>
     
             <div>
               <%= render "user/likes/form", post: @post, action_name: controller.action_name %>
@@ -56,33 +54,33 @@
         </div>
       </div>
     
-<div class="mt-4 mx-auto" style="max-width: 600px;">
-  <h3>コメント</h3>
-  <div id="post-comments-container" style="max-height: 400px; overflow-y: auto;">
-    <div id="post-comments">
-      <% @post.comments.each do |comment| %>
-        <%= render 'user/comments/comment', post: @post, comment: comment %>
-      <% end %>
-    </div>
-  </div>
-</div>
-<div>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-      <ul>
-        <% @comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+      <div class="mt-4 mx-auto" style="max-width: 600px;">
+        <h3>コメント</h3>
+        <div id="post-comments-container" style="max-height: 400px; overflow-y: auto;">
+          <div id="post-comments">
+            <% @post.comments.each do |comment| %>
+              <%= render 'user/comments/comment', post: @post, comment: comment %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div>
+        <% if @comment.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+            <ul>
+              <% @comment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= render "user/comments/comment_form", post: @post, comment: @comment %>
-</div>
-
+        <%= render "user/comments/comment_form", post: @post, comment: @comment %>
+      </div>
     </div>  
   </div>
 </div>
+
 
 
 <script>
