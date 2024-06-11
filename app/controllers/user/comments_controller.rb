@@ -14,6 +14,17 @@ class User::CommentsController < ApplicationController
     # else
     #   redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
     # end
+    if @comment.save
+      respond_to do |format|
+        format.html { redirect_to @post, notice: 'コメントが追加されました。' }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { render 'posts/show', alert: 'コメントの追加に失敗しました。' }
+        format.js { render 'error.js.erb' } # エラーハンドリング用のJSテンプレート
+      end
+    end
   end
 
   
