@@ -3,7 +3,7 @@ class User::CommentsController < ApplicationController
   
   def index
     @post = Post.find(params[:post_id])
-    @comments = Comment.paginate(page: params[:page], per_page: 10)
+    @comments = @post.comments.page(params[:page]).per(10)
     @comment = Comment.new
   end
   

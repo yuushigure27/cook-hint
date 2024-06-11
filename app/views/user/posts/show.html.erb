@@ -58,7 +58,7 @@
         <h3>コメント</h3>
         <div id="post-comments-container" style="max-height: 400px; overflow-y: auto;">
           <div id="post-comments">
-            <% @post.comments.each do |comment| %>
+            <% @comments.each do |comment| %>
               <%= render 'user/comments/comment', post: @post, comment: comment %>
             <% end %>
           </div>
@@ -83,8 +83,6 @@
     </div>  
   </div>
 </div>
-
-
 
 <script>
 document.addEventListener('turbolinks:load', (event) => {
