@@ -7,6 +7,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.text :introduction, null: false
       t.boolean :is_active, null: false, default: true
       t.string :image
+      
 
       t.timestamps
     end

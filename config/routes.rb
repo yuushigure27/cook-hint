@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     
     # コメント・いいね機能
     resources :posts do
-      resources :comments, only: [:create, :destroy, :edit, :update,:index]
+      resources :comments, only: [:create, :destroy, :edit, :update]
       resource :likes, only: [:create, :destroy]
     end
 
