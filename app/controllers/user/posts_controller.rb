@@ -36,17 +36,20 @@ class User::PostsController < ApplicationController
   def index
     @genres = Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
     @post_all = Post.all
-
+  
     if params[:latest]
       @posts = Post.latest.page(params[:page]).per(12)
     elsif params[:old]
       @posts = Post.old.page(params[:page]).per(12)
     elsif params[:most_liked]
       @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = Post.left_joins(:comments).where(comments: { id: nil }).or(Post.left_joins(:comments).where(comments: { best_answer: false })).distinct.page(params[:page]).per(12)
     else
       @posts = Post.latest.page(params[:page]).per(12)
     end
-    
   end
 
   def update
