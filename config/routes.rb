@@ -34,6 +34,7 @@ Rails.application.routes.draw do
           patch :mark_best_answer
           patch :unmark_best_answer
         end
+          delete :destroy, on: :member
       end
     end
 
