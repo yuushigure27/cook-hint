@@ -14,6 +14,14 @@ class Post < ApplicationRecord
   def liked_by?(user)
     liked_users.include?(user)
   end
+  
+  def best_answer_comment
+    comments.find_by(best_answer: true)
+  end
+
+  def has_best_answer?
+    best_answer_comment.present?
+  end
 
   validates :title, presence: true, length: { maximum: 20 }
   validates :introduction, presence: true, length: { maximum: 300 }

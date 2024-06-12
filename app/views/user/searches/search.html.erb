@@ -9,8 +9,8 @@
       <div class="album bg-body-tertiary">
         <div class="container">
           <div class="text-center">
-            <h2>"<%= @keyword %>"の検索結果</h2>
-            <p class="m-3 mb-0">(全<%= @results.count %>件)</p>
+            <h2 class="d-inline">"<%= @keyword %>"の検索結果</h2>
+            <span class="m-3 mb-0">(全<%= @results.count %>件)</span>
           </div>
           <hr class="heading-line">
           <%= render "user/posts/post_index", posts: @results %>

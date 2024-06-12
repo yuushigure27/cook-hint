@@ -10,9 +10,8 @@
       <div class="album bg-body-tertiary">
         <div class="container">
           <div class="text-center">
-            <h2><%= @genre.name %>一覧</h2>
-            <p class="m-3 mb-0">(全<%= @posts_all.count %>件)</p>
-            
+            <h2 class="d-inline"><%= @genre.name %>一覧</h2>
+            <span class="m-3 mb-0">(全<%= @posts_all.count %>件)</span>
           </div>
           <hr class="heading-line w-100">
           <% if @genre.posts.empty? %>
@@ -21,7 +20,7 @@
             </div>
           <% else %>
             <div class="album bg-body-tertiary">
-              <div class="d-flex justify-content-end mb-4">
+              <div class="d-flex justify-content-end">
                 <div class="btn-group" role="group" aria-label="Sort options">
                   <%= link_to '新しい順', genre_search_path(genre_id: @genre.id, latest: "true"), class: "btn btn-outline-primary" %>
                   <%= link_to '古い順', genre_search_path(genre_id: @genre.id, old: "true"), class: "btn btn-outline-primary" %>
@@ -30,7 +29,7 @@
               </div>
               <%= render "user/posts/post_index", posts: @posts %>
             </div>
-            
+
             <!--ページネーション -->
             <div class="row">
               <div class="col text-center m-3">
@@ -51,7 +50,7 @@
                 </nav>
               </div>
             </div>
-            
+
           <% end %>
         </div>
       </div>
