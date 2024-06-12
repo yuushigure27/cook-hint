@@ -3,20 +3,22 @@
     <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
       <div class="text-center">
         <h2 class="mb-4 d-inline">投稿詳細</h2>
-        <div class= "text-left">
-          <%= link_to "戻る", request.referer || root_path, class: "btn btn-secondary d-inline btn-back" %>
+        <div class="text-left">
+          <%= link_to "投稿一覧へ", posts_path, class: "btn btn-secondary d-inline btn-back" %>
         </div>
       </div>
       <hr class="heading-line mb-4">
-    
+
       <div class="card mt-4 mx-auto">
         <div class="card-body">
-          <div class="d-flex align-items-center ">
+          <div class="d-flex align-items-center">
             <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
-            <div><%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %></div>
+            <div>
+              <%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %>
+            </div>
           </div>
-          
-          <div class=" p-4">
+
+          <div class="p-4">
             <div class="row mb-3">
               <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">ジャンル</div>
               <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;">
@@ -31,72 +33,46 @@
               <div class="col-4 text-muted">内容</div>
               <div class="col-8 font-weight-bold"><%= simple_format @post.introduction %></div>
             </div>
-    
+
             <% if @post.image.attached? %>
               <div class="text-center p-4 mb-4">
                 <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
               </div>
             <% end %>
-    
+
             <div>
               <%= render "user/likes/form", post: @post, action_name: controller.action_name %>
             </div>
           </div>
-    
+
           <% if current_user == @post.user %>
-          <div class="card-footer d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-              <%= link_to "編集する", edit_post_path(@post), class: "btn btn-sm btn-outline-primary mr-2" %>
-              <%= button_to "削除する", post_path(@post), method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <div class="d-flex">
+                <%= link_to "編集する", edit_post_path(@post), class: "btn btn-sm btn-outline-primary mr-2" %>
+                <%= button_to "削除する", post_path(@post), method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %>
+              </div>
             </div>
-          </div>
           <% end %>
         </div>
       </div>
-    
+
       <div class="mt-4 mx-auto" style="max-width: 600px;">
         <h3>コメント</h3>
-        <div id="post-comments-container" style="max-height: 400px; overflow-y: auto;">
+        <div id="post-comments-container" >
           <div id="post-comments">
             <% @comments.each do |comment| %>
               <%= render 'user/comments/comment', post: @post, comment: comment %>
             <% end %>
           </div>
         </div>
-          <% if @post.comments.count > 5 %>
-            <%= link_to "すべてのコメントを見る", post_comments_path(@post) %>
-          <% end %>
-      </div>
-      <div>
-        <% if @comment.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-            <ul>
-              <% @comment.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
+        <% if @post.comments.count > 5 %>
+          <%= link_to "すべてのコメントを見る", post_comments_path(@post), class: "btn btn-link mt-3" %>
         <% end %>
+      </div>
+
+      <div>
         <%= render "user/comments/comment_form", post: @post, comment: @comment %>
       </div>
-    </div>  
+    </div>
   </div>
 </div>
-
-<script>
-document.addEventListener('turbolinks:load', (event) => {
-  // 最初はスクロールバーを上にする
-  var commentsContainer = document.getElementById('post-comments-container');
-  if (commentsContainer) {
-    commentsContainer.scrollTop = 0;
-  }
-
-  // Ajaxリクエストが成功した後にスクロール位置を更新
-  document.addEventListener('ajax:success', (event) => {
-    if (commentsContainer) {
-      commentsContainer.scrollTop = commentsContainer.scrollHeight;
-    }
-  });
-});
-</script>
