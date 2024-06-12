@@ -7,6 +7,10 @@ class Post < ApplicationRecord
   has_many :liked_users, through: :likes, source: :user
   has_many :notifications, dependent: :destroy
   
+  def best_answer?
+    comments.best_answer.exists?
+  end
+  
   def liked_by?(user)
     liked_users.include?(user)
   end

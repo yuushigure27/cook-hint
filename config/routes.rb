@@ -29,6 +29,13 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update]
       resource :likes, only: [:create, :destroy]
+      resources :comments do
+        member do
+          patch :mark_best_answer
+          patch :unmark_best_answer
+        end
+          delete :destroy, on: :member
+      end
     end
 
     resources :likes, only: [:index]
