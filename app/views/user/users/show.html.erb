@@ -22,12 +22,10 @@
                       <%= link_to '<i class="far fa-heart"></i> いいね一覧'.html_safe, likes_path, class: "btn btn-secondary like_index_link" %>
                     </div>
                   </div>
-                  
                 <% end %>
               <% end %>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -40,8 +38,10 @@
             <h2 class="d-inline"><%= @user.name %>さんの投稿一覧</h2>
             <span class="m-3 mb-0">(全<%= @user.posts.count %>件)</span>
           </div>
-          <div class= "text-right">
-            <%= link_to '', new_post_path, class: "fa-solid fa-square-plus custom-icon" %>
+          <div class="text-right">
+            <% if current_user == @user %>
+              <%= link_to '', new_post_path, class: "fa-solid fa-square-plus custom-icon" %>
+            <% end %>
           </div>
           <hr class="heading-line w-100">
           <% if @user.posts.empty? %>
@@ -49,34 +49,34 @@
               <p>投稿はありません</p>
             </div>
           <% else %>
-          <div class="album bg-body-tertiary">
+            <div class="album bg-body-tertiary">
               <div class="d-flex justify-content-end mb-4">
                 <div class="btn-group" role="group" aria-label="Sort options">
-                  <%= link_to '新しい順',my_page_path(latest: "true"), class: "btn btn-outline-primary" %>
-                  <%= link_to '古い順',  my_page_path(old: "true"), class: "btn btn-outline-primary" %>
+                  <%= link_to '新しい順', my_page_path(@user, latest: "true"), class: "btn btn-outline-primary" %>
+                  <%= link_to '古い順', my_page_path(@user, old: "true"), class: "btn btn-outline-primary" %>
                 </div>
               </div>
-
-            <div class="row">
-              <% @posts.each do |post| %>
-                <div class="col-sm-6 col-lg-4 my-4">
-                  <div class="card card-custom shadow-sm" >
-                    <% if post.image.attached? %>
-                      <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
-                    <% else %>
-                      <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
-                    <% end %>
-                    <div class="card-body">
-                      <p class="card-text__title" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
-                      <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-                        <%= render "user/likes/form", post: post %>
+              <div class="row">
+                <% @user.posts.each do |post| %>
+                  <div class="col-sm-6 col-lg-4 my-4">
+                    <div class="card card-custom shadow-sm">
+                      <% if post.image.attached? %>
+                        <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
+                      <% else %>
+                        <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "height: 200px; object-fit: cover;" %>
+                      <% end %>
+                      <div class="card-body">
+                        <p class="card-text__title" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
+                        <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+                          <%= render "user/likes/form", post: post %>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>
