@@ -1,10 +1,14 @@
 <div class="mt-4 mx-auto" style="max-width: 600px;">
-  <%= form_with model: [post, comment], url: post_comments_path(post), local: false, class: "form-inline" do |f| %>
-    <div class="form-group w-100 mb-3">
-      <%= f.text_area :content, rows: '3', placeholder: "コメントをここに(300字まで)", class: "form-control w-100", id:"commentarea", maxlength: 300 %>
-    </div>
-    <div class="form-group w-100 text-right">
-      <%= f.submit "送信する", class: "btn btn-primary" %>
-    </div>
+  <% unless @post.best_answer? %>
+    <%= form_with model: [post, comment], url: post_comments_path(post), local: false, class: "form-inline" do |f| %>
+      <div class="form-group w-100 mb-3">
+        <%= f.text_area :content, rows: '3', placeholder: "コメントをここに(300字まで)", class: "form-control w-100", id:"commentarea", maxlength: 300 %>
+      </div>
+      <div class="form-group w-100 text-right">
+        <%= f.submit "送信する", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>この質問にはベストアンサーが設定されています。これ以上コメントを追加することはできません。</p>
   <% end %>
 </div>

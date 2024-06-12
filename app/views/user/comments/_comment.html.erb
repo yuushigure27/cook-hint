@@ -1,24 +1,36 @@
 <div id="post-comments-container">
-  <div class="card" id="post-comment-<%= comment.id %>">
-    <div class="card-body">
-      <div class="d-flex align-items-center">
-        <%= image_tag comment.user.get_profile_image, size: '30x30', class: "rounded-circle mr-2" %>
-        <p class="comment-user-name mb-0 flex-grow-1">
-          <%= link_to comment.user.name, "/my_page?id=#{comment.user.id}", class: "text-dark" %>
-        </p>
-      </div>
-      <div class="mt-2" style="word-break: break-word;">
-        <p class="mb-0"><%= comment.content %></p>
-      </div>
-      <div class="d-flex justify-content-between align-items-center mt-2">
-        <small class="text-muted"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
-        <% if comment.user == current_user %>
+  <% @post.comments.each do |comment| %>
+    <div class="card" id="post-comment-<%= comment.id %>">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <%= image_tag comment.user.get_profile_image, size: '30x30', class: "rounded-circle mr-2" %>
+          <p class="comment-user-name mb-0 flex-grow-1">
+            <%= link_to comment.user.name, "/my_page?id=#{comment.user.id}", class: "text-dark" %>
+          </p>
+          <% if comment.best_answer %>
+            <span class="badge badge-success ml-2">ベストアンサー</span> <!-- ベストアンサーマーク -->
+          <% end %>
+        </div>
+        <div class="mt-2" style="word-break: break-word;">
+          <p class="mb-0"><%= comment.content %></p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <small class="text-muted"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
           <div>
-            <%= link_to "編集", edit_post_comment_path(@post, comment), class: "btn btn-sm btn-outline-primary mr-2" %>
-            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+            <% if comment.user == current_user %>
+              <%= link_to "編集", edit_post_comment_path(@post, comment), class: "btn btn-sm btn-outline-primary mr-2" %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+            <% end %>
+            <% if @post.user == current_user %>
+              <% if comment.best_answer %>
+                <%= link_to 'ベストアンサーを解除', unmark_best_answer_post_comment_path(@post, comment), method: :patch, class: 'btn btn-sm btn-outline-warning', data: { confirm: '本当にこのベストアンサーを解除しますか？' } %>
+              <% else %>
+                <%= link_to 'ベストアンサーに設定', mark_best_answer_post_comment_path(@post, comment), method: :patch, class: 'btn btn-sm btn-outline-success', data: { confirm: '本当にこのコメントをベストアンサーにしますか？' } %>
+              <% end %>
+            <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>

@@ -1,5 +1,23 @@
 class User::CommentsController < ApplicationController
   before_action :check_guest_user, only: [:create]
+  before_action :authenticate_user!
+  before_action :set_post, only: [:create, :destroy, :mark_best_answer, :unmark_best_answer]
+  before_action :set_comment, only: [:destroy, :mark_best_answer, :unmark_best_answer]
+  
+  def mark_best_answer
+    @post.comments.update_all(best_answer: false) # 既存のベストアンサーを解除
+    @comment.update(best_answer: true)
+    redirect_to @post, notice: 'ベストアンサーを設定しました。'
+  end
+
+  def unmark_best_answer
+    if @comment
+      @comment.update(best_answer: false)
+      redirect_to @post, notice: 'ベストアンサーを解除しました。'
+    else
+      redirect_to @post, alert: 'コメントが見つかりませんでした。'
+    end
+  end
   
   def index
     @post = Post.find(params[:post_id])
@@ -72,5 +90,13 @@ class User::CommentsController < ApplicationController
     if current_user.email == "guest@example.com"
       redirect_to post_path(@post), alert: "ゲストユーザーはコメントできません。"
     end
+  end
+  
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = @post.comments.find(params[:id])
   end
 end
