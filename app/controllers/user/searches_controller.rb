@@ -16,8 +16,12 @@ class User::SearchesController < ApplicationController
       @posts = @posts.old.page(params[:page]).per(12)
     elsif params[:most_liked]
       @posts = Kaminari.paginate_array(@posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = Post.left_joins(:comments).where(comments: { id: nil }).or(Post.left_joins(:comments).where(comments: { best_answer: false })).distinct.page(params[:page]).per(12)
     else
-      @posts = @posts.latest.page(params[:page]).per(12)
+      @posts = Post.latest.page(params[:page]).per(12)
     end
 
   end

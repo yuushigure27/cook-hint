@@ -21,10 +21,14 @@
           <% else %>
             <div class="album bg-body-tertiary">
               <div class="d-flex justify-content-end">
+                <div class="btn-group mr-2" role="group" aria-label="Best Answer Filter">
+                  <%= link_to '解決済み', genre_search_path(genre_id: @genre.id, best_answer: "true"), class: "btn btn-outline-primary" %>
+                  <%= link_to '回答受付中', genre_search_path(genre_id: @genre.id, best_answer: "false"), class: "btn btn-outline-primary" %>
+                </div>
                 <div class="btn-group" role="group" aria-label="Sort options">
                   <%= link_to '新しい順', genre_search_path(genre_id: @genre.id, latest: "true"), class: "btn btn-outline-primary" %>
                   <%= link_to '古い順', genre_search_path(genre_id: @genre.id, old: "true"), class: "btn btn-outline-primary" %>
-                  <%= link_to '評価の高い順', genre_search_path(genre_id: @genre.id, most_liked: "true"), class: "btn btn-outline-primary" %>
+                  <%= link_to 'いいね順', genre_search_path(genre_id: @genre.id, most_liked: "true"), class: "btn btn-outline-primary" %>
                 </div>
               </div>
               <%= render "user/posts/post_index", posts: @posts %>
