@@ -48,10 +48,11 @@ Rails.application.routes.draw do
 
     # ユーザー
     get 'users' => 'users#index'
-    get '/my_page', to: 'users#show', as: :my_page
+    get '/my_page', to: 'users#my_page', as: :my_page
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
     get 'users/:id/edit' => 'users#edit', as: 'users_edit'
+    get 'users/:id', to: 'users#show', as: 'user'
     patch 'users/:id' => 'users#update'
 
 

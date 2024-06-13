@@ -10,6 +10,20 @@
           </div>
           <h5><%= @user.name %></h5>
           <p><%= @user.introduction %></p>
+          <div class="row">
+            <div class="col-sm">
+              <% if current_user.email != "guest@example.com" %>
+                <%= link_to users_edit_path(@user), class: "btn btn-outline-secondary" do %>
+                  <i class="fas fa-user-cog"></i> プロフィールを編集
+                <% end %>
+                <div class="row mt-2">
+                  <div class="col-sm">
+                    <%= link_to '<i class="far fa-heart"></i> いいね一覧'.html_safe, likes_path, class: "btn btn-secondary like_index_link" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -30,13 +44,13 @@
           <hr class="heading-line w-100">
           <div class="d-flex justify-content-end mb-2">
             <div class="btn-group mr-2" role="group" aria-label="Best Answer Filter">
-              <%= link_to '解決済み', user_path(@user, best_answer: "true"), class: "btn btn-outline-primary" %>
-              <%= link_to '回答受付中', user_path(@user, best_answer: "false"), class: "btn btn-outline-primary" %>
+              <%= link_to '解決済み', my_page_path(best_answer: "true"), class: "btn btn-outline-primary" %>
+              <%= link_to '回答受付中', my_page_path(best_answer: "false"), class: "btn btn-outline-primary" %>
             </div>
             <div class="btn-group" role="group" aria-label="Sort options">
-              <%= link_to '新しい順', user_path(@user, latest: "true"), class: "btn btn-outline-primary" %>
-              <%= link_to '古い順', user_path(@user, old: "true"), class: "btn btn-outline-primary" %>
-              <%= link_to 'いいね順', user_path(@user, most_liked: "true"), class: "btn btn-outline-primary" %>
+              <%= link_to '新しい順', my_page_path(latest: "true"), class: "btn btn-outline-primary" %>
+              <%= link_to '古い順', my_page_path(old: "true"), class: "btn btn-outline-primary" %>
+              <%= link_to 'いいね順', my_page_path(most_liked: "true"), class: "btn btn-outline-primary" %>
             </div>
           </div>
           <% if @posts.empty? %>
@@ -45,7 +59,10 @@
             </div>
           <% else %>
             <div class="album bg-body-tertiary">
+              
               <%= render "user/posts/post_index", posts: @posts %>
+            </div>
+              
             </div>
           <% end %>
         </div>

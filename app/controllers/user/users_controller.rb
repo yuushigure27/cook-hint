@@ -1,18 +1,11 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_guest_user, only: [:edit]
-
-  def show
-    if params[:id].present?
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+  
+  def my_page
+    @user = current_user
+    @posts = @user.posts
     
-    if params[:post_id].present?
-      @post = @user.posts.find_by(id: params[:post_id])
-    end
-
     if params[:latest]
       @posts = current_user.posts.latest.page(params[:page]).per(12)
     elsif params[:old]
@@ -25,6 +18,25 @@ class User::UsersController < ApplicationController
       @posts = current_user.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
     else
       @posts = current_user.posts.latest.page(params[:page]).per(12)
+    end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
+
+    if params[:latest]
+      @posts = @user.posts.latest.page(params[:page]).per(12)
+    elsif params[:old]
+      @posts = @user.posts.old.page(params[:page]).per(12)
+    elsif params[:most_liked]
+      @posts = Kaminari.paginate_array(@user.posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = @user.posts.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = @user.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
+    else
+      @posts = @user.posts.latest.page(params[:page]).per(12)
     end
   end
 
