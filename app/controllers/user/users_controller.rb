@@ -1,5 +1,6 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit]
   
   def my_page
@@ -79,5 +80,10 @@ class User::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_image, :introduction)
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
   end
 end

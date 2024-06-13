@@ -14,7 +14,11 @@
           <div class="d-flex align-items-center">
             <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
             <div>
-               <%= link_to @post.user.name, user_path(@post.user), class: "text-dark font-weight-bold" %>
+              <% if @post.user == current_user %>
+                <%= link_to @post.user.name, my_page_path, class: "text-dark font-weight-bold" %>
+              <% else %>
+                <%= link_to @post.user.name, user_path(@post.user), class: "text-dark font-weight-bold" %>
+              <% end %>
             </div>
           </div>
       
