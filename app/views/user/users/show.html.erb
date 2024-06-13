@@ -46,9 +46,8 @@
           <hr class="heading-line w-100">
           <div class="d-flex justify-content-end mb-2">
             <div class="btn-group mr-2" role="group" aria-label="Best Answer Filter">
-              <%= link_to '解決済み', "/my_page?id=#{@user.id}&best_answer=true", class: "btn btn-outline-primary" %>
-
-              <%= link_to '回答受付中',"/my_page?id=#{@user.id}&best_answer=false", class: "btn btn-outline-primary" %>
+              <%= link_to '解決済み', my_page_path(best_answer: "true"), class: "btn btn-outline-primary" %>
+              <%= link_to '回答受付中', my_page_path(best_answer: "false"), class: "btn btn-outline-primary" %>
             </div>
             <div class="btn-group" role="group" aria-label="Sort options">
               <%= link_to '新しい順', my_page_path(latest: "true"), class: "btn btn-outline-primary" %>
@@ -63,33 +62,7 @@
           <% else %>
             <div class="album bg-body-tertiary">
               
-              <div class="row">
-                <% @user.posts.each do |post| %>
-                  <div class="col-sm-6 col-lg-4 my-4">
-                    <div class="card card-custom shadow-sm">
-                      <% if post.image.attached? %>
-                        <%= image_tag post.image, class: "card-img-top img-fluid", alt: "image", style: "width: 100%; height: 200px; object-fit: cover;" %>
-                      <% else %>
-                        <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "image", style: "width: 100%; height: 200px; object-fit: cover;" %>
-                      <% end %>
-                      <div class="card-body">
-                        <% if post.has_best_answer? %>
-                            <span class="badge badge-success ">解決済</span>
-                          <% end %>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                          <p class="card-text__title mb-0" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
-                          
-                        </div>
-                        <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-                          <%= render "user/likes/form", post: post, action_name: controller.action_name %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
+              <%= render "user/posts/post_index", posts: @posts %>
             </div>
               
             </div>
