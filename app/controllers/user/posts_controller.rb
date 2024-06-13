@@ -2,6 +2,7 @@ class User::PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_post, only: [:show, :edit, :update]
   before_action :check_guest_user, only: [:new, :create]
+  before_action :correct_user, only: [:edit, :update]
 
   def new
     @post = Post.new
@@ -101,6 +102,13 @@ end
       genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
       @post.genre = genre
       @post.save
+    end
+  end
+  
+  def correct_user
+    @post = Post.find(params[:id])
+    unless @post.user == current_user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーの投稿を編集する権限がありません。')
     end
   end
 end
