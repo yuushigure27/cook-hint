@@ -44,9 +44,9 @@ def index
   elsif params[:most_liked]
     @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
   elsif params[:best_answer] == "true"
-    @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.page(params[:page]).per(12)
+    @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
   elsif params[:best_answer] == "false"
-    @posts = Post.joins(:comments).where.not(comments: { best_answer: true }).distinct.page(params[:page]).per(12)
+    @posts = Post.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
   else
     @posts = Post.latest.page(params[:page]).per(12)
   end
