@@ -11,7 +11,7 @@
         <div class="container">
           <div class="text-center">
             <h2 class="d-inline"><%= @genre.name %>一覧</h2>
-            <span class="m-3 mb-0">(全<%= @posts_all.count %>件)</span>
+            <span class="m-3 mb-0">(全<%= @posts.count %>件)</span>
           </div>
           <hr class="heading-line w-100">
           <% if @genre.posts.empty? %>
