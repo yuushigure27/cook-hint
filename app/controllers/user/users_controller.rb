@@ -8,19 +8,24 @@ class User::UsersController < ApplicationController
     else
       @user = current_user
     end
-
-     @posts = current_user.posts
-    if params[:latest]
-      @posts = @posts.order(created_at: :desc)
-    elsif params[:old]
-      @posts = @posts.order(created_at: :asc)
-    elsif params[:like_count]
-      @posts = @posts.order(like_count: :desc)
-    else
-      @posts = @posts.order(created_at: :desc) # 新しい順がデフォルト
+    
+    if params[:post_id].present?
+      @post = @user.posts.find_by(id: params[:post_id])
     end
 
-    @posts = @posts.page(params[:page]).per(12)
+    if params[:latest]
+      @posts = current_user.posts.latest.page(params[:page]).per(12)
+    elsif params[:old]
+      @posts = current_user.posts.old.page(params[:page]).per(12)
+    elsif params[:most_liked]
+      @posts = Kaminari.paginate_array(current_user.posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = current_user.posts.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = current_user.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
+    else
+      @posts = current_user.posts.latest.page(params[:page]).per(12)
+    end
   end
 
   def edit
