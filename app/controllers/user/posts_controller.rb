@@ -27,7 +27,7 @@ class User::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    @comments = @post.comments.order(created_at: :asc).limit(5)
+    @comments = @post.comments.order(created_at: :asc)
     @user = current_user
   end
 
