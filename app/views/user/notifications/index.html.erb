@@ -1,30 +1,8 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="notification_box mt-5 col-md-8">
-      <h5 class="text-center">
-        <i class="fa-solid fa-bell"></i> 
-        <span class="translatable-text">通知</span>
-      </h5>
-      <% if @notifications.exists? %>
-        <div class="text-right mb-3">
-          <%= link_to "通知削除", notifications_path, method: :delete, class: "btn btn-secondary translatable-text" %>
-        </div>
-        <ul class="list-group">
-          <% @notifications.each do |notification| %>
-            <% visitor = notification.visitor %>
-            <% post = notification.post %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <strong><%= visitor.name %></strong>さんが
-                <%= link_to post.title, post_path(post) %>にコメントしました。
-              </div>
-              <small class="text-muted"><%= time_ago_in_words(notification.created_at) %>前</small>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p class="text-center mt-3 translatable-text">通知はありません</p>
-      <% end %>
-    </div>
+<h1>通知</h1>
+
+<% @notifications.each do |notification| %>
+  <div class="notification">
+    <p><%= notification.message %></p>
+    <%= link_to '既読にする', mark_as_read_notification_path(notification), method: :patch %>
   </div>
-</div>
+<% end %>

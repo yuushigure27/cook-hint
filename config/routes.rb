@@ -41,7 +41,11 @@ Rails.application.routes.draw do
     resources :likes, only: [:index]
     
     # 通知機能
-    resources :notifications, only: [:index, :destroy]
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_as_read
+      end
+    end
 
     # ジャンル
     resources :genres, only: [:index,:new,:create]

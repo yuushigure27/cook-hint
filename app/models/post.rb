@@ -27,10 +27,9 @@ class Post < ApplicationRecord
   validates :introduction, presence: true, length: { maximum: 300 }
   validates :genre_id, presence: true
   
-  scope :latest, -> {order(created_at: :desc)}
-  scope :old, -> {order(created_at: :asc)}
-  scope :most_liked, -> { includes(:liked_users)
-  .sort_by { |x| x.liked_users.includes(:likes).size }.reverse }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :old, -> { order(created_at: :asc) }
+  scope :most_liked, -> { includes(:liked_users).sort_by { |x| x.liked_users.includes(:likes).size }.reverse }
 
   attr_accessor :new_genre_name
   
@@ -46,11 +45,10 @@ class Post < ApplicationRecord
       action: "comment"
     )
     
-    if notification.visiter_id == notification.visited_id
-    notification.is_checked = true
+    if notification.visited_id == current_user.id
+      notification.is_checked = true
     end
     
     notification.save if notification.valid?
   end
 end
-

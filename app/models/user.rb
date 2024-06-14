@@ -5,14 +5,18 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'user_id'
 
   validates :email, presence: true, uniqueness: true
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 100 }
 
   #通知機能
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visiter_id', dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+   has_many :notifications, dependent: :destroy
+   
+  def active_notifications
+    self.notifications.where(read: false) # 未読の通知を取得する例
+  end
 
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.png'
