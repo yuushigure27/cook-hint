@@ -2,7 +2,16 @@
 
 <% @notifications.each do |notification| %>
   <div class="notification">
-    <p><%= notification.message %></p>
-    <%= link_to '既読にする', mark_as_read_notification_path(notification), method: :patch %>
+    <% if notification.user == current_user %>
+      <% message = "#{notification.user.name}さんがあなたの投稿「#{notification.notifiable.post.title}」にコメントしました." %>
+    <% else %>
+      <% message = "#{current_user.name}さんがあなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントが付きました." %>
+    <% end %>
+
+    <p>
+      <%= link_to message, post_path(notification.notifiable.post)%>
+    </p>
   </div>
 <% end %>
+
+<%= button_to 'すべて既読', mark_all_as_read_notifications_path, method: :patch, data: { confirm: 'すべての通知を既読にしますか？' } %>

@@ -41,7 +41,7 @@ class Post < ApplicationRecord
   def create_notification_by(current_user)
     notification = current_user.active_notifications.new(
       post_id: id,
-      visited_id: user_id,
+      visited_id: user_id, # 修正: visited_id
       action: "comment"
     )
     
@@ -50,5 +50,14 @@ class Post < ApplicationRecord
     end
     
     notification.save if notification.valid?
+  end
+  
+  # 通知メッセージ生成
+  def notification_message(current_user)
+    if user == current_user
+      "#{user.name}さんがあなたの投稿「#{title}」にコメントしました。"
+    else
+      "#{current_user.name}さんがあなたがコメントした「#{title}」という投稿に新しいコメントが付きました。"
+    end
   end
 end

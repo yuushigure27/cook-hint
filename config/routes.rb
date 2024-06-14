@@ -27,23 +27,21 @@ Rails.application.routes.draw do
     
     # コメント・いいね機能
     resources :posts do
-      resources :comments, only: [:create, :destroy, :edit, :update]
-      resource :likes, only: [:create, :destroy]
-      resources :comments do
+      resources :comments, only: [:create, :destroy, :edit, :update] do
         member do
-          patch :mark_best_answer
           patch :unmark_best_answer
         end
-          delete :destroy, on: :member
       end
+      resource :likes, only: [:create, :destroy]
     end
 
     resources :likes, only: [:index]
     
     # 通知機能
     resources :notifications, only: [:index] do
-      member do
+      collection do
         patch :mark_as_read
+        patch :mark_all_as_read
       end
     end
 

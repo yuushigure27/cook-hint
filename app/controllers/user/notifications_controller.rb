@@ -5,10 +5,12 @@ class User::NotificationsController < ApplicationController
     @notifications = current_user.passive_notifications.unread
   end
 
-  def mark_as_read
-    @notification = current_user.passive_notifications.find(params[:id])
-    @notification.update(read: true)
-    redirect_to notifications_path
+
+
+
+
+  def mark_all_as_read
+    current_user.notifications.update_all(read: true)
+    redirect_to notifications_path, notice: 'すべての通知を既読にしました。'
   end
-  
 end

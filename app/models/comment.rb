@@ -24,7 +24,6 @@ class Comment < ApplicationRecord
       Notification.create(
         user: self.post.user, # 通知を受け取るユーザー（投稿の作成者）
         notifiable: self, # 通知対象のコメント
-        message: "#{self.user.name}さんがあなたの投稿にコメントしました。",
         read: false
       )
     end
@@ -37,7 +36,6 @@ class Comment < ApplicationRecord
       Notification.create(
         user_id: user_id, # 通知を受け取るユーザー（以前にコメントしたユーザー）
         notifiable: self, # 通知対象のコメント
-        message: "#{self.user.name}さんがコメントした投稿に新しいコメントが付きました。",
         read: false
       )
     end
