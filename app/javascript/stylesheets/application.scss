@@ -414,59 +414,40 @@ h4.text-center {
 
 
 // 通知一覧
-.notification_box {
-  background-color: #fff;
+.notification-box {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 600px;
-  width: 100%;
 }
 
-.notification_box h5 {
-  font-size: 1.5rem;
+.notification-box h1 {
+  font-size: 1.75rem;
   color: #726250;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 
-.notification_box ul {
-  padding-left: 0;
-}
-
-.notification_box ul li {
-  padding: 10px 0;
+.list-group-item {
+  border: none;
   border-bottom: 1px solid #eee;
-  font-size: 1rem;
-  color: #333;
+  padding: 15px 10px;
 }
 
-.notification_box a {
-  color: #69b076;
-  text-decoration: none;
+.list-group-item:last-child {
+  border-bottom: none;
 }
 
-.notification_box a:hover {
+.list-group-item .text-dark:hover {
   text-decoration: underline;
 }
 
-.notification_box .btn {
+.btn-secondary {
   background-color: #726250;
-  color: #fff;
-  border: none;
+  border-color: #726250;
 }
 
-.notification_box .btn:hover {
-  background-color: #604a3a;
-}
-
-.notification_box p {
-  margin: 0;
-}
-
-.translatable-text {
-  color: #726250;
+.btn-secondary:hover {
+  background-color: #5e4c3b;
+  border-color: #5e4c3b;
 }
 
 

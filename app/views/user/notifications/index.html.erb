@@ -1,17 +1,34 @@
-<h1>通知</h1>
-
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="notification-box p-4 bg-white shadow-sm rounded">
+        <h1 class="text-center mb-4">
+          <i class="fa-solid fa-bell"></i> 通知
+        </h1>
+        <% if @notifications.exists? %>
+          <div class="text-right mb-3">
+            <%= button_to 'すべて既読', mark_all_as_read_notifications_path, method: :patch, class: "btn btn-secondary mr-2", data: { confirm: 'すべての通知を既読にしますか？' } %>
+          </div>
+          <ul class="list-group">
 <% @notifications.each do |notification| %>
-  <div class="notification">
-    <% if notification.user == current_user %>
-      <% message = "#{notification.user.name}さんがあなたの投稿「#{notification.notifiable.post.title}」にコメントしました." %>
-    <% else %>
-      <% message = "#{current_user.name}さんがあなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントが付きました." %>
-    <% end %>
-
-    <p>
-      <%= link_to message, post_path(notification.notifiable.post)%>
-    </p>
-  </div>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+      <% if notification.notifiable.post.user_id == current_user.id %>
+        <% message = "あなたの投稿「#{notification.notifiable.post.title}」にコメントしました." %>
+      <% else %>
+        <% message = "あなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントが付きました." %>
+      <% end %>
+      <%= link_to message, post_path(notification.notifiable.post), class: "text-dark" %>
+      <small class="d-block text-muted"><%= time_ago_in_words(notification.created_at) %>前</small>
+    </div>
+  </li>
 <% end %>
 
-<%= button_to 'すべて既読', mark_all_as_read_notifications_path, method: :patch, data: { confirm: 'すべての通知を既読にしますか？' } %>
+          </ul>
+        <% else %>
+          <p class="text-center">通知はありません</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
