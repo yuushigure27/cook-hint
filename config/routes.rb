@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: [:create, :destroy, :edit, :update] do
         member do
+          patch :mark_best_answer
           patch :unmark_best_answer
         end
       end
