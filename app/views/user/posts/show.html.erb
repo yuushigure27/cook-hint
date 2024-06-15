@@ -44,7 +44,11 @@
             <div class="row mb-3">
               <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">ジャンル</div>
               <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;">
-                <%= link_to @post.genre.name, genre_search_path(genre_id: @post.genre.id) %>
+                <% if @post.genre %>
+                  <%= link_to @post.genre.name, genre_search_path(genre_id: @post.genre.id) %>
+                <% else %>
+                  ジャンル未設定
+                <% end %>
               </div>
             </div>
       
