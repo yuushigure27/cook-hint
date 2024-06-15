@@ -15,9 +15,9 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div>
                     <% if notification.notifiable.post.user_id == current_user.id %>
-                      <% message = "あなたの投稿「#{notification.notifiable.post.title}」にコメントしました." %>
+                      <% message = "あなたの投稿「#{notification.notifiable.post.title}」にコメントがありました。" %>
                     <% else %>
-                      <% message = "あなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントが付きました." %>
+                      <% message = "あなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントがありました." %>
                     <% end %>
                     <%= link_to message, post_path(notification.notifiable.post), class: "text-dark" %>
                     <small class="d-block text-muted"><%= time_ago_in_words(notification.created_at) %>前</small>

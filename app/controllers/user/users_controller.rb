@@ -43,6 +43,10 @@ class User::UsersController < ApplicationController
 
   def edit
     @user = User.find(current_user.id)
+    # 自分のプロフィールの編集であるかどうかを確認する
+    unless current_user == @user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
+    end
   end
 
 
@@ -84,6 +88,8 @@ class User::UsersController < ApplicationController
   
   def correct_user
     @user = User.find(params[:id])
-    redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
+    unless current_user == @user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
+    end
   end
 end
