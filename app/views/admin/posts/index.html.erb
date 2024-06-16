@@ -20,7 +20,13 @@
           <tr>
             <td><%= link_to truncate(post.title, length: 10), admin_post_path(post.id), class: "border:solid 1px" %></td>
             <td class="d-none d-md-table-cell"><%= truncate(post.introduction, length: 10) %></td>
-            <td><%= truncate(post.genre.name, length: 5) %></td>
+            <td>
+              <% if post.genre %>
+                <%= link_to post.genre.name, admin_genres_path %>
+              <% else %>
+                ジャンル未設定
+              <% end %>
+            </td>
             <td>
               <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
             </td>

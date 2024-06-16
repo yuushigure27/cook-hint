@@ -27,31 +27,35 @@ Rails.application.routes.draw do
     
     # コメント・いいね機能
     resources :posts do
-      resources :comments, only: [:create, :destroy, :edit, :update]
-      resource :likes, only: [:create, :destroy]
-      resources :comments do
+      resources :comments, only: [:create, :destroy, :edit, :update] do
         member do
           patch :mark_best_answer
           patch :unmark_best_answer
         end
-          delete :destroy, on: :member
       end
+      resource :likes, only: [:create, :destroy]
     end
 
     resources :likes, only: [:index]
     
     # 通知機能
-    resources :notifications, only: [:index, :destroy]
+    resources :notifications, only: [:index] do
+      collection do
+        patch :mark_as_read
+        patch :mark_all_as_read
+      end
+    end
 
     # ジャンル
     resources :genres, only: [:index,:new,:create]
 
     # ユーザー
     get 'users' => 'users#index'
-    get '/my_page', to: 'users#show', as: :my_page
+    get '/my_page', to: 'users#my_page', as: :my_page
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
     get 'users/:id/edit' => 'users#edit', as: 'users_edit'
+    get 'users/:id', to: 'users#show', as: 'user'
     patch 'users/:id' => 'users#update'
 
 
@@ -70,7 +74,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     #root to: "sessions#new"
-    resources :genres, only: [:index,:new,:edit,:update]
+    resources :genres, only: [:index,:edit,:update, :destroy]
     resources :posts, only: [:index,:show,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
 

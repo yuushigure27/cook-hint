@@ -1,59 +1,31 @@
-<div class="album py-5 bg-body-tertiary bg-image">
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <div class="bg-white bg-opacity-75 p-3 rounded text-center">
-          <h1 class="fw-light">Cook Hintへようこそ！！</h1>
-          <p class="lead text-body-secondary">質問・相談・回答を行う場合は、登録が必要です。</p>
-          <div class="mt-4">
-            <a href="/users/sign_up" class="btn btn-primary mx-2 btn-sign-up">新規登録</a>
-            <a href="/users/sign_in" class="btn btn-secondary mx-2 btn-login">ログイン</a>
-          </div>
-          <div class="mt-2">
-            <%= link_to "ゲストログイン(投稿閲覧のみ)", user_guest_sign_in_path, class: "btn btn-outline-secondary mx-2 btn-guest-login", method: :post  %>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="py-5 text-center container">
+<% if user_signed_in? || admin_signed_in? %>
+<div class="pt-5 text-center container">
   <h2 class="fw-light">新着投稿一覧</h2>
   <hr class="heading-line mb-4">
 </div>
 
-<div class="album bg-body-tertiary">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-      <% @posts.each do |post| %>
-        <div class="col my-3">
-          <div class="card shadow-sm" style="height: 100%;">
-            <% if post.image.attached? %>
-              <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
-            <% else %>
-              <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "width: 100%; height: 200px; object-fit: cover;" %>
-            <% end %>
-            <div class="card-body">
-              <p class="card-text__title" style="font-size: 1rem;"><%= truncate(post.title, length: 10) %></p>
-              <p class="card-text__introduction" style="font-size: 0.875rem;"><%= truncate(post.introduction, length: 25) %></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <%= link_to "View", post_path(post), class: "btn btn-sm btn-outline-secondary" %>
-                <div>
-                  <%= render "user/likes/form", post: post, action_name: controller.action_name %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+<%= render "user/posts/post_index4", posts: @posts %>
 
 <div class="text-center py-3">
   <%= link_to "投稿一覧へ", posts_path, class: "btn btn-posts" %>
 </div>
+
+<% else %>
+<div class="bg-image">
+  <div class="content-wrapper">
+    <h1 class="fw-light">Cook Hintへようこそ！！</h1>
+    <p class="lead text-body-secondary">質問・相談・回答を行う場合は、登録が必要です。</p>
+    <div>
+      <a href="/users/sign_up" class="btn btn-primary mx-2 btn-sign-up">新規登録</a>
+      <a href="/users/sign_in" class="btn btn-secondary mx-2 btn-login">ログイン</a>
+    </div>
+    <div>
+      <%= link_to "ゲストログイン(投稿閲覧のみ)", user_guest_sign_in_path, class: "btn btn-outline-secondary mx-2 btn-guest-login", method: :post %>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
 
 

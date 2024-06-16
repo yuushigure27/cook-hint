@@ -1,30 +1,52 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit]
+  
+  def my_page
+    @user = current_user
+    @posts = @user.posts
+    
+    if params[:latest]
+      @posts = current_user.posts.latest.page(params[:page]).per(12)
+    elsif params[:old]
+      @posts = current_user.posts.old.page(params[:page]).per(12)
+    elsif params[:most_liked]
+      @posts = Kaminari.paginate_array(current_user.posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = current_user.posts.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = current_user.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
+    else
+      @posts = current_user.posts.latest.page(params[:page]).per(12)
+    end
+  end
 
   def show
-    if params[:id].present?
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = User.find(params[:id])
+    @posts = @user.posts
 
-     @posts = current_user.posts
     if params[:latest]
-      @posts = @posts.order(created_at: :desc)
+      @posts = @user.posts.latest.page(params[:page]).per(12)
     elsif params[:old]
-      @posts = @posts.order(created_at: :asc)
-    elsif params[:like_count]
-      @posts = @posts.order(like_count: :desc)
+      @posts = @user.posts.old.page(params[:page]).per(12)
+    elsif params[:most_liked]
+      @posts = Kaminari.paginate_array(@user.posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = @user.posts.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = @user.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
     else
-      @posts = @posts.order(created_at: :desc) # 新しい順がデフォルト
+      @posts = @user.posts.latest.page(params[:page]).per(12)
     end
-
-    @posts = @posts.page(params[:page]).per(12)
   end
 
   def edit
     @user = User.find(current_user.id)
+    # 自分のプロフィールの編集であるかどうかを確認する
+    unless current_user == @user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
+    end
   end
 
 
@@ -62,5 +84,12 @@ class User::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_image, :introduction)
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーのプロフィールを編集する権限がありません。')
+    end
   end
 end

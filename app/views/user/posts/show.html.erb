@@ -8,48 +8,66 @@
         </div>
       </div>
       <hr class="heading-line mb-4">
-
+      
       <div class="card mt-4 mx-auto">
         <div class="card-body">
           <div class="d-flex align-items-center">
             <%= image_tag @post.user.get_profile_image, size: '50x50', class: "rounded-circle mr-3" %>
             <div>
-              <%= link_to @post.user.name, "/my_page?id=#{@post.user.id}", class: "text-dark font-weight-bold" %>
+              <% if @post.user == current_user %>
+                <%= link_to @post.user.name, my_page_path, class: "text-dark font-weight-bold" %>
+              <% else %>
+                <%= link_to @post.user.name, user_path(@post.user), class: "text-dark font-weight-bold" %>
+              <% end %>
             </div>
           </div>
-
+      
           <div class="p-4">
             <div class="row mb-3">
-              <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">ジャンル</div>
-              <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;">
-                <%= link_to @post.genre.name, genre_search_path(genre_id: @post.genre.id) %>
+              <div class="col-4 text-muted" >タイトル</div>
+              <div class="col-8 font-weight-bold"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12" style="border-bottom: 1px solid #ccc;">
+                <div class="font-weight-bold"><%= @post.title %></div>
               </div>
             </div>
             <div class="row mb-3">
-              <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">タイトル</div>
-              <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;"><%= @post.title %></div>
+              <div class="col-4 text-muted">内容</div>
+              <div class="col-8 font-weight-bold" ></div>
             </div>
             <div class="row mb-3">
-              <div class="col-4 text-muted">内容</div>
-              <div class="col-8 font-weight-bold"><%= simple_format @post.introduction %></div>
+              <div class="col-12" style="border-bottom: 1px solid #ccc;">
+                <div class="font-weight-bold"><%= simple_format @post.introduction %></div>
+              </div>
             </div>
-
+            <div class="row mb-3">
+              <div class="col-4 text-muted" style="border-bottom: 1px solid #ccc;">ジャンル</div>
+              <div class="col-8 font-weight-bold" style="border-bottom: 1px solid #ccc;">
+                <% if @post.genre %>
+                  <%= link_to @post.genre.name, genre_search_path(genre_id: @post.genre.id) %>
+                <% else %>
+                  ジャンル未設定
+                <% end %>
+              </div>
+            </div>
+      
             <% if @post.image.attached? %>
               <div class="text-center p-4 mb-4">
                 <%= image_tag @post.image, class: "w-100 rounded shadow-sm" %>
               </div>
             <% end %>
-
+      
             <div>
               <%= render "user/likes/form", post: @post, action_name: controller.action_name %>
             </div>
           </div>
-
+      
           <% if current_user == @post.user %>
             <div class="card-footer d-flex justify-content-between align-items-center">
               <div class="d-flex">
                 <%= link_to "編集する", edit_post_path(@post), class: "btn btn-sm btn-outline-primary mr-2" %>
-                <%= button_to "削除する", post_path(@post), method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %>
+                <%= button_to "削除する", post_path(@post), method: :delete, remote: true, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
               </div>
             </div>
           <% end %>

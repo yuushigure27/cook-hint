@@ -11,13 +11,17 @@ class User::SearchesController < ApplicationController
     @posts = Post.where(genre_id: @genre_id)
 
     if params[:latest]
-      @posts = @posts.latest.page(params[:page]).per(12)
+      @posts = @genre.posts.latest.page(params[:page]).per(12)
     elsif params[:old]
-      @posts = @posts.old.page(params[:page]).per(12)
+      @posts = @genre.posts.old.page(params[:page]).per(12)
     elsif params[:most_liked]
-      @posts = Kaminari.paginate_array(@posts.most_liked).page(params[:page]).per(12)
+      @posts = Kaminari.paginate_array(@genre.posts.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = @genre.posts.joins(:comments).where(comments: { best_answer: true }).distinct.page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = @genre.posts.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
     else
-      @posts = @posts.latest.page(params[:page]).per(12)
+      @posts = @genre.posts.latest.page(params[:page]).per(12)
     end
 
   end

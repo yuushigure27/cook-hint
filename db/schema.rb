@@ -80,13 +80,18 @@ ActiveRecord::Schema.define(version: 2024_06_12_111107) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "visiter_id", null: false
-    t.integer "visited_id", null: false
+    t.integer "user_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.string "message"
+    t.boolean "read", default: false
+    t.integer "visited_id"
     t.integer "post_id"
     t.string "action"
-    t.boolean "is_checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -120,4 +125,6 @@ ActiveRecord::Schema.define(version: 2024_06_12_111107) do
   add_foreign_key "comments", "posts"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "posts"
+  add_foreign_key "notifications", "users"
 end

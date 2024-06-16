@@ -46,7 +46,7 @@ class User::CommentsController < ApplicationController
     else
       respond_to do |format|
         format.html { render 'posts/show', alert: 'コメントの追加に失敗しました。' }
-        format.js { render 'error.js.erb' } # エラーハンドリング用のJSテンプレート
+        format.js { render 'error.js.erb' } 
       end
     end
   end
@@ -55,12 +55,21 @@ class User::CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
+    
+    unless current_user == @comment.user
+      redirect_to post_path(@post), alert: '他のユーザーのコメントを編集する権限がありません。'
+    end
   end
   
   def update
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
-    @comment.update(comment_params)
+    
+    unless current_user == @comment.user
+      redirect_to post_path(@post), alert: '他のユーザーのコメントを更新する権限がありません。'
+      return
+    end
+  
     if @comment.update(comment_params)
       redirect_to post_path(@post), notice: 'コメントが更新されました'
     else

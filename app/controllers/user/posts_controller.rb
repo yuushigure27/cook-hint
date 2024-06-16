@@ -2,6 +2,7 @@ class User::PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_post, only: [:show, :edit, :update]
   before_action :check_guest_user, only: [:new, :create]
+  before_action :correct_user, only: [:edit, :update]
 
   def new
     @post = Post.new
@@ -26,7 +27,7 @@ class User::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    @comments = @post.comments.order(created_at: :asc).limit(5)
+    @comments = @post.comments.order(created_at: :asc)
     @user = current_user
   end
 
@@ -36,18 +37,25 @@ class User::PostsController < ApplicationController
   def index
     @genres = Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
     @post_all = Post.all
-
+  
     if params[:latest]
       @posts = Post.latest.page(params[:page]).per(12)
     elsif params[:old]
       @posts = Post.old.page(params[:page]).per(12)
     elsif params[:most_liked]
       @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
+    elsif params[:best_answer] == "true"
+      @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
+    elsif params[:best_answer] == "false"
+      @posts = Post.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
     else
       @posts = Post.latest.page(params[:page]).per(12)
     end
-    
   end
+
+
+
+
 
   def update
     @post = Post.find(params[:id])
@@ -73,7 +81,7 @@ class User::PostsController < ApplicationController
   end
 
   private
-  
+
   def check_guest_user
     if current_user.email == "guest@example.com"
       redirect_to posts_path, alert: "ゲストユーザーは新規投稿を作成できません。"
@@ -94,6 +102,13 @@ class User::PostsController < ApplicationController
       genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
       @post.genre = genre
       @post.save
+    end
+  end
+  
+  def correct_user
+    @post = Post.find(params[:id])
+    unless @post.user == current_user
+      redirect_back(fallback_location: root_path, alert: '他のユーザーの投稿を編集する権限がありません。')
     end
   end
 end

@@ -14,15 +14,22 @@ class Post < ApplicationRecord
   def liked_by?(user)
     liked_users.include?(user)
   end
+  
+  def best_answer_comment
+    comments.find_by(best_answer: true)
+  end
+
+  def has_best_answer?
+    best_answer_comment.present?
+  end
 
   validates :title, presence: true, length: { maximum: 20 }
   validates :introduction, presence: true, length: { maximum: 300 }
   validates :genre_id, presence: true
   
-  scope :latest, -> {order(created_at: :desc)}
-  scope :old, -> {order(created_at: :asc)}
-  scope :most_liked, -> { includes(:liked_users)
-  .sort_by { |x| x.liked_users.includes(:likes).size }.reverse }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :old, -> { order(created_at: :asc) }
+  scope :most_liked, -> { includes(:liked_users).sort_by { |x| x.liked_users.includes(:likes).size }.reverse }
 
   attr_accessor :new_genre_name
   
@@ -34,15 +41,23 @@ class Post < ApplicationRecord
   def create_notification_by(current_user)
     notification = current_user.active_notifications.new(
       post_id: id,
-      visited_id: user_id,
+      visited_id: user_id, # 修正: visited_id
       action: "comment"
     )
     
-    if notification.visiter_id == notification.visited_id
-    notification.is_checked = true
+    if notification.visited_id == current_user.id
+      notification.is_checked = true
     end
     
     notification.save if notification.valid?
   end
+  
+  # 通知メッセージ生成
+  def notification_message(current_user)
+    if user == current_user
+      "#{user.name}さんがあなたの投稿「#{title}」にコメントしました。"
+    else
+      "#{current_user.name}さんがあなたがコメントした「#{title}」という投稿に新しいコメントが付きました。"
+    end
+  end
 end
-

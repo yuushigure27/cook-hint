@@ -3,10 +3,14 @@
     <div class="d-flex align-items-center">
       <%= image_tag comment.user.get_profile_image, size: '30x30', class: "rounded-circle mr-2" %>
       <p class="comment-user-name mb-0 flex-grow-1">
-        <%= link_to comment.user.name, "/my_page?id=#{comment.user.id}", class: "text-dark" %>
+        <% if comment.user == current_user %>
+          <%= link_to comment.user.name, my_page_path, class: "text-dark" %>
+        <% else %>
+          <%= link_to comment.user.name, user_path(comment.user), class: "text-dark" %>
+        <% end %>
       </p>
       <% if comment.best_answer %>
-        <span class="badge badge-success ml-2">ベストアンサー</span> <!-- ベストアンサーマーク -->
+        <span class="badge badge-success ml-2">ベストアンサー</span> 
       <% end %>
     </div>
     <div class="mt-2" style="word-break: break-word;">
@@ -22,9 +26,7 @@
             <%= link_to 'ベストアンサーに設定', mark_best_answer_post_comment_path(@post, comment), method: :patch, class: 'btn btn-sm btn-outline-success', data: { confirm: '本当にこのコメントをベストアンサーにしますか？' } %>
           <% end %>
         <% end %>
-        <% if comment.best_answer %>
-          <!-- ベストアンサーの場合、編集・削除リンクを非表示にする -->
-        <% else %>
+        <% unless comment.best_answer %>
           <% if comment.user == current_user %>
             <!-- 編集リンク -->
             <%= link_to "編集", edit_post_comment_path(post, comment), class: "btn btn-sm btn-outline-primary mr-2" %>
@@ -36,4 +38,3 @@
     </div>
   </div>
 </div>
-

@@ -1,32 +1,56 @@
-<div class="container">
-  <div class='row justify-content-center mx-auto'>
-    <div class="notification_box mt-5">
-      <h5 class="text-center">
-        <i class="fa-solid fa-bell"></i> 
-        <span class="translatable-text">通知</span>
-      </h5>
-      <% if @notifications.exists? %>
-        <p class="text-right">
-          <%= link_to "通知削除", notification_path(@notifications), method: :delete, class: "btn btn-secondary translatable-text" %>
-        </p>
-        <ul class="list-unstyled">
-          <% @notifications.each do |notification| %>
-            <% visiter = notification.visiter %>
-            <% post = notification.post %>
-            <li class="translatable-text">
-              <%= visiter.name %>さんが
-              <%= link_to "あなたの投稿", post_path(notification.post_id) %>にコメントしました。
-              <%= " (#{time_ago_in_words(notification.created_at)}前)" %>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p class="translatable-text text-center">通知はありません</p>
-      <% end %>
-    </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="notification-box p-4 mb-4 bg-white shadow-sm rounded">
+        <h1 class="text-center mb-4">
+          <i class="fa-solid fa-bell"></i> 通知
+        </h1>
+        <% if @notifications.exists? %>
+          <div class="text-right mb-3">
+            <%= button_to 'すべて既読', mark_all_as_read_notifications_path, method: :patch, class: "btn btn-secondary mr-2", data: { confirm: 'すべての通知を既読にしますか？' } %>
+          </div>
+          <ul class="list-group">
+            <% @notifications.each do |notification| %>
+              <% if notification.notifiable.present? && notification.notifiable.post.present? %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <% if notification.notifiable.post.user_id == current_user.id %>
+                      <% message = "あなたの投稿「#{notification.notifiable.post.title}」にコメントがありました。" %>
+                    <% else %>
+                      <% message = "あなたがコメントした「#{notification.notifiable.post.title}」という投稿に新しいコメントがありました." %>
+                    <% end %>
+                    <%= link_to message, post_path(notification.notifiable.post), class: "text-dark" %>
+                    <small class="d-block text-muted"><%= time_ago_in_words(notification.created_at) %>前</small>
+                  </div>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+          <div class="row">
+  <!-- Pagination -->
+  <div class="col text-center m-3">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item">
+          <%= link_to_prev_page @notifications, '<span aria-hidden="true">«</span>'.html_safe, class: "page-link", aria: { label: "Previous" } %>
+        </li>
+        <% @notifications.total_pages.times do |i| %>
+          <li class="page-item <%= 'active' if @notifications.current_page == i + 1 %>">
+            <%= link_to (i + 1).to_s, url_for(page: i + 1), class: "page-link" %>
+          </li>
+        <% end %>
+        <li class="page-item">
+          <%= link_to_next_page @notifications, '<span aria-hidden="true">»</span>'.html_safe, class: "page-link", aria: { label: "Next" } %>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 
-<style>
-
-</style>
+        <% else %>
+          <p class="text-center">通知はありません</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
