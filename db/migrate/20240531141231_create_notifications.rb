@@ -12,6 +12,6 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_foreign_key :notifications, :posts, column: :post_id  # 追加: post_id に対する外部キー制約
+    add_foreign_key :notifications, :posts, column: :post_id  
   end
 end
