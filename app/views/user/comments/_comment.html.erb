@@ -3,7 +3,11 @@
     <div class="d-flex align-items-center">
       <%= image_tag comment.user.get_profile_image, size: '30x30', class: "rounded-circle mr-2" %>
       <p class="comment-user-name mb-0 flex-grow-1">
-        <%= link_to comment.user.name, "/my_page?id=#{comment.user.id}", class: "text-dark" %>
+        <% if comment.user == current_user %>
+          <%= link_to comment.user.name, my_page_path, class: "text-dark" %>
+        <% else %>
+          <%= link_to comment.user.name, user_path(comment.user), class: "text-dark" %>
+        <% end %>
       </p>
       <% if comment.best_answer %>
         <span class="badge badge-success ml-2">ベストアンサー</span> 
