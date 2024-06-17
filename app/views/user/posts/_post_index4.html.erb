@@ -2,12 +2,12 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         <% @posts.each do |post| %>
-        <div class="col-6 col-sm-6 col-md-4 my-3">
+        <div class="col-sm-6 col-lg-3 my-4">
           <div class="card shadow-sm" style="height: 100%;">
             <% if post.image.attached? %>
-              <%= image_tag post.image, class: "card-img-top img-fluid", alt: "Thumbnail", style: "object-fit: cover; max-height: 200px;" %>
+              <%= image_tag post.image, class: "card-img-top img-fluid",  alt: "image", style: "object-fit: cover; max-height: 200px;" %>
             <% else %>
-              <%= image_tag 'no_image.png', class: "card-img-top img-fluid", alt: "Thumbnail", style: "object-fit: cover; max-height: 200px;" %>
+              <%= image_tag 'no_image.png', class: "card-img-top img-fluid",  alt: "image", style: "object-fit: cover; max-height: 200px;" %>
             <% end %>
             <div class="card-body">
               <p class="card-text__title" style="font-size: 1rem; height: 2rem; overflow: hidden;"><%= truncate(post.title, length: 10) %></p>
