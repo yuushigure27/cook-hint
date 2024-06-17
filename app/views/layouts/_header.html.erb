@@ -1,9 +1,15 @@
 <header class="shadow-sm">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      
-        <a class="navbar-brand" href="/"><%= image_tag('logo.png', style: "max-height: 100px; width: auto;") %></a>
-      
+      <% if admin_signed_in? %>
+        <a class="navbar-brand" href="<%= admin_posts_path %>">
+          <%= image_tag('logo.png', style: "max-height: 100px; width: auto;") %>
+        </a>
+      <% else %>
+        <a class="navbar-brand" href="<%= root_path %>">
+          <%= image_tag('logo.png', style: "max-height: 100px; width: auto;") %>
+        </a>
+      <% end %>
       <!-- search -->
       <%= render 'layouts/h-search'%>
       <!-- menu  -->
