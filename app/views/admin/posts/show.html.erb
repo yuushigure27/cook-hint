@@ -93,10 +93,7 @@
                     <div class="d-flex justify-content-between align-items-center mt-2">
                       <small class="text-muted"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
                       <div>
-              
-                            <!-- 削除リンク -->
-                            <%= link_to "削除", admin_post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
-                        
+                        <%= link_to "削除", admin_post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
                       </div>
                     </div>
                   </div>
@@ -108,8 +105,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
