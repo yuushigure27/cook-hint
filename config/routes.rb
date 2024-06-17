@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
 
     # ジャンル
-    resources :genres, only: [:index,:new,:create]
+    resources :genres, only: [:index,:create]
 
     # ユーザー
     get 'users' => 'users#index'
@@ -73,7 +73,6 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    #root to: "sessions#new"
     resources :genres, only: [:index,:edit,:update, :destroy]
     resources :posts, only: [:index,:show,:destroy]
     resources :users, only: [:index,:show,:edit,:update]
