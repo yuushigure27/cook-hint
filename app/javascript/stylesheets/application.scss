@@ -42,7 +42,7 @@ header.shadow-sm {
 
 /* ユーザーログイン時、ヘッダーに表示される文字の色 */
 header.shadow-sm .navbar-text{
-  color: white; /*黄色*/
+  color: white; 
 }
 /* ナビゲーションリンクや検索アイコンの文字色 */
 
@@ -253,6 +253,18 @@ main {
 
 .custom-icon:hover {
   color: #F08080;
+}
+
+.custom-button {
+  background-color: #FFFFFF; /* 白い背景 */
+  color: #F08080; /* ピンクの文字 */
+  border: 1px solid #F08080; /* ピンクの枠線 */
+}
+
+.custom-button:hover {
+  background-color: #F08080; /* ピンクの背景 */
+  color: #FFFFFF; /* 白い文字 */
+  border-color: #F08080; /* ピンクの枠線 */
 }
 
 
