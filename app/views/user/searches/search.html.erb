@@ -13,7 +13,14 @@
             <span class="m-3 mb-0">(全<%= @results.count %>件)</span>
           </div>
           <hr class="heading-line">
-          <%= render "user/posts/post_index", posts: @results %>
+          
+          <% if @results.any? %>
+            <%= render "user/posts/post_index", posts: @results %>
+          <% else %>
+            <div class="text-center mt-5 mb-5">
+              <p>投稿はありません</p>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
