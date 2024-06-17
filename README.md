@@ -22,10 +22,8 @@
 - 自分の料理に関する知識で他の人の役に立ちたい時
 
 ## 設計書
-- ER図
-<img width="571" alt="cook-hint ER図" src="https://github.com/yuushigure27/cook-hint/assets/160152727/6575f7a9-7343-4b72-8205-1ef0e9dcd2c0">
-
-
+<!--テーマを設定・提出する時点では不要です-->
+​
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
