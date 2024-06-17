@@ -14,12 +14,12 @@
           <div class="form-edit">
 
             <div class="form-group">
-              <%= f.label :title, "タイトル（20字まで）" %>
-              <%= f.text_field :title, maxlength: 20, placeholder: "タイトル", class: "form-control" %>
+              <%= f.label :title, "タイトル" %>
+              <%= f.text_field :title, maxlength: 20, placeholder: "タイトル（20字まで）", class: "form-control" %>
             </div>
             <div class="form-group">
-              <%= f.label :introduction, "内容（300字まで）" %>
-              <%= f.text_area :introduction, maxlength: 300, placeholder: "ここに内容を記述します", rows: 5, class: "form-control" %>
+              <%= f.label :introduction, "内容" %>
+              <%= f.text_area :introduction, maxlength: 300, placeholder: "ここに内容を記述します（300字まで）", rows: 5, class: "form-control" %>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
               <%= f.label :genre_id, "ジャンル" ,style: "margin-bottom:0;"%><br>
