@@ -36,11 +36,12 @@ class User::SearchesController < ApplicationController
     @keyword = params[:keyword]
   
     if @keyword.present?
-      @results = Post.search_for(@keyword).order(created_at: :desc)
+      @results = Post.search_for(@keyword).order(created_at: :desc).page(params[:page]).per(12)
+      @results_all = Post.search_for(@keyword)
       @posts = @results
     else
       @results = []
-      @posts = Post.none
+      @posts = Post.none.page(params[:page]).per(12)
     end
   
     render 'user/searches/search'
