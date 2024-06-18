@@ -41,6 +41,7 @@ class User::SearchesController < ApplicationController
       @posts = @results
     else
       @results = []
+      @results_all = Post.none  # キーワードがない場合に @results_all を空のコレクションに設定
       @posts = Post.none.page(params[:page]).per(12)
     end
   
