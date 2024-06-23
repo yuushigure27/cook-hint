@@ -1,8 +1,8 @@
 class User::PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_post, only: [:show, :edit, :update]
+  before_action :ensure_post, only: [:show, :edit, :update, :destroy]
   before_action :check_guest_user, only: [:new, :create]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def new
     @post = Post.new
@@ -20,18 +20,19 @@ class User::PostsController < ApplicationController
       redirect_to @post
     else
       flash.now[:alert] = "投稿に失敗しました。"
+      @genres = Genre.all
       render 'new'
     end
   end
 
   def show
-    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :asc)
     @user = current_user
   end
 
   def edit
+    @genres = Genre.all
   end
 
   def index
@@ -53,15 +54,10 @@ class User::PostsController < ApplicationController
     end
   end
 
-
-
-
-
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:notice] = "更新しました。"
       handle_new_genre_name
+      flash[:notice] = "更新しました。"
       redirect_to post_path(@post)
     else
       flash.now[:alert] = "更新に失敗しました。"
@@ -71,7 +67,6 @@ class User::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     if @post.destroy
       redirect_to posts_path, notice: "投稿を削除しました"
     else
@@ -98,17 +93,15 @@ class User::PostsController < ApplicationController
 
   def handle_new_genre_name
     if post_params[:new_genre_name].present?
-      # 新しいジャンルを取得または作成して、投稿に関連付ける
       genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
       @post.genre = genre
       @post.save
     end
   end
-  
+
   def correct_user
-    @post = Post.find(params[:id])
     unless @post.user == current_user
-      redirect_back(fallback_location: root_path, alert: '他のユーザーの投稿を編集する権限がありません。')
+      redirect_back(fallback_location: root_path, alert: '他のユーザーの投稿を編集または削除する権限がありません。')
     end
   end
 end
