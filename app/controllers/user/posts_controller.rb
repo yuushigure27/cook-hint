@@ -1,107 +1,47 @@
-class User::PostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :ensure_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_guest_user, only: [:new, :create]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+class User < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  has_many :posts, dependent: :destroy
+  has_one_attached :profile_image
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'user_id'
+  has_many :notifications, dependent: :destroy
 
-  def new
-    @post = Post.new
-    @genres = Genre.all
-  end
+  validates :email, presence: true, uniqueness: true
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :introduction, length: { maximum: 100 }
 
-  def create
-    @post = current_user.posts.build(post_params)
-    if params[:post][:new_genre_name].present?
-      genre = Genre.find_or_create_by(name: params[:post][:new_genre_name])
-      @post.genre = genre
-    end
-    if @post.save
-      flash[:notice] = "投稿が作成されました。"
-      redirect_to @post
-    else
-      flash.now[:alert] = "投稿に失敗しました。"
-      @genres = Genre.all
-      render 'new'
-    end
-  end
-
-  def show
-    @comment = Comment.new
-    @comments = @post.comments.order(created_at: :asc)
-    @user = current_user
-  end
-
-  def edit
-    @genres = Genre.all
-  end
-
-  def index
-    @genres = Genre.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC')
-    @post_all = Post.all
+  GUEST_USER_EMAIL = 'guest@example.com'.freeze
   
-    if params[:latest]
-      @posts = Post.latest.page(params[:page]).per(12)
-    elsif params[:old]
-      @posts = Post.old.page(params[:page]).per(12)
-    elsif params[:most_liked]
-      @posts = Kaminari.paginate_array(Post.most_liked).page(params[:page]).per(12)
-    elsif params[:best_answer] == "true"
-      @posts = Post.joins(:comments).where(comments: { best_answer: true }).distinct.order(created_at: :desc).page(params[:page]).per(12)
-    elsif params[:best_answer] == "false"
-      @posts = Post.where.not(id: Comment.select(:post_id).where(best_answer: true)).order(created_at: :desc).page(params[:page]).per(12)
-    else
-      @posts = Post.latest.page(params[:page]).per(12)
+  def active_notifications
+    self.notifications.where(read: false) # 未読の通知を取得する例
+  end
+
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : 'no_image.png'
+  end
+
+  def self.search_for(keyword)
+    User.where("name LIKE ?", "%#{keyword}%")
+  end
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "Guest User"
     end
   end
 
-  def update
-    if @post.update(post_params)
-      handle_new_genre_name
-      flash[:notice] = "更新しました。"
-      redirect_to post_path(@post)
-    else
-      flash.now[:alert] = "更新に失敗しました。"
-      @genres = Genre.all
-      render :edit
-    end
+  def guest_user?
+    email == GUEST_USER_EMAIL
   end
 
-  def destroy
-    if @post.destroy
-      redirect_to posts_path, notice: "投稿を削除しました"
-    else
-      flash[:alert] = "削除に失敗しました"
-      redirect_back(fallback_location: root_path)
-    end
+  def active_for_authentication?
+    super && !deleted_at?
   end
 
-  private
-
-  def check_guest_user
-    if current_user.email == "guest@example.com"
-      redirect_to posts_path, alert: "ゲストユーザーは新規投稿を作成できません。"
-    end
-  end
-
-  def ensure_post
-    @post = Post.find(params[:id])
-  end
-
-  def post_params
-    params.require(:post).permit(:title, :introduction, :genre_id, :image, :new_genre_name)
-  end
-
-  def handle_new_genre_name
-    if post_params[:new_genre_name].present?
-      genre = Genre.find_or_create_by(name: post_params[:new_genre_name])
-      @post.genre = genre
-      @post.save
-    end
-  end
-
-  def correct_user
-    unless @post.user == current_user
-      redirect_back(fallback_location: root_path, alert: '他のユーザーの投稿を編集または削除する権限がありません。')
-    end
+  def inactive_message
+    !deleted_at? ? super : :deleted_account
   end
 end
