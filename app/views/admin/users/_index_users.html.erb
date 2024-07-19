@@ -22,7 +22,7 @@
               <tr>
                 <td><%= user.id %></td>
                 <td>
-                  <%= link_to admin_user_path(user.id), class: "text-green link-style" do %>
+                  <%= link_to edit_admin_user_path(user.id), class: "text-green link-style" do %>
                     <%= user.name %>
                   <% end %>
                 </td>
