@@ -15,7 +15,7 @@
           <tr>
             <td style="width: 20%;"><%= user.id %></td>
             <td style="width: 30%;">
-              <%= link_to admin_user_path(user.id), class: "text-green" do %>
+              <%= link_to edit_admin_user_path(user.id), class: "text-green" do %>
                  <%= truncate(user.name, length: 15) %>
               <% end %>
             </td>
